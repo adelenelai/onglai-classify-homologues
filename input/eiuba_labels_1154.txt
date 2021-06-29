@@ -1,0 +1,1154 @@
+C10-LAS Linear
+C11-LAS Linear
+C12-LAS Linear
+C13-LAS Linear
+C14-LAS Linear
+"C14-LAS m=12,n=1"
+"C14-LAS B m=11, n=2"
+"C14-LAS B m=10, n=3"
+"C14-LAS B m=9, n=4"
+"C14-LAS B m=8, n=5"
+"C14-LAS B m=7, n=6"
+C15-LAS Linear
+"C15-LAS m=13, n=1"
+"C15-LAS m=12, n=2"
+"C15-LAS m=11, n=3"
+"C15-LAS m=10, n=4"
+"C15-LAS m=9, n=5"
+"C15-LAS m=8, n=6"
+"C15-LAS m=7, n=7"
+C16-LAS
+"C16-LAS m=13, n=1"
+"C16-LAS m=12, n=2"
+"C16-LAS m=11, n=3"
+"C16-LAS m=10, n=4"
+"C16-LAS m=9, n=5"
+"C16-LAS m=8, n=6"
+"C16-LAS m=8, n=7"
+C8-Alkyl Sulfate (linear)
+C9-Alkyl Sulfate (linear)
+C9-Alkyl Sulfate A
+C9-Alkyl Sulfate B
+C9-Alkyl Sulfate C
+C10-Alkyl Sulfate (linear)
+C10-Alkyl Sulfate A
+C10-Alkyl Sulfate B
+C10-Alkyl Sulfate C
+C12-Alkyl Sulfate (linear)
+C12-Alkyl Sulfate A
+C13-Alkyl Sulfate (linear)
+C14-Alkyl Sulfate (linear)
+C15-Alkyl Sulfate (linear)
+C16-Alkyl Sulfate (linear)
+C16-Alkyl Sulfate A
+C16-Alkyl Sulfate B
+C16-Alkyl Sulfate C
+C17-Alkyl Sulfate (linear)
+C17-Alkyl Sulfate A
+C18-Alkyl Sulfate (linear)
+C8-Alkyl 1 ethyl sulfate
+C8-Alkyl 2 ethyl sulfate
+C8-Alkyl 3 ethyl sulfate
+C9-Alkyl 1 ethyl sulfate
+C9-Alkyl 2 ethyl sulfate
+C9-Alkyl 3 ethyl sulfate
+C10-Alkyl 1 ethyl sulfate
+C10-Alkyl 2 ethyl sulfate
+C10-Alkyl 3 ethyl sulfate
+C11-Alkyl 1 ethyl sulfate
+C11-Alkyl 2 ethyl sulfate
+C11-Alkyl 3 ethyl sulfate
+C12-Alkyl 1 ethyl sulfate
+C12-Alkyl 2 ethyl sulfate
+C12-Alkyl 3 ethyl sulfate
+C13-Alkyl 1 ethyl sulfate
+C13-Alkyl 2 ethyl sulfate
+C13-Alkyl 3 ethyl sulfate
+C14-Alkyl 1 ethyl sulfate
+C14-Alkyl 2 ethyl sulfate
+C14-Alkyl 3 ethyl sulfate
+C15-Alkyl 1 ethyl sulfate
+C15-Alkyl 2 ethyl sulfate
+C15-Alkyl 3 ethyl sulfate
+C16-Alkyl 1 ethyl sulfate
+C16-Alkyl 2 ethyl sulfate
+C16-Alkyl 3 ethyl sulfate
+C17-Alkyl 1 ethyl sulfate
+C17-Alkyl 2 ethyl sulfate
+C17-Alkyl 3 ethyl sulfate
+C18-Alkyl 1 ethyl sulfate
+C18-Alkyl 2 ethyl sulfate
+C18-Alkyl 3 ethyl sulfate
+C16-Alkyl 4 ethyl sulfate
+C17-Alkyl 4 ethyl sulfate
+C18-Alkyl 4 ethyl sulfate
+Mono-C12 Alkyl sulfosuccinate
+Mono-C13 Alkyl sulfosuccinate
+Mono-C14 Alkyl sulfosuccinate
+Mono-C15 Alkyl sulfosuccinate
+Mono-C16 Alkyl sulfosuccinate
+Mono-C17 Alkyl sulfosuccinate
+Mono-C18 Alkyl sulfosuccinate
+di-C4-4 Alkyl sulfosuccinate
+di-C5-5 Alkyl sulfosuccinate
+di-C6-6 Alkyl sulfosuccinate
+di-C4-5 Alkyl sulfosuccinate
+di-C4-6Alkyl sulfosuccinate
+di-C5-4 Alkyl sulfosuccinate
+di-C6-4Alkyl sulfosuccinate
+di-2-ethylhexyl sulfosuccinate
+di-iso C10 Alkyl sulfosuccinate
+di-iso C13 Alkyl sulfosuccinate
+C2 Alkylamino sulfosuccinate
+C4 Alkylamino sulfosuccinate
+C6 Alkylamino sulfosuccinate
+C8 Alkylamino sulfosuccinate
+C10 Alkylamino sulfosuccinate
+C12 Alkylamino sulfosuccinate
+C14 Alkylamino sulfosuccinate
+C16 Alkylamino sulfosuccinate
+C18 Alkylamino sulfosuccinate
+C2 Alkylamino[ethyl] sulfosuccinate
+C4 Alkylamino[ethyl] sulfosuccinate
+C6 Alkylamino[ethyl] sulfosuccinate
+C8 Alkylamino[ethyl] sulfosuccinate
+C10 Alkylamino[ethyl] sulfosuccinate
+C12 Alkylamino[ethyl] sulfosuccinate
+C14 Alkylamino[ethyl] sulfosuccinate
+C16 Alkylamino[ethyl] sulfosuccinate
+C18 Alkylamino[ethyl] sulfosuccinate
+Aspartic acid
+N-(3-carboxy-1-oxo-sulfopropyl)-N-C16
+N-(3-carboxy-1-oxo-sulfopropyl)-N-C17
+N-(3-carboxy-1-oxo-sulfopropyl)-N-C18
+C12 Fatty acid methyl Ester Sulphonate
+C13 Fatty acid methyl Ester Sulphonate
+C14 Fatty acid methyl Ester Sulphonate
+C16 Fatty acid methyl Ester Sulphonate
+C17 Fatty acid methyl Ester Sulphonate
+C18 Fatty acid methyl Ester Sulphonate
+C14 alfa olefin sulphonate A
+C15 alfa olefin sulphonate A
+C16 alfa olefin sulphonate
+C17 alfa olefin sulphonate
+C18 alfa olefin sulphonate
+Lauroyl Sarcosinate    
+"C9, 2 EO Carboxymethylated acid"
+"C9, 4 EO Carboxymethylated acid"
+"C9, 6 EO Carboxymethylated acid"
+"C9, 8 EO Carboxymethylated acid"
+"C9, 10 EO Carboxymethylated acid"
+"C10, 2 EO Carboxymethylated acid"
+"C10, 4 EO Carboxymethylated acid"
+"C10, 6 EO Carboxymethylated acid"
+"C10, 8 EO Carboxymethylated acid"
+"C10, 10 EO Carboxymethylated acid"
+"C11, 2 EO Carboxymethylated acid"
+"C11, 4 EO Carboxymethylated acid"
+"C11, 6 EO Carboxymethylated acid"
+"C11, 8 EO Carboxymethylated acid"
+"C11, 10 EO Carboxymethylated acid"
+"C12, 2 EO Carboxymethylated acid"
+"C12, 4 EO Carboxymethylated acid"
+"C12, 6 EO Carboxymethylated acid"
+"C12, 8 EO Carboxymethylated acid"
+"C12, 10 EO Carboxymethylated acid"
+"C13, 2 EO Carboxymethylated acid"
+"C13, 4 EO Carboxymethylated acid"
+"C13, 6 EO Carboxymethylated acid"
+"C13, 8 EO Carboxymethylated acid"
+"C13, 10 EO Carboxymethylated acid"
+"C14, 2 EO Carboxymethylated acid"
+"C14, 4 EO Carboxymethylated acid"
+"C14, 6 EO Carboxymethylated acid"
+"C14, 8 EO Carboxymethylated acid"
+"C14, 10 EO Carboxymethylated acid"
+"C15, 2 EO Carboxymethylated acid"
+"C15, 4 EO Carboxymethylated acid"
+"C15, 6 EO Carboxymethylated acid"
+"C15, 8 EO Carboxymethylated acid"
+"C15, 10 EO Carboxymethylated acid"
+"C16, 2 EO Carboxymethylated acid"
+"C16, 4 EO Carboxymethylated acid"
+"C16, 6 EO Carboxymethylated acid"
+"C16, 8 EO Carboxymethylated acid"
+"C16, 10 EO Carboxymethylated acid"
+"C17, 2 EO Carboxymethylated acid"
+"C17, 4 EO Carboxymethylated acid"
+"C17, 6 EO Carboxymethylated acid"
+"C17, 8 EO Carboxymethylated acid"
+"C17, 10 EO Carboxymethylated acid"
+"C18, 2 EO Carboxymethylated acid"
+"C18, 4 EO Carboxymethylated acid"
+"C18, 6 EO Carboxymethylated acid"
+"C18, 8 EO Carboxymethylated acid"
+"C18, 10 EO Carboxymethylated acid"
+C12 Alkyl phosphate esters
+C13 Alkyl phosphate esters
+C14 Alkyl phosphate esters
+C15 Alkyl phosphate esters
+C16 Alkyl phosphate esters
+C17 Alkyl phosphate esters
+C18 Alkyl phosphate esters
+"iso C13 Alkyl phosphate esters, 1 EO"
+"iso C13 Alkyl phosphate esters, 2 EO"
+"iso C13 Alkyl phosphate esters, 3 EO"
+Sodium cocoyl glutamate
+Sodium Lauroyl Methyl Isethionate
+"2-propylheptyl alcohol, 3 EO"
+"2-propylheptyl alcohol, 4 EO"
+"2-propylheptyl alcohol, 5 EO"
+"2-propylheptyl alcohol, 6 EO"
+"2-propylheptyl alcohol, 7 EO"
+"2-propylheptyl alcohol, 8 EO"
+"2-propylheptyl alcohol, 9 EO"
+"2-propylheptyl alcohol, 10 EO"
+"C10 Alcohol, 5 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 6 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 7 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 8 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 9 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 10 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C10 Alcohol, 11 EO multibranched (Trimer-propen-oxo-alcohol)"
+"C12 Alcohol, 5 EO 1 t-BuO"
+"C12 Alcohol, 6 EO 1 t-BuO"
+"C12 Alcohol, 7 EO 1 t-BuO"
+"C12 Alcohol, 8 EO 1 t-BuO"
+"C13 Alcohol, 5 EO 1 t-BuO"
+"C13 Alcohol, 6 EO 1 t-BuO"
+"C13 Alcohol, 7 EO 1 t-BuO"
+"C13 Alcohol, 8 EO 1 t-BuO"
+"C14 Alcohol, 5 EO 1 t-BuO"
+"C14 Alcohol, 6 EO 1 t-BuO"
+"C14 Alcohol, 7 EO 1 t-BuO"
+"C14 Alcohol, 8 EO 1 t-BuO"
+"iso-C13 Alcohol, 1 EO"
+"iso-C13 Alcohol, 2 EO"
+"iso-C13 Alcohol, 3 EO"
+"iso-C13 Alcohol, 4 EO"
+"iso-C13 Alcohol, 5 EO"
+"iso-C13 Alcohol, 6 EO"
+"iso-C13 Alcohol, 7 EO"
+"iso-C13 Alcohol, 8 EO"
+"iso-C13 Alcohol, 9 EO"
+"iso-C13 Alcohol, 10 EO"
+"iso-C13 Alcohol, 11 EO"
+"iso-C13 Alcohol, 12 EO"
+"iso-C13 Alcohol, 13 EO"
+"iso-C13 Alcohol, 14 EO"
+"iso-C13 Alcohol, 15 EO"
+"iso-C13 Alcohol, 16 EO"
+"iso-C13 Alcohol, 17 EO"
+"iso-C13 Alcohol, 18 EO"
+"iso-C13 Alcohol, 19 EO"
+"iso-C13 Alcohol, 20 EO"
+"C12 Alcohol, 2 EO (ethoxy), 2 PO (propylene oxide)"
+"C12 Alcohol, 2 EO, 3 PO"
+"C12 Alcohol, 2 EO, 4 PO"
+"C12 Alcohol, 2 EO, 5 PO"
+"C12 Alcohol, 2 EO, 6 PO"
+"C12 Alcohol, 3 EO, 2 PO"
+"C12 Alcohol, 3 EO, 3 PO"
+"C12 Alcohol, 3 EO, 4 PO"
+"C12 Alcohol, 3 EO, 5 PO"
+"C12 Alcohol, 3 EO, 6 PO"
+"C12 Alcohol, 4 EO, 2 PO"
+"C12 Alcohol, 4 EO, 3 PO"
+"C12 Alcohol, 4 EO, 4 PO"
+"C12 Alcohol, 4 EO, 5 PO"
+"C12 Alcohol, 4 EO, 6 PO"
+"C12 Alcohol, 5 EO, 2 PO"
+"C12 Alcohol, 5 EO, 3 PO"
+"C12 Alcohol, 5 EO, 4 PO"
+"C12 Alcohol, 5 EO, 5 PO"
+"C12 Alcohol, 5 EO, 6 PO"
+"C12 Alcohol, 6 EO, 2 PO"
+"C12 Alcohol, 6 EO, 3 PO"
+"C12 Alcohol, 6 EO, 4 PO"
+"C12 Alcohol, 6 EO, 5 PO"
+"C12 Alcohol, 6 EO, 6 PO"
+"C13 Alcohol, 2 EO, 2 PO"
+"C13 Alcohol, 2 EO, 3 PO"
+"C13 Alcohol, 2 EO, 4 PO"
+"C13 Alcohol, 2 EO, 5 PO"
+"C13 Alcohol, 2 EO, 6 PO"
+"C13 Alcohol, 3 EO, 2 PO"
+"C13 Alcohol, 3 EO, 3 PO"
+"C13 Alcohol, 3 EO, 4 PO"
+"C13 Alcohol, 3 EO, 5 PO"
+"C13 Alcohol, 3 EO, 6 PO"
+"C13 Alcohol, 4 EO, 2 PO"
+"C13 Alcohol, 4 EO, 3 PO"
+"C13 Alcohol, 4 EO, 4 PO"
+"C13 Alcohol, 4 EO, 5 PO"
+"C13 Alcohol, 4 EO, 6 PO"
+"C13 Alcohol, 5 EO, 2 PO"
+"C13 Alcohol, 5 EO, 3 PO"
+"C13 Alcohol, 5 EO, 4 PO"
+"C13 Alcohol, 5 EO, 5 PO"
+"C13 Alcohol, 5 EO, 6 PO"
+"C13 Alcohol, 6 EO, 2 PO"
+"C13 Alcohol, 6 EO, 3 PO"
+"C13 Alcohol, 6 EO, 4 PO"
+"C13 Alcohol, 6 EO, 5 PO"
+"C13 Alcohol, 6 EO, 6 PO"
+"C14 Alcohol, 2 EO, 2 PO"
+"C14 Alcohol, 2 EO, 3 PO"
+"C14 Alcohol, 2 EO, 4 PO"
+"C14 Alcohol, 2 EO, 5 PO"
+"C14 Alcohol, 2 EO, 6 PO"
+"C14 Alcohol, 3 EO, 2 PO"
+"C14 Alcohol, 3 EO, 3 PO"
+"C14 Alcohol, 3 EO, 4 PO"
+"C14 Alcohol, 3 EO, 5 PO"
+"C14 Alcohol, 3 EO, 6 PO"
+"C14 Alcohol, 4 EO, 2 PO"
+"C14 Alcohol, 4 EO, 3 PO"
+"C14 Alcohol, 4 EO, 4 PO"
+"C14 Alcohol, 4 EO, 5 PO"
+"C14 Alcohol, 4 EO, 6 PO"
+"C14 Alcohol, 5 EO, 2 PO"
+"C14 Alcohol, 5 EO, 3 PO"
+"C14 Alcohol, 5 EO, 4 PO"
+"C14 Alcohol, 5 EO, 5 PO"
+"C14 Alcohol, 5 EO, 6 PO"
+"C14 Alcohol, 6 EO, 2 PO"
+"C14 Alcohol, 6 EO, 3 PO"
+"C14 Alcohol, 6 EO, 4 PO"
+"C14 Alcohol, 6 EO, 5 PO"
+"C14 Alcohol, 6 EO, 6 PO"
+"C15 Alcohol, 2 EO, 2 PO"
+"C15 Alcohol, 2 EO, 3 PO"
+"C15 Alcohol, 2 EO, 4 PO"
+"C15 Alcohol, 2 EO, 5 PO"
+"C15 Alcohol, 2 EO, 6 PO"
+"C15 Alcohol, 3 EO, 2 PO"
+"C15 Alcohol, 3 EO, 3 PO"
+"C15 Alcohol, 3 EO, 4 PO"
+"C15 Alcohol, 3 EO, 5 PO"
+"C15 Alcohol, 3 EO, 6 PO"
+"C15 Alcohol, 4 EO, 2 PO"
+"C15 Alcohol, 4 EO, 3 PO"
+"C15 Alcohol, 4 EO, 4 PO"
+"C15 Alcohol, 4 EO, 5 PO"
+"C15 Alcohol, 4 EO, 6 PO"
+"C15 Alcohol, 5 EO, 2 PO"
+"C15 Alcohol, 5 EO, 3 PO"
+"C15 Alcohol, 5 EO, 4 PO"
+"C15 Alcohol, 5 EO, 5 PO"
+"C15 Alcohol, 5 EO, 6 PO"
+"C15 Alcohol, 6 EO, 2 PO"
+"C15 Alcohol, 6 EO, 3 PO"
+"C15 Alcohol, 6 EO, 4 PO"
+"C15 Alcohol, 6 EO, 5 PO"
+"C15 Alcohol, 6 EO, 6 PO"
+"C10 Alcohol, 6 EO, 1 PO"
+"C10 Alcohol, 6 EO, 2 PO"
+"C10 Alcohol, 6 EO, 3 PO"
+"C10 Alcohol, 7 EO, 1 PO"
+"C10 Alcohol, 7 EO, 2 PO"
+"C10 Alcohol, 7 EO, 3 PO"
+"C11 Alcohol, 6 EO, 1 PO"
+"C11 Alcohol, 6 EO, 2 PO"
+"C11 Alcohol, 6 EO, 3 PO"
+"C11 Alcohol, 7 EO, 1 PO"
+"C11 Alcohol, 7 EO, 2 PO"
+"C11 Alcohol, 7 EO, 3 PO"
+"C12 Alcohol, 6 EO, 1 PO"
+"C12 Alcohol, 6 EO, 2 PO"
+"C12 Alcohol, 6 EO, 3 PO"
+"C12 Alcohol, 7 EO, 1 PO"
+"C12 Alcohol, 7 EO, 2 PO"
+"C12 Alcohol, 7 EO, 3 PO"
+"C13 Alcohol, 6 EO, 1 PO"
+"C13 Alcohol, 6 EO, 2 PO"
+"C13 Alcohol, 6 EO, 3 PO"
+"C13 Alcohol, 7 EO, 1 PO"
+"C13 Alcohol, 7 EO, 2 PO"
+"C13 Alcohol, 7 EO, 3 PO"
+"C14 Alcohol, 6 EO, 1 PO"
+"C14 Alcohol, 6 EO, 2 PO"
+"C14 Alcohol, 6 EO, 3 PO"
+"C14 Alcohol, 7 EO, 1 PO"
+"C14 Alcohol, 7 EO, 2 PO"
+"C14 Alcohol, 7 EO, 3 PO"
+"C15 Alcohol, 6 EO, 1 PO"
+"C15 Alcohol, 6 EO, 2 PO"
+"C15 Alcohol, 6 EO, 3 PO"
+"C15 Alcohol, 7 EO, 1 PO"
+"C15 Alcohol, 7 EO, 2 PO"
+"C15 Alcohol, 7 EO, 3 PO"
+"C16 Alcohol, 6 EO, 1 PO"
+"C16 Alcohol, 6 EO, 2 PO"
+"C16 Alcohol, 6 EO, 3 PO"
+"C16 Alcohol, 7 EO, 1 PO"
+"C16 Alcohol, 7 EO, 2 PO"
+"C16 Alcohol, 7 EO, 3 PO"
+"C12 Alkyl glycerol ester (even numbered), 1 EO"
+"C12 Alkyl glycerol ester (even numbered), 2 EO"
+"C12 Alkyl glycerol ester (even numbered), 3 EO"
+"C12 Alkyl glycerol ester (even numbered), 4 EO"
+"C12 Alkyl glycerol ester (even numbered), 5 EO"
+"C12 Alkyl glycerol ester (even numbered), 6 EO"
+"C12 Alkyl glycerol ester (even numbered), 7 EO"
+"C12 Alkyl glycerol ester (even numbered), 8 EO"
+"C12 Alkyl glycerol ester (even numbered), 9 EO"
+"C12 Alkyl glycerol ester (even numbered), 10 EO"
+"C12 Alkyl glycerol ester (even numbered), 11 EO"
+"C12 Alkyl glycerol ester (even numbered), 12 EO"
+"C12 Alkyl glycerol ester (even numbered), 13 EO"
+"C12 Alkyl glycerol ester (even numbered), 14 EO"
+"C12 Alkyl glycerol ester (even numbered), 15 EO"
+"C12 Alkyl glycerol ester (even numbered), 16 EO"
+"C12 Alkyl glycerol ester (even numbered), 17 EO"
+"C14 Alkyl glycerol ester (even numbered), 1 EO"
+"C14 Alkyl glycerol ester (even numbered), 2 EO"
+"C14 Alkyl glycerol ester (even numbered), 3 EO"
+"C14 Alkyl glycerol ester (even numbered), 4 EO"
+"C14 Alkyl glycerol ester (even numbered), 5 EO"
+"C14 Alkyl glycerol ester (even numbered), 6 EO"
+"C14 Alkyl glycerol ester (even numbered), 7 EO"
+"C14 Alkyl glycerol ester (even numbered), 8 EO"
+"C14 Alkyl glycerol ester (even numbered), 9 EO"
+"C14 Alkyl glycerol ester (even numbered), 10 EO"
+"C14 Alkyl glycerol ester (even numbered), 11 EO"
+"C14 Alkyl glycerol ester (even numbered), 12 EO"
+"C14 Alkyl glycerol ester (even numbered), 13 EO"
+"C14 Alkyl glycerol ester (even numbered), 14 EO"
+"C14 Alkyl glycerol ester (even numbered), 15 EO"
+"C14 Alkyl glycerol ester (even numbered), 16 EO"
+"C14 Alkyl glycerol ester (even numbered), 17 EO"
+"C16 Alkyl glycerol ester (even numbered), 1 EO"
+"C16 Alkyl glycerol ester (even numbered), 2 EO"
+"C16 Alkyl glycerol ester (even numbered), 3 EO"
+"C16 Alkyl glycerol ester (even numbered), 4 EO"
+"C16 Alkyl glycerol ester (even numbered), 5 EO"
+"C16 Alkyl glycerol ester (even numbered), 6 EO"
+"C16 Alkyl glycerol ester (even numbered), 7 EO"
+"C16 Alkyl glycerol ester (even numbered), 8 EO"
+"C16 Alkyl glycerol ester (even numbered), 9 EO"
+"C16 Alkyl glycerol ester (even numbered), 10 EO"
+"C16 Alkyl glycerol ester (even numbered), 11 EO"
+"C16 Alkyl glycerol ester (even numbered), 12 EO"
+"C16 Alkyl glycerol ester (even numbered), 13 EO"
+"C16 Alkyl glycerol ester (even numbered), 14 EO"
+"C16 Alkyl glycerol ester (even numbered), 15 EO"
+"C16 Alkyl glycerol ester (even numbered), 16 EO"
+"C16 Alkyl glycerol ester (even numbered), 17 EO"
+"C18 Alkyl glycerol ester (even numbered), 1 EO"
+"C18 Alkyl glycerol ester (even numbered), 2 EO"
+"C18 Alkyl glycerol ester (even numbered), 3 EO"
+"C18 Alkyl glycerol ester (even numbered), 4 EO"
+"C18 Alkyl glycerol ester (even numbered), 5 EO"
+"C18 Alkyl glycerol ester (even numbered), 6 EO"
+"C18 Alkyl glycerol ester (even numbered), 7 EO"
+"C18 Alkyl glycerol ester (even numbered), 8 EO"
+"C18 Alkyl glycerol ester (even numbered), 9 EO"
+"C18 Alkyl glycerol ester (even numbered), 10 EO"
+"C18 Alkyl glycerol ester (even numbered), 11 EO"
+"C18 Alkyl glycerol ester (even numbered), 12 EO"
+"C18 Alkyl glycerol ester (even numbered), 13 EO"
+"C18 Alkyl glycerol ester (even numbered), 14 EO"
+"C18 Alkyl glycerol ester (even numbered), 15 EO"
+"C18 Alkyl glycerol ester (even numbered), 16 EO"
+"C18 Alkyl glycerol ester (even numbered), 17 EO"
+C4 Alkyl polyglucoside
+C5 Alkyl polyglucoside
+C6 Alkyl polyglucoside
+C7 Alkyl polyglucoside
+C8 Alkyl polyglucoside
+C9 Alkyl polyglucoside
+C10 Alkyl polyglucoside
+"C8 Alkyl polyglycoside, branched A"
+"C8 Alkyl polyglycoside, branched B"
+"C9 Alkyl polyglycoside, branched A"
+"C12 Alkyl polyglycoside, branched A"
+C12 Alkyl polyglycoside
+C13 Alkyl polyglycoside
+C14 Alkyl polyglycoside
+C16 Alkyl polyglycoside
+C17 Alkyl polyglycoside
+C18 Alkyl polyglycoside
+N1 C8 Alkanolamide
+N1 C9 Alkanolamide
+N1 C10 Alkanolamide
+N1 C11 Alkanolamide
+N1 C12 Alkanolamide
+N1 C13 Alkanolamide
+N1 C14 Alkanolamide
+N1 C15 Alkanolamide
+N1 C16 Alkanolamide
+N1 C17 Alkanolamide
+N1 C18 Alkanolamide
+Coconut fatty acid monoethanolamide 4EO   
+Coconut fatty acid monoethanolamide 5EO   
+N2 C8 Alkanolamide
+N2 C9 Alkanolamide
+N2 C10 Alkanolamide
+N2 C11 Alkanolamide
+N2 C12 Alkanolamide
+N2 C13 Alkanolamide
+N2 C14 Alkanolamide
+N2 C15 Alkanolamide
+N2 C16 Alkanolamide
+N2 C17 Alkanolamide
+N2 C18 Alkanolamide
+"Amines, coco, 10EO"
+"Amines, coco, 11EO"
+"Amines, coco, 12EO"
+"Amines, coco, 13EO"
+"Amines, coco, 14EO"
+"Amines, coco, 15EO"
+"Amines, tallow, 1+1 EO (R=H)"
+"Amines, tallow, 1+2 EO (R=H)"
+"Amines, tallow, 2+2 EO (R=H)"
+"Amines, tallow, 1+1 EO (R=CH3)"
+"Amines, tallow, 1+2 EO (R=CH3)"
+"Amines, tallow, 2+2 EO (R=CH3)"
+"Amines, tallow, 3+3 EO (R=H)"
+"Amines, tallow, 1+3 EO (R=H)"
+"Amines, tallow, 2+3 EO (R=H)"
+"Amines, tallow, 3+3 EO (R=CH3)"
+"Amines, tallow, 1+3 EO (R=CH3)"
+"Amines, tallow, 2+3 EO (R=CH3)"
+"Amines, tallow, 4+1 EO (R=H)"
+"Amines, tallow, 4+2 EO (R=H)"
+"Amines, tallow, 4+3 EO (R=H)"
+"Amines, tallow, 4+4 EO (R=H)"
+"Amines, tallow, 4+1 EO (R=CH3)"
+"Amines, tallow, 4+2 EO (R=CH3)"
+"Amines, tallow, 4+3 EO (R=CH3)"
+"Amines, tallow, 4+4 EO (R=CH3)"
+"Amines, tallow, 5+1 EO (R=H)"
+"Amines, tallow, 5+2 EO (R=H)"
+"Amines, tallow, 5+3 EO (R=H)"
+"Amines, tallow, 5+4 EO (R=H)"
+"Amines, tallow, 5+5 EO (R=H)"
+"Amines, tallow, 5+1 EO (R=CH3)"
+"Amines, tallow, 5+2 EO (R=CH3)"
+"Amines, tallow, 5+3 EO (R=CH3)"
+"Amines, tallow, 5+4 EO (R=CH3)"
+"Amines, tallow, 5+5 EO (R=CH3)"
+"Amines, tallow, 6+6 EO (R=H)"
+"Amines, tallow, 6+5 EO (R=H)"
+"Amines, tallow, 6+4 EO (R=H)"
+"Amines, tallow, 6+3 EO (R=H)"
+"Amines, tallow, 6+2 EO (R=H)"
+"Amines, tallow, 6+1 EO (R=H)"
+"Amines, tallow, 6+6 EO (R=CH3)"
+"Amines, tallow, 6+5 EO (R=CH3)"
+"Amines, tallow, 6+4 EO (R=CH3)"
+"Amines, tallow, 6+3 EO (R=CH3)"
+"Amines, tallow, 6+2 EO (R=CH3)"
+"Amines, tallow, 6+1 EO (R=CH3)"
+"Amines, tallow, 7+7 EO (R=H)"
+"Amines, tallow, 7+6 EO (R=H)"
+"Amines, tallow, 7+5 EO (R=H)"
+"Amines, tallow, 7+4 EO (R=H)"
+"Amines, tallow, 7+3 EO (R=H)"
+"Amines, tallow, 7+2 EO (R=H)"
+"Amines, tallow, 7+1 EO (R=H)"
+"Amines, tallow, 7+7 EO (R=CH3)"
+"Amines, tallow, 7+6 EO (R=CH3)"
+"Amines, tallow, 7+5 EO (R=CH3)"
+"Amines, tallow, 7+4 EO (R=CH3)"
+"Amines, tallow, 7+3 EO (R=CH3)"
+"Amines, tallow, 7+2 EO (R=CH3)"
+"Amines, tallow, 7+1 EO (R=CH3)"
+"Amines, tallow, 8+8 EO (R=H)"
+"Amines, tallow, 8+7 EO (R=H)"
+"Amines, tallow, 8+6 EO (R=H)"
+"Amines, tallow, 8+5 EO (R=H)"
+"Amines, tallow, 8+4 EO (R=H)"
+"Amines, tallow, 8+3 EO (R=H)"
+"Amines, tallow, 8+2 EO (R=H)"
+"Amines, tallow, 8+1 EO (R=H)"
+"Amines, tallow, 8+8 EO (R=CH3)"
+"Amines, tallow, 8+7 EO (R=CH3)"
+"Amines, tallow, 8+6 EO (R=CH3)"
+"Amines, tallow, 8+5 EO (R=CH3)"
+"Amines, tallow, 8+4 EO (R=CH3)"
+"Amines, tallow, 8+3 EO (R=CH3)"
+"Amines, tallow, 8+2 EO (R=CH3)"
+"Amines, tallow, 8+1 EO (R=CH3)"
+"Amines, C18 saturated 1 EO"
+"Amines, C18 saturated 2 EO"
+"Amines, C18 saturated 3 EO"
+"Amines, C18 saturated 4 EO"
+"Amines, C18 saturated 5 EO"
+"Amines, C18 saturated 6 EO"
+"Amines, C18 saturated 7 EO"
+"Amines, C18 saturated 8 EO"
+"Amines, C18 saturated 9 EO"
+"Amines, C18 saturated 10 EO"
+"Amines, C18 saturated 11 EO"
+"Amines, C18 saturated 12 EO"
+"Amines, C18 saturated 13 EO"
+"Amines, C18 saturated 14 EO"
+"Amines, C18 saturated 15 EO"
+"Amines, C18 saturated 16 EO "
+"Amines, C18 saturated 17 EO"
+"Amines, C18 saturated 18 EO"
+"Amines, C18 saturated 19 EO"
+"Amines, C18 saturated 20 EO"
+"Amines, C18 saturated 21 EO"
+"Amines, C18 saturated 22 EO"
+"Amines, C18 saturated 23 EO"
+"Amines, C18 saturated 24 EO"
+"Amines, C18 saturated 25 EO"
+"Amines, C18 most stable unsaturated 1 EO"
+"Amines, C18 most stable unsaturated 2 EO"
+"Amines, C18 most stable unsaturated 3 EO"
+"Amines, C18 most stable unsaturated 4 EO"
+"Amines, C18 most stable unsaturated 5 EO"
+"Amines, C18 most stable unsaturated 6 EO"
+"Amines, C18 most stable unsaturated 7 EO"
+"Amines, C18 most stable unsaturated 8 EO"
+"Amines, C18 most stable unsaturated 9 EO"
+"Amines, C18 most stable unsaturated 10 EO"
+"Amines, C18 most stable unsaturated 11 EO"
+"Amines, C18 most stable unsaturated 12 EO"
+"Amines, C18 most stable unsaturated 13 EO"
+"Amines, C18 most stable unsaturated 14 EO"
+"Amines, C18 most stable unsaturated 15 EO"
+"Amines, C18 most stable unsaturated 16 EO "
+"Amines, C18 most stable unsaturated 17 EO"
+"Amines, C18 most stable unsaturated 18 EO"
+"Amines, C18 most stable unsaturated 19 EO"
+"Amines, C18 most stable unsaturated 20 EO"
+"Amines, C18 most stable unsaturated 21 EO"
+"Amines, C18 most stable unsaturated 22 EO"
+"Amines, C18 most stable unsaturated 23 EO"
+"Amines, C18 most stable unsaturated 24 EO"
+"Amines, C18 most stable unsaturated 25 EO"
+"C12 sorbitan monoester, 20 EO (polysorbate 20)"
+"C18 sorbitan monoester, 20 EO"
+C8 Sorbitan monoester
+C9 Sorbitan monoester
+C10 Sorbitan monoester
+C8 Sorbitan diester
+C9 Sorbitan diester
+C10 Sorbitan diester
+Sorbitan stearate
+"C12 Fatty acid methyl ester (MEE), 1 EO"
+"C12 Fatty acid methyl ester (MEE), 2 EO"
+"C12 Fatty acid methyl ester (MEE), 3 EO"
+"C12 Fatty acid methyl ester (MEE), 4 EO"
+"C12 Fatty acid methyl ester (MEE), 5 EO"
+"C12 Fatty acid methyl ester (MEE), 6 EO"
+"C12 Fatty acid methyl ester (MEE), 7 EO"
+"C12 Fatty acid methyl ester (MEE), 8 EO"
+"C12 Fatty acid methyl ester (MEE), 9 EO"
+"C12 Fatty acid methyl ester (MEE), 10 EO"
+"C12 Fatty acid methyl ester (MEE), 11 EO"
+"C12 Fatty acid methyl ester (MEE), 12 EO"
+"C12 Fatty acid methyl ester (MEE), 13 EO"
+"C12 Fatty acid methyl ester (MEE), 14 EO"
+"C12 Fatty acid methyl ester (MEE), 15 EO"
+"C12 Fatty acid methyl ester (MEE), 16 EO"
+"C12 Fatty acid methyl ester (MEE), 17 EO"
+"C12 Fatty acid methyl ester (MEE), 18 EO"
+"C12 Fatty acid methyl ester (MEE), 19 EO"
+"C12 Fatty acid methyl ester (MEE), 20 EO"
+"C12 Fatty acid methyl ester (MEE), 21 EO"
+"C12 Fatty acid methyl ester (MEE), 22 EO"
+"C12 Fatty acid methyl ester (MEE), 23 EO"
+"C12 Fatty acid methyl ester (MEE), 24 EO"
+"C12 Fatty acid methyl ester (MEE), 25 EO"
+"C12 Fatty acid methyl ester (MEE), 26 EO"
+"C12 Fatty acid methyl ester (MEE), 27 EO"
+"C12 Fatty acid methyl ester (MEE), 28 EO"
+"C12 Fatty acid methyl ester (MEE), 29 EO"
+"C12 Fatty acid methyl ester (MEE), 30 EO"
+"C8 Alcohol, predominately linear, 1 EO"
+"C8 Alcohol, predominately linear, 2 EO"
+"C9 Alcohol, predominately linear, 1 EO"
+"C9 Alcohol, predominately linear, 2 EO"
+"C10 Alcohol, predominately linear, 1 EO"
+"C10 Alcohol, predominately linear, 2 EO"
+"C11 Alcohol, predominately linear, 1 EO"
+"C11 Alcohol, predominately linear, 2 EO"
+"C8 Alcohol, predominately linear, 3 EO"
+"C8 Alcohol, predominately linear, 4 EO"
+"C8 Alcohol, predominately linear, 5 EO"
+"C8 Alcohol, predominately linear, 6 EO"
+"C8 Alcohol, predominately linear, 7 EO"
+"C8 Alcohol, predominately linear, 8 EO"
+"C8 Alcohol, predominately linear, 9 EO"
+"C8 Alcohol, predominately linear, 10 EO"
+"C9 Alcohol, predominately linear, 3 EO"
+"C9 Alcohol, predominately linear, 4 EO"
+"C9 Alcohol, predominately linear, 5 EO"
+"C9 Alcohol, predominately linear, 6 EO"
+"C9 Alcohol, predominately linear, 7 EO"
+"C9 Alcohol, predominately linear, 8 EO"
+"C9 Alcohol, predominately linear, 9 EO"
+"C9 Alcohol, predominately linear, 10 EO"
+"C10 Alcohol, predominately linear, 3 EO"
+"C10 Alcohol, predominately linear, 4 EO"
+"C10 Alcohol, predominately linear, 5 EO"
+"C10 Alcohol, predominately linear, 6 EO"
+"C10 Alcohol, predominately linear, 7 EO"
+"C10 Alcohol, predominately linear, 8 EO"
+"C10 Alcohol, predominately linear, 9 EO"
+"C10 Alcohol, predominately linear, 10 EO"
+"C11 Alcohol, predominately linear, 3 EO"
+"C11 Alcohol, predominately linear, 4 EO"
+"C11 Alcohol, predominately linear, 5 EO"
+"C11 Alcohol, predominately linear, 6 EO"
+"C11 Alcohol, predominately linear, 7 EO"
+"C11 Alcohol, predominately linear, 8 EO"
+"C11 Alcohol, predominately linear, 9 EO"
+"C11 Alcohol, predominately linear, 10 EO"
+"C8 Alcohol, predominately linear, 11 EO"
+"C8 Alcohol, predominately linear, 12 EO"
+"C8 Alcohol, predominately linear, 13 EO"
+"C8 Alcohol, predominately linear, 14 EO"
+"C8 Alcohol, predominately linear, 15 EO"
+"C8 Alcohol, predominately linear, 16 EO"
+"C8 Alcohol, predominately linear, 17 EO"
+"C8 Alcohol, predominately linear, 18 EO"
+"C8 Alcohol, predominately linear, 19 EO"
+"C8 Alcohol, predominately linear, 20 EO"
+"C9 Alcohol, predominately linear, 11 EO"
+"C9 Alcohol, predominately linear, 12 EO"
+"C9 Alcohol, predominately linear, 13 EO"
+"C9 Alcohol, predominately linear, 14 EO"
+"C9 Alcohol, predominately linear, 15 EO"
+"C9 Alcohol, predominately linear, 16 EO"
+"C9 Alcohol, predominately linear, 17 EO"
+"C9 Alcohol, predominately linear, 18 EO"
+"C9 Alcohol, predominately linear, 19 EO"
+"C9 Alcohol, predominately linear, 20 EO"
+"C10 Alcohol, predominately linear, 11 EO"
+"C10 Alcohol, predominately linear, 12 EO"
+"C10 Alcohol, predominately linear, 13 EO"
+"C10 Alcohol, predominately linear, 14 EO"
+"C10 Alcohol, predominately linear, 15 EO"
+"C10 Alcohol, predominately linear, 16 EO"
+"C10 Alcohol, predominately linear, 17 EO"
+"C10 Alcohol, predominately linear, 18 EO"
+"C10 Alcohol, predominately linear, 19 EO"
+"C10 Alcohol, predominately linear, 20 EO"
+"C11 Alcohol, predominately linear, 11 EO"
+"C11 Alcohol, predominately linear, 12 EO"
+"C11 Alcohol, predominately linear, 13 EO"
+"C11 Alcohol, predominately linear, 14 EO"
+"C11 Alcohol, predominately linear, 15 EO"
+"C11 Alcohol, predominately linear, 16 EO"
+"C11 Alcohol, predominately linear, 17 EO"
+"C11 Alcohol, predominately linear, 18 EO"
+"C11 Alcohol, predominately linear, 19 EO"
+"C11 Alcohol, predominately linear, 20 EO"
+"C12 Alcohol, predominately linear, 1 EO"
+"C12 Alcohol, predominately linear, 2 EO"
+"C13 Alcohol, predominately linear, 1 EO"
+"C13 Alcohol, predominately linear, 2 EO"
+"C14 Alcohol, predominately linear, 1 EO"
+"C14 Alcohol, predominately linear, 2 EO"
+"C15 Alcohol, predominately linear, 1 EO"
+"C15 Alcohol, predominately linear, 2 EO"
+"C16 Alcohol, predominately linear, 1 EO"
+"C16 Alcohol, predominately linear, 2 EO"
+"C12 Alcohol, predominately linear, 3 EO"
+"C12 Alcohol, predominately linear, 4 EO"
+"C12 Alcohol, predominately linear, 5 EO"
+"C13 Alcohol, predominately linear, 3 EO"
+"C13 Alcohol, predominately linear, 4 EO"
+"C13 Alcohol, predominately linear, 5 EO"
+"C14 Alcohol, predominately linear, 3 EO"
+"C14 Alcohol, predominately linear, 4 EO"
+"C14 Alcohol, predominately linear, 5 EO"
+"C15 Alcohol, predominately linear, 3 EO"
+"C15 Alcohol, predominately linear, 4 EO"
+"C15 Alcohol, predominately linear, 5 EO"
+"C16 Alcohol, predominately linear, 3 EO"
+"C16 Alcohol, predominately linear, 4 EO"
+"C16 Alcohol, predominately linear, 5 EO"
+"C12 Alcohol, predominately linear, 6 EO"
+"C12 Alcohol, predominately linear, 7 EO"
+"C12 Alcohol, predominately linear, 8 EO"
+"C12 Alcohol, predominately linear, 9 EO"
+"C12 Alcohol, predominately linear, 10 EO"
+"C13 Alcohol, predominately linear, 6 EO"
+"C13 Alcohol, predominately linear, 7 EO"
+"C13 Alcohol, predominately linear, 8 EO"
+"C13 Alcohol, predominately linear, 9 EO"
+"C13 Alcohol, predominately linear, 10 EO"
+"C14 Alcohol, predominately linear, 6 EO"
+"C14 Alcohol, predominately linear, 7 EO"
+"C14 Alcohol, predominately linear, 8 EO"
+"C14 Alcohol, predominately linear, 9 EO"
+"C14 Alcohol, predominately linear, 10 EO"
+"C15 Alcohol, predominately linear, 6 EO"
+"C15 Alcohol, predominately linear, 7 EO"
+"C15 Alcohol, predominately linear, 8 EO"
+"C15 Alcohol, predominately linear, 9 EO"
+"C15 Alcohol, predominately linear, 10 EO"
+"C16 Alcohol, predominately linear, 6 EO"
+"C16 Alcohol, predominately linear, 7 EO"
+"C16 Alcohol, predominately linear, 8 EO"
+"C16 Alcohol, predominately linear, 9 EO"
+"C16 Alcohol, predominately linear, 10 EO"
+"C12 Alcohol, predominately linear 11 EO"
+"C12 Alcohol, predominately linear 12 EO"
+"C12 Alcohol, predominately linear 13 EO"
+"C12 Alcohol, predominately linear 14 EO"
+"C12 Alcohol, predominately linear 15 EO"
+"C12 Alcohol, predominately linear 16 EO"
+"C12 Alcohol, predominately linear 17 EO"
+"C12 Alcohol, predominately linear 18 EO"
+"C12 Alcohol, predominately linear 19 EO"
+"C12 Alcohol, predominately linear 20 EO"
+"C12 Alcohol, predominately linear 21 EO"
+"C12 Alcohol, predominately linear 22 EO"
+"C12 Alcohol, predominately linear 23 EO"
+"C12 Alcohol, predominately linear 24 EO"
+"C12 Alcohol, predominately linear 25 EO"
+"C12 Alcohol, predominately linear 26 EO"
+"C12 Alcohol, predominately linear 27 EO"
+"C12 Alcohol, predominately linear 28 EO"
+"C12 Alcohol, predominately linear 29 EO"
+"C12 Alcohol, predominately linear 30 EO"
+"C13 Alcohol, predominately linear 11 EO"
+"C13 Alcohol, predominately linear 12 EO"
+"C13 Alcohol, predominately linear 13 EO"
+"C13 Alcohol, predominately linear 14 EO"
+"C13 Alcohol, predominately linear 15 EO"
+"C13 Alcohol, predominately linear 16 EO"
+"C13 Alcohol, predominately linear 17 EO"
+"C13 Alcohol, predominately linear 18 EO"
+"C13 Alcohol, predominately linear 19 EO"
+"C13 Alcohol, predominately linear 20 EO"
+"C13 Alcohol, predominately linear 21 EO"
+"C13 Alcohol, predominately linear 22 EO"
+"C13 Alcohol, predominately linear 23 EO"
+"C13 Alcohol, predominately linear 24 EO"
+"C13 Alcohol, predominately linear 25 EO"
+"C13 Alcohol, predominately linear 26 EO"
+"C13 Alcohol, predominately linear 27 EO"
+"C13 Alcohol, predominately linear 28 EO"
+"C13 Alcohol, predominately linear 29 EO"
+"C13 Alcohol, predominately linear 30 EO"
+"C14 Alcohol, predominately linear 11 EO"
+"C14 Alcohol, predominately linear 12 EO"
+"C14 Alcohol, predominately linear 13 EO"
+"C14 Alcohol, predominately linear 14 EO"
+"C14 Alcohol, predominately linear 15 EO"
+"C14 Alcohol, predominately linear 16 EO"
+"C14 Alcohol, predominately linear 17 EO"
+"C14 Alcohol, predominately linear 18 EO"
+"C14 Alcohol, predominately linear 19 EO"
+"C14 Alcohol, predominately linear 20 EO"
+"C14 Alcohol, predominately linear 21 EO"
+"C14 Alcohol, predominately linear 22 EO"
+"C14 Alcohol, predominately linear 23 EO"
+"C14 Alcohol, predominately linear 24 EO"
+"C14 Alcohol, predominately linear 25 EO"
+"C14 Alcohol, predominately linear 26 EO"
+"C14 Alcohol, predominately linear 27 EO"
+"C14 Alcohol, predominately linear 28 EO"
+"C14 Alcohol, predominately linear 29 EO"
+"C14 Alcohol, predominately linear 30 EO"
+"C15 Alcohol, predominately linear 11 EO"
+"C15 Alcohol, predominately linear 12 EO"
+"C15 Alcohol, predominately linear 13 EO"
+"C15 Alcohol, predominately linear 14 EO"
+"C15 Alcohol, predominately linear 15 EO"
+"C15 Alcohol, predominately linear 16 EO"
+"C15 Alcohol, predominately linear 17 EO"
+"C15 Alcohol, predominately linear 18 EO"
+"C15 Alcohol, predominately linear 19 EO"
+"C15 Alcohol, predominately linear 20 EO"
+"C15 Alcohol, predominately linear 21 EO"
+"C15 Alcohol, predominately linear 22 EO"
+"C15 Alcohol, predominately linear 23 EO"
+"C15 Alcohol, predominately linear 24 EO"
+"C15 Alcohol, predominately linear 25 EO"
+"C15 Alcohol, predominately linear 26 EO"
+"C15 Alcohol, predominately linear 27 EO"
+"C15 Alcohol, predominately linear 28 EO"
+"C15 Alcohol, predominately linear 29 EO"
+"C15 Alcohol, predominately linear 30 EO"
+"C16 Alcohol, predominately linear 11 EO"
+"C16 Alcohol, predominately linear 12 EO"
+"C16 Alcohol, predominately linear 13 EO"
+"C16 Alcohol, predominately linear 14 EO"
+"C16 Alcohol, predominately linear 15 EO"
+"C16 Alcohol, predominately linear 16 EO"
+"C16 Alcohol, predominately linear 17 EO"
+"C16 Alcohol, predominately linear 18 EO"
+"C16 Alcohol, predominately linear 19 EO"
+"C16 Alcohol, predominately linear 20 EO"
+"C16 Alcohol, predominately linear 21 EO"
+"C16 Alcohol, predominately linear 22 EO"
+"C16 Alcohol, predominately linear 23 EO"
+"C16 Alcohol, predominately linear 24 EO"
+"C16 Alcohol, predominately linear 25 EO"
+"C16 Alcohol, predominately linear 26 EO"
+"C16 Alcohol, predominately linear 27 EO"
+"C16 Alcohol, predominately linear 28 EO"
+"C16 Alcohol, predominately linear 29 EO"
+"C16 Alcohol, predominately linear 30 EO"
+"C17 Alcohol, predominately linear, 1 EO"
+"C17 Alcohol, predominately linear, 2 EO"
+"C18 Alcohol, predominately linear, 1 EO"
+"C18 Alcohol, predominately linear, 2 EO"
+"C17 Alcohol, predominately linear, 3 EO"
+"C17 Alcohol, predominately linear, 4 EO"
+"C17 Alcohol, predominately linear, 5 EO"
+"C18 Alcohol, predominately linear, 3 EO"
+"C18 Alcohol, predominately linear, 4 EO"
+"C18 Alcohol, predominately linear, 5 EO"
+"C17 Alcohol, predominately linear, 6 EO"
+"C17 Alcohol, predominately linear, 7 EO"
+"C17 Alcohol, predominately linear, 8 EO"
+"C17 Alcohol, predominately linear, 9 EO"
+"C17 Alcohol, predominately linear, 10 EO"
+"C18 Alcohol, predominately linear, 6 EO"
+"C18 Alcohol, predominately linear, 7 EO"
+"C18 Alcohol, predominately linear, 8 EO"
+"C18 Alcohol, predominately linear, 9 EO"
+"C18 Alcohol, predominately linear, 10 EO"
+"C17 Alcohol, predominately linear, 11 EO"
+"C17 Alcohol, predominately linear, 12 EO"
+"C17 Alcohol, predominately linear, 13 EO"
+"C17 Alcohol, predominately linear, 14 EO"
+"C17 Alcohol, predominately linear, 15 EO"
+"C17 Alcohol, predominately linear, 16 EO"
+"C17 Alcohol, predominately linear, 17 EO"
+"C17 Alcohol, predominately linear, 18 EO"
+"C17 Alcohol, predominately linear, 19 EO"
+"C17 Alcohol, predominately linear, 20 EO"
+"C17 Alcohol, predominately linear, 21 EO"
+"C17 Alcohol, predominately linear, 22 EO"
+"C17 Alcohol, predominately linear, 23 EO"
+"C17 Alcohol, predominately linear, 24 EO"
+"C17 Alcohol, predominately linear, 25 EO"
+"C17 Alcohol, predominately linear, 26 EO"
+"C17 Alcohol, predominately linear, 27 EO"
+"C17 Alcohol, predominately linear, 28 EO"
+"C17 Alcohol, predominately linear, 29 EO"
+"C17 Alcohol, predominately linear, 30 EO"
+"C18 Alcohol, predominately linear, 11 EO"
+"C18 Alcohol, predominately linear, 12 EO"
+"C18 Alcohol, predominately linear, 13 EO"
+"C18 Alcohol, predominately linear, 14 EO"
+"C18 Alcohol, predominately linear, 15 EO"
+"C18 Alcohol, predominately linear, 16 EO"
+"C18 Alcohol, predominately linear, 17 EO"
+"C18 Alcohol, predominately linear, 18 EO"
+"C18 Alcohol, predominately linear, 19 EO"
+"C18 Alcohol, predominately linear, 20 EO"
+"C18 Alcohol, predominately linear, 21 EO"
+"C18 Alcohol, predominately linear, 22 EO"
+"C18 Alcohol, predominately linear, 23 EO"
+"C18 Alcohol, predominately linear, 24 EO"
+"C18 Alcohol, predominately linear, 25 EO"
+"C18 Alcohol, predominately linear, 26 EO"
+"C18 Alcohol, predominately linear, 27 EO"
+"C18 Alcohol, predominately linear, 28 EO"
+"C18 Alcohol, predominately linear, 29 EO"
+"C18 Alcohol, predominately linear, 30 EO"
+C12 Alkyl dimethyl betaine
+C13 Alkyl dimethyl betaine
+C14 Alkyl dimethyl betaine
+C15 Alkyl dimethyl betaine
+C8 Alkyl amidopropylbetaine
+C9 Alkyl amidopropylbetaine
+C10 Alkyl amidopropylbetaine
+C11 Alkyl amidopropylbetaine
+C12 Alkyl amidopropylbetaine
+C13 Alkyl amidopropylbetaine
+C14 Alkyl amidopropylbetaine
+C15 Alkyl amidopropylbetaine
+C16 Alkyl amidopropylbetaine
+C17 Alkyl amidopropylbetaine
+C18 Alkyl amidopropylbetaine
+C12 Alkyl amine oxide
+C13 Alkyl amine oxide
+C14 Alkyl amine oxide
+C15 Alkyl amine oxide
+C16 Alkyl amine oxide
+C17 Alkyl amine oxide
+C18 Alkyl amine oxide
+C12 Alkyl amidopropyl amine oxide
+C13 Alkyl amidopropyl amine oxide
+C14 Alkyl amidopropyl amine oxide
+C15 Alkyl amidopropyl amine oxide
+C16 Alkyl amidopropyl amine oxide
+C17 Alkyl amidopropyl amine oxide
+C18 Alkyl amidopropyl amine oxide
+C10 Alkyl dimethyl amine oxide
+C11 Alkyl dimethyl amine oxide
+C12 Alkyl dimethyl amine oxide
+C13 Alkyl dimethyl amine oxide
+C14 Alkyl dimethyl amine oxide
+C15 Alkyl dimethyl amine oxide
+C16 Alkyl dimethyl amine oxide
+C17 Alkyl dimethyl amine oxide
+C18 Alkyl dimethyl amine oxide
+C8 Amphoacetates
+C9 Amphoacetates
+C10 Amphoacetates
+C11 Amphoacetates
+C12 Amphoacetates
+C13 Amphoacetates
+C14 Amphoacetates
+C15 Amphoacetates
+C16 Amphoacetates
+C17 Amphoacetates
+C18 Amphoacetates
+C8-alkyl benzyl dimethyl quatenary ammonium
+C9-alkyl benzyl dimethyl quatenary ammonium
+C10-alkyl benzyl dimethyl quatenary ammonium
+C11-alkyl benzyl dimethyl quatenary ammonium
+C12-alkyl benzyl dimethyl quatenary ammonium
+C13-alkyl benzyl dimethyl quatenary ammonium
+C14-alkyl benzyl dimethyl quatenary ammonium
+C15-alkyl benzyl dimethyl quatenary ammonium
+C16-alkyl benzyl dimethyl quatenary ammonium
+C17-alkyl benzyl dimethyl quatenary ammonium
+C18-alkyl benzyl dimethyl quatenary ammonium
+C8-alkyl trimethyl ammonium
+C9-alkyl trimethyl ammonium
+C10-alkyl trimethyl ammonium
+C11-alkyl trimethyl ammonium
+C12-alkyl trimethyl ammonium
+C13-alkyl trimethyl ammonium
+C14-alkyl trimethyl ammonium
+C15-alkyl trimethyl ammonium
+C16-alkyl trimethyl ammonium
+C17-alkyl trimethyl ammonium
+C18-alkyl trimethyl ammonium
+tri C16 Esterquats
+tri C17 Esterquats
+tri C18 Esterquats
+di C16 Esterquats
+di C17 Esterquats
+di C18 Esterquats
+"1,2-Benzisothiazol-3-one (BIT)"
+Benzyl alcohol              
+"5-bromo-5-nitro-1,3-dioxane"
+"2-bromo-2-nitropropane-1,3-diol"
+Chloroacetamide      
+Diazolidinyl Urea
+Formaldehyde               
+Glutaraldehyde         
+5-Chloro-2-methyl-3(2H)-isothiazolone
+2-methyl-3(2H)-isothiazolone
+Methyldibromoglutaronitrile
+Methylparaben
+Ethylparaben
+Propylparaben
+o-Phenylphenol
+Benzoic acid
+hydroxymethylglycinate
+Triclosan
+Phenoxyethanol
+Sorbic acid
+"N-(3-Aminopropyl)-N-dodecylpropane-1,3-diamine"
+Phenoxypropanol
+Propafenone
+Sorbitol
+Glycerol
+Xylitol
+Citric acid
+Acrylic acid
+Maleic acid
+Nitrilotriacetat 
+GLDA
+EDTA                        
+EDDS                         
+Carboxymethyl inulin (CMI)
+Lauric Acid 
+Tetraacetylethylenediamine (TAED)
+Cetyl alcohol
+Monoethanol amine
+Triethanol amine
+Vinylpyrrolidon
+Urea                          
+Cumene sulfonate
+ortho Xylene sulphonate
+meta Xylene sulphonate
+Butanone
+Iminodisuccinic acid
+FWA 1                      
+FWA 5                     
+1-decanol                 
+Methyl laurate          
+Formic acid
+Adipic acid               
+Malic acid
+Tartaric acid
+Phosphoric acid
+Oxalic acid
+Acetic acid
+Lactic acid
+Sulfamic acid
+Salicylic acid
+Sodium gluconate
+Glutaric acid
+Malonic acid
+Ethylene glycol
+Ethylene glycol monobutyl ether
+Diethylene glycol
+Diethylene glycol monomethyl ether
+Diethylene glycol monoethyl ether
+Diethylene glycol monobutyl ether
+Diethylene glycol dimethylether
+Propylene glycol
+Propylene glycol monomethyl ether
+Propylene glycol monobutylether
+Dipropylene glycol
+Dipropylene glycol monomethyl ether
+Dipropylene glycol monobutylether
+Dipropylene glycol dimethylether
+Triethylene glycol
+Ethylenebisstearamide
+Glycol distearate
+1-methyl-2-pyrrolidone
+Trimethyl pentanediol mono-isobutyrate
+Benzotriazole
+4-Piperidinol
+2-carboxyl malonic acid
+Methylbenzamide-DAS
+Pentaerythritol-tetrakis-phenol-propionate
+Denatonium
+Succinic acid
+Methylglycine
+Tocopherol
+Ethylhexyl salicylate
+Ethylhexyl triazone
+Octocrilene
+Bis-ethylhexyloxyphenol methoxyphenyl triazine
+Butyl methoxydibenzoylmethane
+e-phthaloimidoperoxyhexanoic acid
+Methanesulphonic acid
+Panthenol
+Caprylyl glycol
+"Glycerides, C14 mono"
+"Glycerides, C15 mono"
+"Glycerides, C16 mono"
+"Glycerides, C17 mono"
+"Glycerides, C18 mono"
+"Glycerides, C14 di"
+"Glycerides, C15 di"
+"Glycerides, C16 di"
+"Glycerides, C17 di"
+"Glycerides, C18 di"
+"Glycerides, C14 tri"
+"Glycerides, C15 tri"
+"Glycerides, C16 tri"
+"Glycerides, C17 tri"
+"Glycerides, C18 tri"
+Linear polydimethylsiloxane n=1
+Linear polydimethylsiloxane n=2
+Linear polydimethylsiloxane n=3
+Linear polydimethylsiloxane n=4
+Linear polydimethylsiloxane n=5
+Linear polydimethylsiloxane n=6
+Linear polydimethylsiloxane n=7
+Linear polydimethylsiloxane n=8
+Linear polydimethylsiloxane n=9
+Linear polydimethylsiloxane n=10
