@@ -45,7 +45,7 @@ Further optional outputs may be created depending on what the algorithm detects.
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](https://github.com/adelenelao/classify_homologues/blob/master/LICENSE)) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) file for details.
 
 
 
