@@ -37,7 +37,6 @@ Try:
 
 ```
 python classify_homols.py input/test1_smiles_23.csv input/test1_labels_23.csv C 2>log
-
 ```
 
 Successful classification will generate an output directory containing .png plots of molecules, 1 plot per 1 classified series, and a .csv file containing machine-readable information on the classified series. 
