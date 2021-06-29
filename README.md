@@ -41,7 +41,9 @@ python classify_homols.py input/test1_smiles_23.csv input/test1_labels_23.csv C 
 ```
 
 Successful classification will generate an output directory containing .png plots of molecules, 1 plot per 1 classified series, and a .csv file containing machine-readable information on the classified series. 
-Further optional outputs may be created depending on what the algorithm detects. Please see the sample output directories in this repository e.g., `output_test1/` for the example given above.
+
+
+Further optional outputs may be created depending on what the algorithm detects (e.g. molecules with no repeating units detected). Please see the sample output directories in this repository e.g., `output_test1/` for the example given above.
 
 
 
