@@ -2,6 +2,8 @@
 
 ## Introduction
 Homologous series describe groups of chemical compounds containing a common core structure and a chain of growing repeating units.
+
+This algorithm classifies homologous series defined by a user-specified repeating unit amongst an input dataset of molecules.
  
  
  
