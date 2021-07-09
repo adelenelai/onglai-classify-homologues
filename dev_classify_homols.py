@@ -56,6 +56,10 @@ with open(sys.argv[1]) as f:
 
 mols = [AllChem.MolFromSmiles(smile) for smile in smiles]
 
+#add explicitHs to terminal atoms only (for dummy atom matching)
+mols = [Chem.AddHs(m,onlyOnAtoms=(m.GetNumAtoms()-1,0)) for m in mols]
+mols = [Chem.AddHs(m,onlyOnAtoms=(0,0)) for m in mols]
+
 #labels
 with open(sys.argv[2]) as f:
     labels = [line.strip().replace('"','') for line in f]
@@ -83,10 +87,10 @@ smiles_ru = ['*' + ru + '*' for ru in smiles_ru]
 
 ru = [AllChem.MolFromSmiles(smi) for smi in smiles_ru] #includes C and CC
 
-
+minlen = int(sys.argv[4])-1 if len(sys.argv) >= 4 else 2
 
 #prepare to generate MergeQueryHs
-ru_explicitH = [Chem.AddHs(r) for r in ru[2:]]
+ru_explicitH = [Chem.AddHs(r) for r in ru[minlen:]]
 #ru_explicitH = [Chem.AddHs(r,onlyOnAtoms=(range(1,r.GetNumAtoms()-1))) for r in ru[2:]] #automatically discards meth- and eth-
 
 
@@ -94,7 +98,7 @@ ru_explicitH = [Chem.AddHs(r) for r in ru[2:]]
 ru_implicit_queryH = [Chem.MergeQueryHs(m) for m in ru_explicitH]
 
 
-#make dummy atoms queries
+#make dummy atoms queries i.e. [0] to *
 ru_implicit_queryH = [Chem.AdjustQueryProperties(ru) for ru in ru_implicit_queryH]
 
 #initialise foo - the 2d array showing whether there are alkyl substructure matches (1 or 0)
@@ -113,7 +117,7 @@ for x,y in enumerate(foo):
 
 #how many have no alkyl chains? i.e. value = 0
 n_mols_no_ru = foo_array_sums.count(0)
-print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum 3 repeating units in length.")
+#print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum " + str(sys.argv[4]) + " repeating units in length.")
 #remove mols with no alkyl matches
 fil_ru = []
 fil_ru = [bool(x) for x in foo_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
@@ -122,6 +126,7 @@ labels_mols_with_ru = list(compress(labels,fil_ru))
 #len(mols_with_alkyls)
 
 mols_no_ru_matches = list(compress(mols, [not i for i in fil_ru]))
+mols_no_ru_matches = [Chem.RemoveHs(m) for m in mols_no_ru_matches] #for plotting
 labels_mols_no_ru_matches = list(compress(labels, [not i for i in fil_ru]))
 #len(mols_no_alkyl_matches)
 
@@ -161,9 +166,9 @@ for x,y in enumerate(cores):
 #happens when mol is 100% made of RU
 empty_cores_idx = [i for i,j in enumerate(cores) if j.GetNumAtoms()==0]
 
-
 #isolate Mol and Label with empty core after first chopping i.e. entire mol is made of ru
 mols_made_of_ru = [j for i,j in enumerate(mols_with_ru) if (i in empty_cores_idx)]
+mols_made_of_ru = [Chem.RemoveHs(m) for m in mols_made_of_ru] #remove explicitHs for plotting
 labels_made_of_ru = [j for i,j in enumerate(labels_mols_with_ru) if (i in empty_cores_idx)]
 
 #finalise lists after filtering out mols_made_of_ru
@@ -178,6 +183,7 @@ os.makedirs("output"+"/")
 if len(mols_made_of_ru) >0:
     pure_repeating_units = DrawMolsZoomed(mols_made_of_ru,labels_made_of_ru)
     pure_repeating_units.save("output/mols_pure_repeating_units.png")
+    print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length " + str(sys.argv[4] + "."))
 
 #filter out row with empty core after first chopping from all cols and output
 patt1 = [q for p,q in enumerate(patt1) if (p not in empty_cores_idx)]
@@ -230,7 +236,6 @@ result.SeriesNo = result.SeriesNo.astype(int)
 
 
 #calc further identifiers and descr
-
 with open('yourfile.txt', 'w') as f:
     with redirect_stderr(f):
         inchis = [Chem.inchi.MolToInchi(i) for i in result.Mols]
@@ -268,7 +273,7 @@ for i,j in enumerate(grpdmols):
 if len(mols_no_ru_matches) > 0:
     nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
     nans.save("output/" + "no_repeating_unit_matches.png")
-#print(len(mols_no_alkyl_matches))
+    print(str(len(mols_no_ru_matches)) + " molecule(s) have no repeating unit matches of minimum " + str(sys.argv[4]) + " units.")
 #nans = DrawMolsZoomed(mols=mols_no_alkyl_matches, legends=labels_mols_no_alkyl_matches, molsPerRow=5)
 #nans.save("output/" + "no_alkyl_matches.png")
 
@@ -282,9 +287,11 @@ if len(mols_no_ru_matches) > 0:
 onememseries = result.loc[(result['SeriesNo'] == -1) & (result['canoSMILES_LargestMolfrag_sanitised'].notnull())]
 if len(onememseries.Mols) >0:
     mols_onememseries = [i for i in onememseries.Mols]
+    mols_onememseries = [Chem.RemoveHs(m) for m in mols_onememseries]
     labs_onememseries = [i for i in onememseries.Labels]
     pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
     pl_onememseries.save("output/non_series_containing_repeating_unit.png")
+    print(str(len(onememseries.Mols))+ " molecule(s) have repeating unit matches of minimum " + str(sys.argv[4]) + " units but do not belong to any series.")
 
 num_series = result.SeriesNo.max()
 #num_series = num_series+1
@@ -294,5 +301,5 @@ num_series = result.SeriesNo.max()
 
 #sys.stderr = old_stderr
 #assert sio.getvalue() != ""
-
-print("Homologue classification complete! " + str(num_series+1) + " series classified." )
+mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)
+print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into "+ str(num_series+1) + " series." )
