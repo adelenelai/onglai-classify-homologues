@@ -175,6 +175,8 @@ os.makedirs("output"+"/")
 if len(mols_made_of_ru) >0:
     pure_repeating_units = DrawMolsZoomed(mols_made_of_ru,labels_made_of_ru)
     pure_repeating_units.save("output/mols_pure_repeating_units.png")
+    print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length x.")
+
 
 #filter out row with empty core after first chopping from all cols and output
 patt1 = [q for p,q in enumerate(patt1) if (p not in empty_cores_idx)]
@@ -281,6 +283,8 @@ if len(onememseries.Mols) >0:
     labs_onememseries = [i for i in onememseries.Labels]
     pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
     pl_onememseries.save("output/non_series_containing_repeating_unit.png")
+    print(str(len(onememseries.Mols))+ " molecule(s) have repeating unit matches of minimum x units but do not belong to any series.")
+
 
 num_series = result.SeriesNo.max()
 if num_series < 0:
@@ -288,5 +292,5 @@ if num_series < 0:
 
 #sys.stderr = old_stderr
 #assert sio.getvalue() != ""
-
-print("Homologue classification complete! " + str(num_series+1) + " series classified." )
+mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
+print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series+1) + " series." )

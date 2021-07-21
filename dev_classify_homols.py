@@ -301,5 +301,5 @@ num_series = result.SeriesNo.max()
 
 #sys.stderr = old_stderr
 #assert sio.getvalue() != ""
-mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)
+mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into "+ str(num_series+1) + " series." )
