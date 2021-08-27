@@ -1,5 +1,5 @@
-python_version>=3.7
+#python_version>=3.7
 numpy==1.18.1
-rdkit==2020.03.01
+#rdkit==2020.03.01
 pandas==1.0.3
-matplotlib=3.1.3
+matplotlib==3.1.3

@@ -110,7 +110,8 @@ for x,y in enumerate(foo):
 
 #how many have no alkyl chains? i.e. value = 0
 n_mols_no_ru = foo_array_sums.count(0)
-print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum 3 repeating units in length.")
+if n_mols_no_ru>0:
+    print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum 3 repeating units in length.")
 #remove mols with no alkyl matches
 fil_ru = []
 fil_ru = [bool(x) for x in foo_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
