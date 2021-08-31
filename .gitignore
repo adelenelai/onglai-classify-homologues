@@ -6,3 +6,6 @@
 
 # IPython Notebook
 .ipynb_checkpoints
+
+# PyCharm project settings
+.idea/*
