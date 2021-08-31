@@ -8,27 +8,23 @@ This algorithm classifies homologous series defined by a user-specified repeatin
  
  
  
- ## Requirements
- The homologues classification algorithm requires RDKit to be installed and the RDKit environment to be activated. This is best done using conda in the command line:
- 
- ```
- conda create -c conda-forge -n my-rdkit-env rdkit
- 
- conda activate my-rdkit-env
- ```
- 
- More info here: https://www.rdkit.org/docs/Install.html
+## Installation
 
+The code can be installed directly from GitHub with:
 
+```shell
+$ pip install git+https://github.com/adelenelai/classify_homologues.git
+```
 
+The code can be installed in editable mode with:
+
+```shell
+$ git clone https://github.com/adelenelai/classify_homologues
+$ cd classify_homologues
+$ pip install -e .
+```
 
 ## Usage
-
-```
-git clone https://github.com/adelenelai/classify_homologues
-cd classify_homologues
-conda activate my-rdkit-env       ## if not already activated
-```
 
 Then
 ```python classify_homologues.py <SMILES list> <Labels list> <repeating unit> 2>log```
