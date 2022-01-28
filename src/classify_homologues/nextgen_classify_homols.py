@@ -3,33 +3,15 @@ import sys
 import rdkit.Chem as Chem
 from utils import *
 from rdkit.Chem import AllChem
+from pathlib import Path
 import rdkit.Chem.rdchem as rdchem
 import rdkit.Chem.Draw as Draw
 import rdkit.Chem.Descriptors
 from rdkit.Chem import PandasTools
 from rdkit.Chem.Draw import IPythonConsole, MolsToGridImage
-#PandasTools.RenderImagesInAllDataFrames(images=True)
 import pandas as pd
 import numpy as np
-#from contextlib import redirect_stderr
 
-
-
-
-
-#Chem.WrapLogs()
-
-#from contextlib import redirect_stdout, redirect_stderr
-#import io, logging
-#import externallib
-#logging.basicConfig(filename='error.log', level=logging.DEBUG)
-
-#f = io.StringIO()
-#with redirect_stdout(f), redirect_stderr(f):
-#    result = externallib.check_result()
-#logging.info(f.getvalue())
-#print(result)
-#https://www.codeforests.com/2020/11/05/python-suppress-stdout-and-stderr/
 
 
 #read in smiles and labels, prepare repeating units
@@ -42,10 +24,10 @@ ru = setup_repeating_unit('[#6&H2]-')
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
 #perform core detection
-patt1, cores1, patt2, cores2, empty_cores_idx = detect_homologue_cores(mols_with_ru, ru)
+patt1, cores1, patt2, cores2, empty_cores_idx = replaceRU_detect_homologue_cores(mols_with_ru, ru)
 
 #detect and output molecules made solely of RUs
-os.makedirs("output"+"/")
+Path("output").mkdir(parents=True, exist_ok=True)
 mols_made_of_ru, labels_made_of_ru = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
 
 #generate canonical SMILES of largest molecule fragment in cores
@@ -61,10 +43,7 @@ patt1 = [q for p,q in enumerate(patt1) if (p not in empty_cores_idx)]
 cores1 = [q for p,q in enumerate(cores1) if (p not in empty_cores_idx)]
 patt2 = [q for p,q in enumerate(patt2) if (p not in empty_cores_idx)]
 cores2 = [q for p,q in enumerate(cores2) if (p not in empty_cores_idx)]
-#first convert to smarts, then molfromsmarts, then sanitize
-#cores2_nonempty_smarts = [Chem.rdmolfiles.MolToSmarts(co) for co in cores2_nonempty]
-#cores2_nonempty_molfromsmarts = [Chem.MolFromSmarts(co) for co in cores2_nonempty_smarts] #generates QueryAtoms
-#[Chem.SanitizeMol(co) for co in cores2_nonempty_molfromsmarts]
+
 
 
 
@@ -154,11 +133,10 @@ if len(onememseries.Mols) >0:
     print(str(len(onememseries.Mols))+ " molecule(s) have repeating unit matches of minimum x units but do not belong to any series.")
 
 
-num_series = result.SeriesNo.max()
+num_series = result.SeriesNo.max() + 1 #because zero-indexed
 if num_series < 0:
     num_series= 0
 
-#sys.stderr = old_stderr
-#assert sio.getvalue() != ""
+
 mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
