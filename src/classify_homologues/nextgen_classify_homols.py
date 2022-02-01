@@ -19,7 +19,9 @@ import datamol as dm
 smiles, mols = read_smiles_csv(sys.argv[1])
 labels = read_labels_csv(sys.argv[2])
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-ru = setup_repeating_unit('[#6&H2]-')
+ru = setup_repeating_unit('[#6](-[#9])(-[#9])-') 
+#tested '[#6&H2]-'
+#tested ''[#8]-[#6&H2]-[#6&H2]-'
 
 #perform RU detection
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
