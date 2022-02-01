@@ -11,6 +11,7 @@ from rdkit.Chem import PandasTools
 from rdkit.Chem.Draw import IPythonConsole, MolsToGridImage
 import pandas as pd
 import numpy as np
+import datamol as dm
 
 
 
@@ -24,7 +25,7 @@ ru = setup_repeating_unit('[#6&H2]-')
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
 #perform core detection
-patt1, cores1, patt2, cores2, empty_cores_idx = replaceRU_detect_homologue_cores(mols_with_ru, ru)
+patt1, cores1, patt2, cores2, empty_cores_idx = replacecore_detect_homologue_cores(mols_with_ru, ru)
 
 #detect and output molecules made solely of RUs
 Path("output").mkdir(parents=True, exist_ok=True)

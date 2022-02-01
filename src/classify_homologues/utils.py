@@ -5,6 +5,7 @@ import numpy as np
 from rdkit.Chem.Draw import rdMolDraw2D
 from io import BytesIO
 from itertools import compress
+import datamol as dm
 try:
     import Image
 except ImportError:
@@ -73,6 +74,14 @@ def replaceRU_detect_homologue_cores(mols_with_ru, ru):
     patt2, cores2 = replace_longest_RU_match(cores1, mat3, ru) #second removal
     return patt1, cores1, patt2, cores2, empty_cores_idx
 
+def replacecore_detect_homologue_cores(mols_with_ru, ru):
+    '''Function that performs RU matching-and-replacement twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
+    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
+    patt1, cores1 = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #first removal
+    empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
+    mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
+    patt2, cores2 = replacecore_longest_RU_match(cores1, mat3, ru) #second removal
+    return patt1, cores1, patt2, cores2, empty_cores_idx
 
 def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
     '''Function to detect and output molecules made solely of RUs such as PEGs.'''
@@ -154,6 +163,22 @@ def replace_longest_RU_match(mols, mat, ru):
     for x,y in enumerate(mols):
         patt.append(ru[int(np.sum(mat[x])-1)])
         cores.append(AllChem.ReplaceSubstructs(y, patt[x], Chem.MolFromSmiles('C'), replaceAll=True)[0])
+    return patt, cores
+
+def my_ReplaceCore(mol,sidechain):
+    '''Function that returns the original input mol if there is no matching sidechain present.'''
+    rc = Chem.ReplaceCore(mol,sidechain)
+    if rc is None:
+        return mol
+    return rc   
+
+def replacecore_longest_RU_match(mols, mat, ru):
+    '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
+    cores = list()
+    patt = list()
+    for x,y in enumerate(mols):
+        patt.append(ru[int(np.sum(mat[x])-1)])
+        cores.append(my_ReplaceCore(y, patt[x]))
     return patt, cores
 
 def largest_core_molfrag_to_cano_smiles(cores2):
