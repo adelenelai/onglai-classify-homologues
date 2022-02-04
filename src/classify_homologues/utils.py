@@ -32,7 +32,7 @@ def setup_repeating_unit(smarts):
     smiles_ru = smiles_ru[2:] #eliminate meth- and eth- as they are too short
     smiles_ru = [x[:-1] for x in smiles_ru] #remove last hyphen in each string
     ru = [Chem.MolFromSmarts(smi) for smi in smiles_ru]
-    return ru
+    return(ru)
 
 def detect_repeating_units(mols, labels, ru):
     '''Function to detect whether molecules contain repeating units.'''
@@ -99,7 +99,7 @@ def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
     nRows = len(mols) // molsPerRow
     if len(mols) % molsPerRow: nRows += 1
     fullSize = (molsPerRow * subImgSize[0], nRows * subImgSize[1])
-    full_image = Image.new('RGBA', fullSize )
+    full_image = Image.new('RGB', fullSize )
     for ii, mol in enumerate(mols):
         if mol.GetNumConformers() == 0:
             AllChem.Compute2DCoords(mol)
@@ -170,7 +170,7 @@ def my_ReplaceCore(mol,sidechain):
     rc = Chem.ReplaceCore(mol,sidechain)
     if rc is None:
         return mol
-    return rc   
+    return rc
 
 def replacecore_longest_RU_match(mols, mat, ru):
     '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
@@ -195,3 +195,13 @@ def largest_core_molfrag_to_cano_smiles(cores2):
     cores2_nonempty_largest_molfrag_smiles = [Chem.MolToSmiles(co) for co in cores2_nonempty_largest_molfrag]
     cores2_nonempty_largest_molfrag_cano_smiles = [Chem.CanonSmiles(smi) for smi in cores2_nonempty_largest_molfrag_smiles]
     return cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag
+
+def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru):
+    mols_no_ru_matches = len(mols_no_ru_matches)
+    onememseries = len(onememseries)
+    mols_made_of_ru = len(mols_made_of_ru)
+    with open("output/classification-results.txt", "w") as text_file:
+        text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\n%s molecules were classified into %s homologous series.\n" % (smiles_in, ru_in, mols_classified, num_series))
+        text_file.write("Molecules with no RU chains of min. three units in length: %s.\n" % (mols_no_ru_matches))
+        text_file.write("Molecules having RU chains (min. three units) but are not members of any series: %s.\n" % (onememseries))
+        text_file.write("Molecules consisting of purely RUs: %s." % (mols_made_of_ru))

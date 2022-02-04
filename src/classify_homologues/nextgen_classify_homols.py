@@ -14,14 +14,16 @@ import numpy as np
 import datamol as dm
 
 
-
+print("Homologue classification started...")
 #read in smiles and labels, prepare repeating units
 smiles, mols = read_smiles_csv(sys.argv[1])
 labels = read_labels_csv(sys.argv[2])
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-ru = setup_repeating_unit('[#6](-[#9])(-[#9])-') 
+ru_in = '[#6](-[#9])(-[#9])-'
+ru = setup_repeating_unit(ru_in)
 #tested '[#6&H2]-'
-#tested ''[#8]-[#6&H2]-[#6&H2]-'
+#tested '[#8]-[#6&H2]-[#6&H2]-'
+#tested '[#6](-[#9])(-[#9])-'
 
 #perform RU detection
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
@@ -105,6 +107,12 @@ grpdmols = result_pos_serno.groupby('canoSMILES_LargestMolfrag_sanitised').SMILE
 for i,j in enumerate(grpdmols):
     grpdmols[i] = grpdmols[i] + [grpdmols.keys()[i]]
 
+#depict final sanitised cores
+final_cores = [Chem.MolFromSmiles(i) for i in grpdmols.keys()]
+leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
+cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
+cores_summary.save("output/cores_summary.png")
+
 grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
 
 list_grid_images = []
@@ -115,13 +123,14 @@ for i,j in enumerate(grpdmols):
 #print(str(len(mols_no_alkyl_matches)) + ", " + str(len(labels_mols_no_alkyl_matches)))
 if len(mols_no_ru_matches) > 0:
     nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
-    nans.save("output/" + "no_repeating_unit_matches.png")
+    nans.save("output/no_repeating_unit_matches.png")
 #print(len(mols_no_alkyl_matches))
 #nans = DrawMolsZoomed(mols=mols_no_alkyl_matches, legends=labels_mols_no_alkyl_matches, molsPerRow=5)
 #nans.save("output/" + "no_alkyl_matches.png")
 
 #save each plot per group
 [img.save("output/" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
+
 
 
 #plot mols with alkyls but are 1-member series (i.e. not actually series)
@@ -142,4 +151,8 @@ if num_series < 0:
 
 
 mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
+
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
+
+#output summary file
+generate_output_summary(sys.argv[1], mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru)
