@@ -19,7 +19,7 @@ print("Homologue classification started...")
 smiles, mols = read_smiles_csv(sys.argv[1])
 labels = read_labels_csv(sys.argv[2])
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-ru_in = '[#6](-[#9])(-[#9])-'
+ru_in = '[#6&H2]-'
 ru = setup_repeating_unit(ru_in)
 #tested '[#6&H2]-'
 #tested '[#8]-[#6&H2]-[#6&H2]-'
@@ -108,10 +108,11 @@ for i,j in enumerate(grpdmols):
     grpdmols[i] = grpdmols[i] + [grpdmols.keys()[i]]
 
 #depict final sanitised cores
-final_cores = [Chem.MolFromSmiles(i) for i in grpdmols.keys()]
-leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
-cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
-cores_summary.save("output/cores_summary.png")
+if len(grpdmols.keys()) >0:
+    final_cores = [Chem.MolFromSmiles(i) for i in grpdmols.keys()]
+    leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
+    cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
+    cores_summary.save("output/cores_summary.png")
 
 grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
 
