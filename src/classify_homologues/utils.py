@@ -81,10 +81,12 @@ def replacecore_detect_homologue_cores(mols_with_ru, ru):
     empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
     mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
     patt2, cores2 = replacecore_longest_RU_match(cores1, mat3, ru) #second removal
+    patt2 = [dm.remove_dummies(m,dummy='*') for m in patt2] #remove dummies
+    cores2 = [dm.remove_dummies(n,dummy='*') for n in cores2] #remove dummies
     return patt1, cores1, patt2, cores2, empty_cores_idx
 
 def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
-    '''Function to detect and output molecules made solely of RUs such as PEGs.'''
+    '''Function to detect and depict molecules made solely of RUs such as PEGs. Depictions written as png outputs.'''
     mols_made_of_ru = [j for i,j in enumerate(mols_with_ru) if (i in empty_cores_idx)] #isolate Mol and Label with empty core after first chopping i.e. entire mol is made of ru
     labels_made_of_ru = [j for i, j in enumerate(labels_mols_with_ru) if (i in empty_cores_idx)]
     if len(mols_made_of_ru) > 0:

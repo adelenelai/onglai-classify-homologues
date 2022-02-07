@@ -19,7 +19,7 @@ print("Homologue classification started...")
 smiles, mols = read_smiles_csv(sys.argv[1])
 labels = read_labels_csv(sys.argv[2])
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-ru_in = '[#6&H2]-'
+ru_in = sys.argv[3]
 ru = setup_repeating_unit(ru_in)
 #tested '[#6&H2]-'
 #tested '[#8]-[#6&H2]-[#6&H2]-'
@@ -28,7 +28,7 @@ ru = setup_repeating_unit(ru_in)
 #perform RU detection
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
-#perform core detection
+#perform core detection and remove dummies in process
 patt1, cores1, patt2, cores2, empty_cores_idx = replacecore_detect_homologue_cores(mols_with_ru, ru)
 
 #detect and output molecules made solely of RUs
