@@ -19,11 +19,9 @@ print("Homologue classification started...")
 smiles, mols = read_smiles_csv(sys.argv[1])
 labels = read_labels_csv(sys.argv[2])
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-ru_in = sys.argv[3]
-ru = setup_repeating_unit(ru_in)
-#tested '[#6&H2]-'
-#tested '[#8]-[#6&H2]-[#6&H2]-'
-#tested '[#6](-[#9])(-[#9])-'
+ru_in = sys.argv[3] if len(sys.argv) == 4 else '[#6&H2]-' #set CH2 as default RU
+ru = setup_repeating_unit(ru_in)       #tested '[#8]-[#6&H2]-[#6&H2]-', '[#6](-[#9])(-[#9])-'
+
 
 #perform RU detection
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
@@ -35,8 +33,9 @@ patt1, cores1, patt2, cores2, empty_cores_idx = replacecore_detect_homologue_cor
 Path("output").mkdir(parents=True, exist_ok=True)
 mols_made_of_ru, labels_made_of_ru = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
 
+
 #generate canonical SMILES of largest molecule fragment in cores
-cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag = largest_core_molfrag_to_cano_smiles(cores2)
+#cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag = largest_core_molfrag_to_cano_smiles(cores2)
 
 
 ##construct dataframe for inspection
@@ -47,7 +46,7 @@ labels_mols_with_ru = [j for i,j in enumerate(labels_mols_with_ru) if (i not in 
 patt1 = [q for p,q in enumerate(patt1) if (p not in empty_cores_idx)]
 cores1 = [q for p,q in enumerate(cores1) if (p not in empty_cores_idx)]
 patt2 = [q for p,q in enumerate(patt2) if (p not in empty_cores_idx)]
-cores2 = [q for p,q in enumerate(cores2) if (p not in empty_cores_idx)]
+cores2_nonempty = [q for p,q in enumerate(cores2) if (p not in empty_cores_idx)] #same as cores2_nonempty???
 
 
 
@@ -59,17 +58,24 @@ imp_df_nonempty= pd.DataFrame({#"Smiles":smiles,
                     "Labels": labels_mols_with_ru,
                     "patt1": [j for i,j in enumerate(patt1) if cores2[i].GetNumAtoms()>0],
                     "Cores": [j for i,j in enumerate(cores1) if cores2[i].GetNumAtoms()>0],
-                    "Cores2": cores2_nonempty,
-                    "LargestMolFrag_sanitised": cores2_nonempty_largest_molfrag
+                    "Cores2": cores2_nonempty
+                    #"LargestMolFrag_sanitised": cores2_nonempty_largest_molfrag
+
                     })#"cano_smiles_cores2": cores2_cano_smiles
 
 
 
 #populate new column in df with corresponding  cores2_nonempty_largestmolfrag_canosmiles for each row
-imp_df_nonempty["canoSMILES_LargestMolfrag_sanitised"] = cores2_nonempty_largest_molfrag_cano_smiles
+#imp_df_nonempty["canoSMILES_LargestMolfrag_sanitised"] = cores2_nonempty_largest_molfrag_cano_smiles
+
+cores2_nonempty_smiles = [Chem.MolToSmiles(co, canonical=True) for co in cores2_nonempty] #get SMILES of all fragments in mol object
+imp_df_nonempty["canoSMILES_molfrags"] = cores2_nonempty_smiles
+
+
 
 #assign SeriesNo to only those series with >1 member
-imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_LargestMolfrag_sanitised').filter(lambda group: len(group) > 1).groupby('canoSMILES_LargestMolfrag_sanitised').ngroup()
+#imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_LargestMolfrag_sanitised').filter(lambda group: len(group) > 1).groupby('canoSMILES_LargestMolfrag_sanitised').ngroup()
+imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_molfrags').filter(lambda group: len(group) > 1).groupby('canoSMILES_molfrags').ngroup()
 
 
 #merge imp_df_nonempty with df on mol
@@ -80,6 +86,7 @@ result['SeriesNo'] = result['SeriesNo'].fillna(-1)
 result.SeriesNo = result.SeriesNo.astype(int)
 
 
+
 #calc further identifiers and descr; write into log file
 #with open('log.txt', 'w') as f:
  #   with redirect_stderr(f):
@@ -88,22 +95,26 @@ inchikeys = [Chem.inchi.MolToInchiKey(i) for i in result.Mols]
 mf = [Chem.rdMolDescriptors.CalcMolFormula(i) for i in result.Mols]
 monoiso_mass = [round(Chem.Descriptors.ExactMolWt(i),4) for i in result.Mols]
 
-out = result[["SeriesNo","Labels","canoSMILES_LargestMolfrag_sanitised","SMILES", ]].copy()
+out = result[["SeriesNo","Labels","canoSMILES_molfrags","SMILES", ]].copy()
 out['InChI'] = inchis
 out['InChIKey'] = inchikeys
 out['molecular_formula'] = mf
 out['monoisotopic_mass'] = monoiso_mass
-out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_LargestMolfrag_sanitised": "common_core"},inplace=True)
+out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_molfrags": "common_core"},inplace=True)
 out.to_csv('output/' + 'classified_series.csv',index=False)
 
 #plots per group - only series which have >1 member i.e. actual series
 result_pos_serno = result[result["SeriesNo"] > -1]
+
+
 #legends
-lgs = [i for i in result_pos_serno.groupby('canoSMILES_LargestMolfrag_sanitised').Labels.apply(list)]
+lgs = [i for i in result_pos_serno.groupby('canoSMILES_molfrags').Labels.apply(list)]
 for i,j in enumerate(lgs):
     lgs[i] = lgs[i] + ["core"]
 
-grpdmols = result_pos_serno.groupby('canoSMILES_LargestMolfrag_sanitised').SMILES.apply(list) #lists of SMILES
+#print("done")
+
+grpdmols = result_pos_serno.groupby('canoSMILES_molfrags').SMILES.apply(list) #lists of SMILES
 for i,j in enumerate(grpdmols):
     grpdmols[i] = grpdmols[i] + [grpdmols.keys()[i]]
 
@@ -119,6 +130,7 @@ grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
 list_grid_images = []
 for i,j in enumerate(grpdmols):
     list_grid_images.append(DrawMolsZoomed(grpdmols[i], legends=lgs[i], molsPerRow=5))
+
 
 #plot nans i.e. those with no alkyls and therefore not classified
 #print(str(len(mols_no_alkyl_matches)) + ", " + str(len(labels_mols_no_alkyl_matches)))
@@ -137,7 +149,7 @@ if len(mols_no_ru_matches) > 0:
 #plot mols with alkyls but are 1-member series (i.e. not actually series)
 #SeriesNo = -1, SMILES is not empty
 
-onememseries = result.loc[(result['SeriesNo'] == -1) & (result['canoSMILES_LargestMolfrag_sanitised'].notnull())]
+onememseries = result.loc[(result['SeriesNo'] == -1) & (result['canoSMILES_molfrags'].notnull())]
 if len(onememseries.Mols) >0:
     mols_onememseries = [i for i in onememseries.Mols]
     labs_onememseries = [i for i in onememseries.Labels]
