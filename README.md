@@ -20,7 +20,8 @@ Homologous chemical series describe groups of chemical compounds containing comm
 ## Usage
 The algorithm runs in the command line interface as below:
 
-```python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+```
+python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
 | Flag | Description |
