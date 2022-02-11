@@ -20,7 +20,8 @@ Homologous chemical series describe groups of chemical compounds containing comm
 ## Usage
 The algorithm runs in the command line interface as below:
 
-```python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+```
+python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
 | Flag | Description |
@@ -34,7 +35,7 @@ The algorithm runs in the command line interface as below:
 
 Try:
 ```
-python classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]-' -min 3 -max 5 2>log
+python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]-' -min 3 -max 5 2>log
 ```
 
 Successful classification will generate an output directory containing .png plots of molecules (e.g., 1  plot per 1 classified series), a CSV file containing machine-readable information on the classified series, and a TXT file containing a classification summary.
@@ -62,5 +63,5 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](https:
 -
 ## References
 
-## Our Research group
+## Our Research Group
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
