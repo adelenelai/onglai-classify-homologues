@@ -24,12 +24,10 @@ def read_labels_csv(path_to_labels_csv): #sys.argv[2]
         labels = [line.strip().replace('"','') for line in f]
     return labels
 
-def setup_repeating_unit(smarts):
+def setup_repeating_unit(smarts, min, max):
     '''Function to generate list of RU chains as query molecules from SMARTS.'''
     smiles_ru = []
-    #[smiles_ru.append(sys.argv[3]*i) for i in range(1,31)] ##most generic form, taking RU SMILES input
-    [smiles_ru.append(smarts*i) for i in range(1,31)]
-    smiles_ru = smiles_ru[2:] #eliminate meth- and eth- as they are too short
+    [smiles_ru.append(smarts*i) for i in range(min, max+1)] #add min
     smiles_ru = [x[:-1] for x in smiles_ru] #remove last hyphen in each string
     ru = [Chem.MolFromSmarts(smi) for smi in smiles_ru]
     return(ru)
@@ -85,13 +83,29 @@ def replacecore_detect_homologue_cores(mols_with_ru, ru):
     cores2 = [dm.remove_dummies(n,dummy='*') for n in cores2] #remove dummies
     return patt1, cores1, patt2, cores2, empty_cores_idx
 
+def my_ReplaceCore(mol,sidechain):
+    '''Function that returns the original input mol if there is no matching sidechain present.'''
+    rc = Chem.ReplaceCore(mol,sidechain)
+    if rc is None:
+        return mol
+    return rc
+
+def replacecore_longest_RU_match(mols, mat, ru):
+    '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
+    cores = list()
+    patt = list()
+    for x,y in enumerate(mols):
+        patt.append(ru[int(np.sum(mat[x])-1)])
+        cores.append(my_ReplaceCore(y, patt[x]))
+    return patt, cores
+
 def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
     '''Function to detect and depict molecules made solely of RUs such as PEGs. Depictions written as png outputs.'''
     mols_made_of_ru = [j for i,j in enumerate(mols_with_ru) if (i in empty_cores_idx)] #isolate Mol and Label with empty core after first chopping i.e. entire mol is made of ru
     labels_made_of_ru = [j for i, j in enumerate(labels_mols_with_ru) if (i in empty_cores_idx)]
     if len(mols_made_of_ru) > 0:
         pure_repeating_units = DrawMolsZoomed(mols_made_of_ru, labels_made_of_ru)
-        pure_repeating_units.save("output/mols_pure_repeating_units.png")
+        pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
         print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length x.")
     return mols_made_of_ru, labels_made_of_ru
 
@@ -167,42 +181,29 @@ def replace_longest_RU_match(mols, mat, ru):
         cores.append(AllChem.ReplaceSubstructs(y, patt[x], Chem.MolFromSmiles('C'), replaceAll=True)[0])
     return patt, cores
 
-def my_ReplaceCore(mol,sidechain):
-    '''Function that returns the original input mol if there is no matching sidechain present.'''
-    rc = Chem.ReplaceCore(mol,sidechain)
-    if rc is None:
-        return mol
-    return rc
-
-def replacecore_longest_RU_match(mols, mat, ru):
-    '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
-    cores = list()
-    patt = list()
-    for x,y in enumerate(mols):
-        patt.append(ru[int(np.sum(mat[x])-1)])
-        cores.append(my_ReplaceCore(y, patt[x]))
-    return patt, cores
-
 def largest_core_molfrag_to_cano_smiles(cores2):
     '''Function to isolate the largest molecule fragment by NumAtoms remaining in the core object and convert to canonical SMILES.'''
     cores2_nonempty = [j for i, j in enumerate(cores2) if j.GetNumAtoms() > 0] # isolate non-empty cores after chopping
-    cores2_nonempty_molfrags = [Chem.GetMolFrags(co, asMols=True) for co in cores2_nonempty]  # cores2_nonempty_molfromsmarts
-    cores2_nonempty_largest_molfrag = []
-    for i, j in enumerate(cores2_nonempty_molfrags):  # get the largest molfrag of all molfrags
-        cores2_nonempty_largest_molfrag.append(max(cores2_nonempty_molfrags[i],
-                                                   default=cores2_nonempty_molfrags[i],
-                                                   key=lambda m: m.GetNumAtoms()
-                                                   )
-                                               )
-    cores2_nonempty_largest_molfrag_smiles = [Chem.MolToSmiles(co) for co in cores2_nonempty_largest_molfrag]
-    cores2_nonempty_largest_molfrag_cano_smiles = [Chem.CanonSmiles(smi) for smi in cores2_nonempty_largest_molfrag_smiles]
-    return cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag
+    #cores2_nonempty_molfrags = [Chem.GetMolFrags(co, asMols=True) for co in cores2_nonempty]  # cores2_nonempty_molfromsmarts
+    #cores2_nonempty_largest_molfrag = []
+    #for i, j in enumerate(cores2_nonempty_molfrags):  # get the largest molfrag of all molfrags
+    #    cores2_nonempty_largest_molfrag.append(max(cores2_nonempty_molfrags[i],
+    #                                               default=cores2_nonempty_molfrags[i],
+    #                                               key=lambda m: m.GetNumAtoms()
+    #                                               )
+    #                                           )
+    #cores2_nonempty_largest_molfrag_cano_smiles = [Chem.MolToSmiles(co, canonical=True) for co in cores2_nonempty_largest_molfrag]
+    #cores2_nonempty_largest_molfrag_cano_smiles = [Chem.CanonSmiles(smi) for smi in cores2_nonempty_largest_molfrag_smiles]
+    return cores2_nonempty#, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag
+
+def GetNumFrags(mol):
+    return(len(Chem.GetMolFrags(mol,asMols=True)))
 
 def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru):
     mols_no_ru_matches = len(mols_no_ru_matches)
     onememseries = len(onememseries)
     mols_made_of_ru = len(mols_made_of_ru)
-    with open("output/classification-results.txt", "w") as text_file:
+    with open("output_rmdum_tmf/classification-results.txt", "w") as text_file:
         text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\n%s molecules were classified into %s homologous series.\n" % (smiles_in, ru_in, mols_classified, num_series))
         text_file.write("Molecules with no RU chains of min. three units in length: %s.\n" % (mols_no_ru_matches))
         text_file.write("Molecules having RU chains (min. three units) but are not members of any series: %s.\n" % (onememseries))
