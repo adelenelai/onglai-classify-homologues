@@ -1,4 +1,3 @@
-
 import os
 import argparse
 #import sys
@@ -21,10 +20,10 @@ print("Homologue classification started...")
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--smiles", help="List of SMILES as input.")
 parser.add_argument("-l", "--labels", help="List of labels as input.")
-parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTs string enclosed by speech marks. Plese add a hyphen before the closing speech mark, e.g. the default CH2 is '[#6&H2]-'.")
+parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Plese add a hyphen before the closing speech mark, e.g. the default CH2 is '[#6&H2]-'.")
 parser.add_argument("-min", "--min_in", help="Minimum length of RU chain, default = 3 units.", type=int)
 parser.add_argument("-max", "--max_in", help="Maximum length of RU chain, default = 30 units.", type=int)
-
+parser.add_argument("-f", "--frag_steps", help="No. of fragmentation steps separating RU from core(s).", type=int)
 args = parser.parse_args()
 
 #read in smiles and labels
@@ -54,8 +53,9 @@ ru = setup_repeating_unit(ru_in, min_length, max_length)
 #detect RUs in mols
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
-#
-patt1, cores1, patt2, cores2, empty_cores_idx = replacecore_detect_homologue_cores(mols_with_ru, ru)
+#fragmentation into patt and cores, done n times (n = frag_steps)
+lists_patts, lists_cores, empty_cores_idx = fragment_into_cores(mols_with_ru, ru, frag_steps)
+#patt, cores, empty_cores_idx = replacecore_detect_homologue_cores(mols_with_ru, ru)
 
 print("Done replacecore_detect_homologue_cores.")
 #detect and output molecules made solely of RUs
@@ -68,7 +68,7 @@ print("Done detect_mols_made_of_ru")
 
 
 ##construct dataframe for inspection
-#finalise lists after filtering out mols_made_of_ru
+#finalise lists after filtering out mols_made_of_ru <- SHOULD RENAME VARIABLE?!?!
 mols_with_ru = [j for i,j in enumerate(mols_with_ru) if (i not in empty_cores_idx)]
 labels_mols_with_ru = [j for i,j in enumerate(labels_mols_with_ru) if (i not in empty_cores_idx)]
 #filter out row with empty core after first chopping from all cols and output
@@ -83,6 +83,7 @@ print("Done patt1cores1patt2cores2")
 
 
 #build df to summarise SS match and chopping steps
+##### CONSIDER DICTIONARY?
 imp_df_nonempty= pd.DataFrame({#"Smiles":smiles,
                    #"Mols":mols,
                     "Mols": mols_with_ru,

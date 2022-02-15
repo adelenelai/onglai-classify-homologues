@@ -4,7 +4,7 @@ import rdkit.Chem.rdmolops
 import numpy as np
 from rdkit.Chem.Draw import rdMolDraw2D
 from io import BytesIO
-from itertools import compress
+from itertools import compress, repeat
 import datamol as dm
 try:
     import Image
@@ -31,6 +31,8 @@ def setup_repeating_unit(smarts, min, max):
     smiles_ru = [x[:-1] for x in smiles_ru] #remove last hyphen in each string
     ru = [Chem.MolFromSmarts(smi) for smi in smiles_ru]
     return(ru)
+    #return(smiles_ru)
+
 
 def detect_repeating_units(mols, labels, ru):
     '''Function to detect whether molecules contain repeating units.'''
@@ -53,35 +55,74 @@ def detect_repeating_units(mols, labels, ru):
     labels_mols_with_ru = list(compress(labels, fil_ru))
     return mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru
 
-def detect_homologue_cores(mols_with_ru, ru):
-    '''Function that performs RU matching-and-removal twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
-    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
-    patt1, cores1 = delete_longest_RU_match(mols_with_ru, mat2, ru) #first removal
-    empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
-    mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
-    patt2, cores2 = delete_longest_RU_match(cores1, mat3, ru) #second removal
-    return patt1, cores1, patt2, cores2, empty_cores_idx
+# def detect_homologue_cores(mols_with_ru, ru):
+#     '''Function that performs RU matching-and-removal twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
+#     mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
+#     patt1, cores1 = delete_longest_RU_match(mols_with_ru, mat2, ru) #first removal
+#     empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
+#     mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
+#     patt2, cores2 = delete_longest_RU_match(cores1, mat3, ru) #second removal
+#     return patt1, cores1, patt2, cores2, empty_cores_idx
 
 
-def replaceRU_detect_homologue_cores(mols_with_ru, ru):
-    '''Function that performs RU matching-and-replacement twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
-    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
-    patt1, cores1 = replace_longest_RU_match(mols_with_ru, mat2, ru) #first removal
-    empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
-    mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
-    patt2, cores2 = replace_longest_RU_match(cores1, mat3, ru) #second removal
-    return patt1, cores1, patt2, cores2, empty_cores_idx
+# def replaceRU_detect_homologue_cores(mols_with_ru, ru):
+#     '''Function that performs fragmentation (RU matching and replacement with a dummy atom) n times (n = frag_steps) to isolate core fragments in molecule object. Idxs of empty cores generated at the end.'''
+#     mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
+#     patt1, cores1 = replace_longest_RU_match(mols_with_ru, mat2, ru) #first removal
+#     empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
+#     mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
+#     patt2, cores2 = replace_longest_RU_match(cores1, mat3, ru) #second removal
+#     return patt1, cores1, patt2, cores2, empty_cores_idx
+
+def hasSubstructMatchAccountForRings(mol, q):
+    """Function to exclude substructure matches if they are part of rings. Credit Paolo Tosco."""
+    matches = mol.GetSubstructMatches(q)
+    hasMatch = False
+    for match in matches:
+        hasMatch = True
+        for i, j in enumerate(match):
+            if (q.GetAtomWithIdx(i).IsInRing() ^ mol.GetAtomWithIdx(j).IsInRing()):
+                hasMatch = False
+                break
+        if (hasMatch):
+            break
+    return hasMatch
+#from https://gist.github.com/ptosco/26af473fc1f3129878ca86cb070afe3a
+
+
+def SubstructMatchMatrix_ru_mols(mols, ru, accountForRings=True):
+    '''Function to generate matrix of 1s and 0s for RU substructure matching in molecules.'''
+    mat = np.zeros((len(mols), len(ru)))
+    for a,b in enumerate(mols):
+        for i,j in enumerate(ru):
+            if accountForRings:
+                mat[a,i] = hasSubstructMatchAccountForRings(b,j)
+            else:
+                mat[a,i] = mols[a].HasSubstructMatch(j)
+    return mat
 
 def replacecore_detect_homologue_cores(mols_with_ru, ru):
-    '''Function that performs RU matching-and-replacement twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
-    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
-    patt1, cores1 = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #first removal
-    empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
-    mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
-    patt2, cores2 = replacecore_longest_RU_match(cores1, mat3, ru) #second removal
-    patt2 = [dm.remove_dummies(m,dummy='*') for m in patt2] #remove dummies
-    cores2 = [dm.remove_dummies(n,dummy='*') for n in cores2] #remove dummies
-    return patt1, cores1, patt2, cores2, empty_cores_idx
+    '''Function that performs fragmentation (RU matching and replacement with a dummy atom) to isolate core fragments in molecule object.'''
+    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix
+    patts, cores = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #
+    patts = [dm.remove_dummies(m,dummy='*') for m in patts] #remove dummies
+    cores = [dm.remove_dummies(n,dummy='*') for n in cores] #remove dummies
+    return patts, cores
+
+def fragment_into_cores(mols_with_ru, ru, frag_steps):
+    '''Function that repeats replacecore_detect_homologue_cores n times, taking output of last as input of next fragmentation step. List of empty_cores_idx generated at the end of all steps.'''
+    lists_patts = []
+    lists_cores = []
+    for i in range(frag_steps):
+        if i == 0:
+            m = mols_with_ru
+        else:
+            m = lists_cores[i-1]
+        patts, cores = replacecore_detect_homologue_cores(m, ru)
+        lists_patts.append(patts)
+        lists_cores.append(cores)
+    empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
+    return lists_patts, lists_cores, empty_cores_idx
 
 def my_ReplaceCore(mol,sidechain):
     '''Function that returns the original input mol if there is no matching sidechain present.'''
@@ -93,14 +134,14 @@ def my_ReplaceCore(mol,sidechain):
 def replacecore_longest_RU_match(mols, mat, ru):
     '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
     cores = list()
-    patt = list()
+    patts = list()
     for x,y in enumerate(mols):
-        patt.append(ru[int(np.sum(mat[x])-1)])
+        patts.append(ru[int(np.sum(mat[x])-1)])
         cores.append(my_ReplaceCore(y, patt[x]))
-    return patt, cores
+    return patts, cores
 
 def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
-    '''Function to detect and depict molecules made solely of RUs such as PEGs. Depictions written as png outputs.'''
+    '''Function to detect, depict, then discard molecules made solely of RUs such as PEGs. Depictions written as png outputs.'''
     mols_made_of_ru = [j for i,j in enumerate(mols_with_ru) if (i in empty_cores_idx)] #isolate Mol and Label with empty core after first chopping i.e. entire mol is made of ru
     labels_made_of_ru = [j for i, j in enumerate(labels_mols_with_ru) if (i in empty_cores_idx)]
     if len(mols_made_of_ru) > 0:
@@ -108,7 +149,6 @@ def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
         pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
         print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length x.")
     return mols_made_of_ru, labels_made_of_ru
-
 
 def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
     """Function to draw rows of zoomed molecules. Credit Rocco Moretti."""
@@ -131,37 +171,6 @@ def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
     return full_image
 
 #from https://sourceforge.net/p/rdkit/mailman/rdkit-discuss/thread/CAHGTkV8sdfb4Q7FLn9C5MTwrqiJjHtnXK%2Bmz2SY3_4j2eAtevQ%40mail.gmail.com/#msg36477772
-
-
-
-def hasSubstructMatchAccountForRings(mol, q):
-    """Function to exclude substructure matches if they are part of rings. Credit Paolo Tosco."""
-    matches = mol.GetSubstructMatches(q)
-    hasMatch = False
-    for match in matches:
-        hasMatch = True
-        for i, j in enumerate(match):
-            if (q.GetAtomWithIdx(i).IsInRing() ^ mol.GetAtomWithIdx(j).IsInRing()):
-                hasMatch = False
-                break
-        if (hasMatch):
-            break
-    return hasMatch
-
-#from https://gist.github.com/ptosco/26af473fc1f3129878ca86cb070afe3a
-
-
-def SubstructMatchMatrix_ru_mols(mols, ru, accountForRings=True):
-    '''Function to generate matrix of 1s and 0s for RU substructure matching in molecules.'''
-    mat = np.zeros((len(mols), len(ru)))
-    for a,b in enumerate(mols):
-        for i,j in enumerate(ru):
-            if accountForRings:
-                mat[a,i] = hasSubstructMatchAccountForRings(b,j)
-            else:
-                mat[a,i] = mols[a].HasSubstructMatch(j)
-    return mat
-
 
 def delete_longest_RU_match(mols, mat, ru):
     '''Function to delete the longest RU substructure match from each molecule. Returns remaining cores and the RU deleted.'''
