@@ -28,15 +28,15 @@ python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-m
 | --- | ----------- |
 | -s --smiles <arg> | path to CSV list of SMILES |
 | -l --labels <arg> | path to CSV list of Labels (molecule names) |
-| -ru --repeatingunits <arg> | chemical RU as SMARTS + a hyphen, enclosed within speech marks |
-| -min --min_in <arg> | minimum length of RU chain |
-| -max --max_in <arg> | maximum length of RU chain |
-| -f --frag_steps <arg> | no. times to fragment molecules to obtain cores |
+| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
+| -min --min_in <arg> | minimum length of RU chain, default is 3|
+| -max --max_in <arg> | maximum length of RU chain, default is 30 |
+| -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
 
 
 Try:
 ```
-python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]-' -min 3 -max 5 -f 3 2>log
+python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
 ```
 
 Successful classification will generate an output directory containing .png plots of molecules (e.g., 1  plot per 1 classified series), a CSV file containing machine-readable information on the classified series, and a TXT file containing a classification summary.
