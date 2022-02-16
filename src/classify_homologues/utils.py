@@ -45,12 +45,14 @@ def detect_repeating_units(mols, labels, ru):
         length_ru_chains_to_chop.append(mat_array_sums[x] + 2)  # n = sum + 2, where n is the length of C chain to chop
     n_mols_no_ru = mat_array_sums.count(0)
     if n_mols_no_ru>0:
-        print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum length specified (default = 3).")
+        print(str(n_mols_no_ru) + " mols have repeating unit chains but are below minimum length specified (default = 3).")
     #remove mols with no RU matches
-    fil_ru = []
     fil_ru = [bool(x) for x in mat_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
     mols_no_ru_matches = list(compress(mols, [not i for i in fil_ru]))
     labels_mols_no_ru_matches = list(compress(labels, [not i for i in fil_ru]))
+    if len(mols_no_ru_matches) > 0:
+        nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
+        nans.save("output_rmdum_tmf/no_repeating_unit_matches.png")
     mols_with_ru = list(compress(mols, fil_ru))
     labels_mols_with_ru = list(compress(labels, fil_ru))
     return mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru
@@ -121,9 +123,8 @@ def fragment_into_cores(mols_with_ru, ru, frag_steps):
         patts, cores = replacecore_detect_homologue_cores(m, ru)
         lists_patts.append(patts)
         lists_cores.append(cores)
-    empty_cores_idx = []
-    #if there are any empty cores, get their index. Else, empty_cores_idx is itself empty list.
-    #empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
+    #if there are any empty cores after all frag steps, get their index. Else, empty_cores_idx is itself empty list.
+    empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
     return lists_patts, lists_cores, empty_cores_idx
 
 def my_ReplaceCore(mol,sidechain):
@@ -147,11 +148,18 @@ def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
     '''Function to detect, depict, then discard molecules made solely of RUs such as PEGs. Depictions written as png outputs.'''
     mols_made_of_ru = [j for i,j in enumerate(mols_with_ru) if (i in empty_cores_idx)] #isolate Mol and Label with empty core after first chopping i.e. entire mol is made of ru
     labels_made_of_ru = [j for i, j in enumerate(labels_mols_with_ru) if (i in empty_cores_idx)]
+    mols_to_classify = [j for i,j in enumerate(mols_with_ru) if (i not in empty_cores_idx)]
+    labels_to_classify = [j for i,j in enumerate(labels_mols_with_ru) if (i not in empty_cores_idx)]
     if len(mols_made_of_ru) > 0:
         pure_repeating_units = DrawMolsZoomed(mols_made_of_ru, labels_made_of_ru)
         pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
-        print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length x.")
-    return mols_made_of_ru, labels_made_of_ru
+        print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length specified (default=3).")
+    return mols_made_of_ru, labels_made_of_ru, mols_to_classify, labels_to_classify #includes non-series containing RU
+
+def process_patts_cores(lists_patts, lists_cores, empty_cores_idx): #prepare dataframe???
+    '''Filter out empty cores from patterns and cores lists in preparation for df assembly.'''
+    
+def generate_df_series(lists_patts, lists_cores etc.):
 
 def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
     """Function to draw rows of zoomed molecules. Credit Rocco Moretti."""

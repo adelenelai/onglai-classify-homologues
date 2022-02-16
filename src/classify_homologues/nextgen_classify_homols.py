@@ -20,7 +20,7 @@ print("Homologue classification started...")
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--smiles", help="List of SMILES as input.")
 parser.add_argument("-l", "--labels", help="List of labels as input.")
-parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Plese add a hyphen before the closing speech mark, e.g. the default CH2 is '[#6&H2]-'.")
+parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Default is CH2 i.e., '[#6&H2]'.")
 parser.add_argument("-min", "--min_in", help="Minimum length of RU chain, default = 3 units.", type=int)
 parser.add_argument("-max", "--max_in", help="Maximum length of RU chain, default = 30 units.", type=int)
 parser.add_argument("-f", "--frag_in", help="No. of fragmentation steps separating RU from core(s).", type=int)
@@ -58,6 +58,9 @@ ru = setup_repeating_unit(ru_in, min_length, max_length)
 #tested '[#8]-[#6&H2]-[#6&H2]-', '[#6](-[#9])(-[#9])-'
 print("ru setup OK")
 
+Path("output_rmdum_tmf").mkdir(parents=True, exist_ok=True)
+print("output folder setup OK")
+
 #detect RUs in mols
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
@@ -68,17 +71,12 @@ lists_patts, lists_cores, empty_cores_idx = fragment_into_cores(mols_with_ru, ru
 print("Done replacecore_detect_homologue_cores.")
 
 #detect and output molecules made solely of RUs
-Path("output_rmdum_tmf").mkdir(parents=True, exist_ok=True)
-mols_made_of_ru, labels_made_of_ru = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
+mols_made_of_ru, labels_made_of_ru, mols_to_classify, labels_to_classify = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
 print("Done detect_mols_made_of_ru")
 
-#generate canonical SMILES of largest molecule fragment in cores
-#cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag = largest_core_molfrag_to_cano_smiles(cores2)
-
-##construct dataframe for inspection
+##prepare df containing only mols that HAVE RUs min 3 length -AND- that have non-empty cores
 #finalise lists after filtering out mols_made_of_ru <- SHOULD RENAME VARIABLE?!?!
-mols_with_ru = [j for i,j in enumerate(mols_with_ru) if (i not in empty_cores_idx)]
-labels_mols_with_ru = [j for i,j in enumerate(labels_mols_with_ru) if (i not in empty_cores_idx)]
+
 #filter out row with empty core after first chopping from all cols and output
 patt1 = [q for p,q in enumerate(lists_patts[0]) if (p not in empty_cores_idx)]
 cores1 = [q for p,q in enumerate(lists_cores[0]) if (p not in empty_cores_idx)]
@@ -94,8 +92,8 @@ print("Done patt1cores1patt2cores2")
 ##### CONSIDER DICTIONARY?
 imp_df_nonempty= pd.DataFrame({#"Smiles":smiles,
                    #"Mols":mols,
-                    "Mols": mols_with_ru,
-                    "Labels": labels_mols_with_ru,
+                    "Mols": mols_to_classify,
+                    "Labels": labels_to_classify,
                     #"patt1": [j for i,j in enumerate(patt1) if cores2[i].GetNumAtoms()>0],
                     #"Cores": [j for i,j in enumerate(cores1) if cores2[i].GetNumAtoms()>0],
                     #"Cores2": cores2_nonempty,
@@ -113,8 +111,10 @@ imp_df_nonempty["canoSMILES_molfrags"] = cores2_nonempty_smiles
 
 print("uptohere done")
 
+
+
+######essentially here onwards, we start doing the clasification by assigning seriesno
 #assign SeriesNo to only those series with >1 member
-#imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_LargestMolfrag_sanitised').filter(lambda group: len(group) > 1).groupby('canoSMILES_LargestMolfrag_sanitised').ngroup()
 imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_molfrags').filter(lambda group: len(group) > 1).groupby('canoSMILES_molfrags').ngroup()
 
 
@@ -182,19 +182,10 @@ for i,j in enumerate(grpdmols):
 [img.save("output_rmdum_tmf/" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
 
 
-#plot nans i.e. those with no alkyls and therefore not classified
-#print(str(len(mols_no_alkyl_matches)) + ", " + str(len(labels_mols_no_alkyl_matches)))
-if len(mols_no_ru_matches) > 0:
-    nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
-    nans.save("output_rmdum_tmf/no_repeating_unit_matches.png")
-#print(len(mols_no_alkyl_matches))
-#nans = DrawMolsZoomed(mols=mols_no_alkyl_matches, legends=labels_mols_no_alkyl_matches, molsPerRow=5)
-#nans.save("output/" + "no_alkyl_matches.png")
 
 
 #plot mols with alkyls but are 1-member series (i.e. not actually series)
 #SeriesNo = -1, SMILES is not empty
-
 onememseries = result.loc[(result['SeriesNo'] == -1) & (result['canoSMILES_molfrags'].notnull())]
 if len(onememseries.Mols) >0:
     mols_onememseries = [i for i in onememseries.Mols]
@@ -214,6 +205,6 @@ mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
 
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru)
+generate_output_summary(args.smiles, mols_classified, num_series, args.repeatingunits, mols_no_ru_matches, onememseries, mols_made_of_ru)
 
 print("Classification summary generated.")
