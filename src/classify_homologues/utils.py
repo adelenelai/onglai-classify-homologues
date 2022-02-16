@@ -45,7 +45,7 @@ def detect_repeating_units(mols, labels, ru):
         length_ru_chains_to_chop.append(mat_array_sums[x] + 2)  # n = sum + 2, where n is the length of C chain to chop
     n_mols_no_ru = mat_array_sums.count(0)
     if n_mols_no_ru>0:
-        print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum 3 repeating units in length.")
+        print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum length specified (default = 3).")
     #remove mols with no RU matches
     fil_ru = []
     fil_ru = [bool(x) for x in mat_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
@@ -117,19 +117,22 @@ def fragment_into_cores(mols_with_ru, ru, frag_steps):
         if i == 0:
             m = mols_with_ru
         else:
-            m = lists_cores[i-1]
+            m = lists_cores[i-1] #take output of previous iteration as input
         patts, cores = replacecore_detect_homologue_cores(m, ru)
         lists_patts.append(patts)
         lists_cores.append(cores)
-    empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
+    empty_cores_idx = []
+    #if there are any empty cores, get their index. Else, empty_cores_idx is itself empty list.
+    #empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
     return lists_patts, lists_cores, empty_cores_idx
 
 def my_ReplaceCore(mol,sidechain):
     '''Function that returns the original input mol if there is no matching sidechain present.'''
     rc = Chem.ReplaceCore(mol,sidechain)
-    if rc is None:
+    if rc is None: #mol does not contain sidechain whatsoever
         return mol
-    return rc
+    else:
+        return rc
 
 def replacecore_longest_RU_match(mols, mat, ru):
     '''Function to replace the longest RU substructure match from each molecule with dummy atoms using RDKit's Chemical Transformations functionality. Returns remaining cores and the RU replaced by a dummy atom.'''
@@ -137,7 +140,7 @@ def replacecore_longest_RU_match(mols, mat, ru):
     patts = list()
     for x,y in enumerate(mols):
         patts.append(ru[int(np.sum(mat[x])-1)])
-        cores.append(my_ReplaceCore(y, patt[x]))
+        cores.append(my_ReplaceCore(y, patts[x]))
     return patts, cores
 
 def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):

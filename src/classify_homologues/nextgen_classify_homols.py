@@ -23,8 +23,10 @@ parser.add_argument("-l", "--labels", help="List of labels as input.")
 parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Plese add a hyphen before the closing speech mark, e.g. the default CH2 is '[#6&H2]-'.")
 parser.add_argument("-min", "--min_in", help="Minimum length of RU chain, default = 3 units.", type=int)
 parser.add_argument("-max", "--max_in", help="Maximum length of RU chain, default = 30 units.", type=int)
-parser.add_argument("-f", "--frag_steps", help="No. of fragmentation steps separating RU from core(s).", type=int)
+parser.add_argument("-f", "--frag_in", help="No. of fragmentation steps separating RU from core(s).", type=int)
 args = parser.parse_args()
+
+print('all args parsed OK')
 
 #read in smiles and labels
 smiles, mols = read_smiles_csv(args.smiles)
@@ -33,7 +35,7 @@ df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
 
 #prepare repeating units
 if args.repeatingunits:
-    ru_in = args.repeatingunits
+    ru_in = args.repeatingunits + '-'
 else:
     ru_in = '[#6&H2]-' #set CH2 as default RU
 
@@ -47,17 +49,24 @@ if args.max_in:
 else:
     max_length = 30
 
+if args.frag_in:
+    frag_steps = args.frag_in
+else:
+    frag_steps = 2 #set fragmentation_steps default as 2
+
 ru = setup_repeating_unit(ru_in, min_length, max_length)
 #tested '[#8]-[#6&H2]-[#6&H2]-', '[#6](-[#9])(-[#9])-'
+print("ru setup OK")
 
 #detect RUs in mols
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
-#fragmentation into patt and cores, done n times (n = frag_steps)
+print('detect_repeating_units OK')
+#fragmentation into patts and cores, done n times (n = frag_steps)
 lists_patts, lists_cores, empty_cores_idx = fragment_into_cores(mols_with_ru, ru, frag_steps)
-#patt, cores, empty_cores_idx = replacecore_detect_homologue_cores(mols_with_ru, ru)
 
 print("Done replacecore_detect_homologue_cores.")
+
 #detect and output molecules made solely of RUs
 Path("output_rmdum_tmf").mkdir(parents=True, exist_ok=True)
 mols_made_of_ru, labels_made_of_ru = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
@@ -66,16 +75,15 @@ print("Done detect_mols_made_of_ru")
 #generate canonical SMILES of largest molecule fragment in cores
 #cores2_nonempty, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag = largest_core_molfrag_to_cano_smiles(cores2)
 
-
 ##construct dataframe for inspection
 #finalise lists after filtering out mols_made_of_ru <- SHOULD RENAME VARIABLE?!?!
 mols_with_ru = [j for i,j in enumerate(mols_with_ru) if (i not in empty_cores_idx)]
 labels_mols_with_ru = [j for i,j in enumerate(labels_mols_with_ru) if (i not in empty_cores_idx)]
 #filter out row with empty core after first chopping from all cols and output
-patt1 = [q for p,q in enumerate(patt1) if (p not in empty_cores_idx)]
-cores1 = [q for p,q in enumerate(cores1) if (p not in empty_cores_idx)]
-patt2 = [q for p,q in enumerate(patt2) if (p not in empty_cores_idx)]
-cores2_nonempty = [q for p,q in enumerate(cores2) if (p not in empty_cores_idx)] #same as cores2_nonempty???
+patt1 = [q for p,q in enumerate(lists_patts[0]) if (p not in empty_cores_idx)]
+cores1 = [q for p,q in enumerate(lists_cores[0]) if (p not in empty_cores_idx)]
+patt2 = [q for p,q in enumerate(lists_patts[1]) if (p not in empty_cores_idx)]
+cores2_nonempty = [q for p,q in enumerate(lists_cores[1]) if (p not in empty_cores_idx)] #same as cores2_nonempty???
 
 cores2 = cores2_nonempty #necessary ever since changing from largest mol frag to all mol frags
 
@@ -164,9 +172,6 @@ out['monoisotopic_mass'] = monoiso_mass
 out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_molfrags": "common_core"},inplace=True)
 out.to_csv('output_rmdum_tmf/' + 'classified_series.csv',index=False)
 
-
-
-
 grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
 
 list_grid_images = []
@@ -185,9 +190,6 @@ if len(mols_no_ru_matches) > 0:
 #print(len(mols_no_alkyl_matches))
 #nans = DrawMolsZoomed(mols=mols_no_alkyl_matches, legends=labels_mols_no_alkyl_matches, molsPerRow=5)
 #nans.save("output/" + "no_alkyl_matches.png")
-
-
-
 
 
 #plot mols with alkyls but are 1-member series (i.e. not actually series)
