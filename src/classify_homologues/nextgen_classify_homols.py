@@ -1,3 +1,5 @@
+print('hello world')
+
 import os
 import argparse
 #import sys
@@ -68,139 +70,33 @@ print('detect_repeating_units OK')
 #fragmentation into patts and cores, done n times (n = frag_steps)
 lists_patts, lists_cores, empty_cores_idx = fragment_into_cores(mols_with_ru, ru, frag_steps)
 
-print("Done replacecore_detect_homologue_cores.")
+print("Done fragment_into_cores.")
 
 #detect and output molecules made solely of RUs
 mols_made_of_ru, labels_made_of_ru, mols_to_classify, labels_to_classify = detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx)
 print("Done detect_mols_made_of_ru")
 
-##prepare df containing only mols that HAVE RUs min 3 length -AND- that have non-empty cores
-#finalise lists after filtering out mols_made_of_ru <- SHOULD RENAME VARIABLE?!?!
 
-#filter out row with empty core after first chopping from all cols and output
-patt1 = [q for p,q in enumerate(lists_patts[0]) if (p not in empty_cores_idx)]
-cores1 = [q for p,q in enumerate(lists_cores[0]) if (p not in empty_cores_idx)]
-patt2 = [q for p,q in enumerate(lists_patts[1]) if (p not in empty_cores_idx)]
-cores2_nonempty = [q for p,q in enumerate(lists_cores[1]) if (p not in empty_cores_idx)] #same as cores2_nonempty???
+lists_patts, lists_cores = process_patts_cores(lists_patts, lists_cores, empty_cores_idx)
+print("Done filtering out empty patts and cores")
 
-cores2 = cores2_nonempty #necessary ever since changing from largest mol frag to all mol frags
-
-print("Done patt1cores1patt2cores2")
+classified_series, result_df = generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df)
+print("Done generate_df")
 
 
-#build df to summarise SS match and chopping steps
-##### CONSIDER DICTIONARY?
-imp_df_nonempty= pd.DataFrame({#"Smiles":smiles,
-                   #"Mols":mols,
-                    "Mols": mols_to_classify,
-                    "Labels": labels_to_classify,
-                    #"patt1": [j for i,j in enumerate(patt1) if cores2[i].GetNumAtoms()>0],
-                    #"Cores": [j for i,j in enumerate(cores1) if cores2[i].GetNumAtoms()>0],
-                    #"Cores2": cores2_nonempty,
-                    #"LargestMolFrag_sanitised": cores2_nonempty_largest_molfrag
+mols_onememseries, labs_onememseries, onememseries = detect_mols_one_member_series(result_df)
+print("Done detect_mols_one_member_series")
 
-                    })#"cano_smiles_cores2": cores2_cano_smiles
-print("done making pd dataframe")
+grpdmols = detect_cores_classified_series(classified_series)
 
-#populate new column in df with corresponding  cores2_nonempty_largestmolfrag_canosmiles for each row
-#imp_df_nonempty["canoSMILES_LargestMolfrag_sanitised"] = cores2_nonempty_largest_molfrag_cano_smiles
+depict_cores_summary(grpdmols)
+print("Done depict_cores_summary")
 
-cores2_nonempty_smiles = [Chem.MolToSmiles(co, canonical=True) for co in cores2_nonempty] #get SMILES of all fragments in mol object
-print("cores2_nonempty_smiles done")
-imp_df_nonempty["canoSMILES_molfrags"] = cores2_nonempty_smiles
+generate_classified_series_summary(result_df)
 
-print("uptohere done")
+depict_classified_series(grpdmols, classified_series)
 
-
-
-######essentially here onwards, we start doing the clasification by assigning seriesno
-#assign SeriesNo to only those series with >1 member
-imp_df_nonempty['SeriesNo'] = imp_df_nonempty.groupby('canoSMILES_molfrags').filter(lambda group: len(group) > 1).groupby('canoSMILES_molfrags').ngroup()
-
-
-#merge imp_df_nonempty with df on mol
-result = pd.merge(df, imp_df_nonempty, how="left", on=["Mols","Labels"])
-
-#annotate no_alkyl mols AND series with 1 member to have negative SeriesNo
-result['SeriesNo'] = result['SeriesNo'].fillna(-1)
-result.SeriesNo = result.SeriesNo.astype(int)
-
-#plots per group - only series which have >1 member i.e. actual series
-result_pos_serno = result[result["SeriesNo"] > -1]
-
-
-#legends
-lgs = [i for i in result_pos_serno.groupby('canoSMILES_molfrags').Labels.apply(list)]
-for i,j in enumerate(lgs):
-    lgs[i] = lgs[i] + ["core"]
-
-grpdmols = result_pos_serno.groupby('canoSMILES_molfrags').SMILES.apply(list) #lists of SMILES of molecules in each series
-for i,j in enumerate(grpdmols):
-    grpdmols[i] = grpdmols[i] + [grpdmols.keys()[i]]
-
-if len(grpdmols.keys()) >0:
-    final_cores = [Chem.MolFromSmiles(i) for i in grpdmols.keys()]
-
-#sort final_cores in decreasing order of number of fragments
-#if (final_cores):
-#    final_cores.sort(reverse = True, key = lambda m: GetNumFrags(m))
-
-
-###################
-####Outputs#####
-###################
-#calc further identifiers and descr; write into log file
-#with open('log.txt', 'w') as f:
- #   with redirect_stderr(f):
-
-#depict final sanitised cores
-if len(grpdmols.keys()) >0:
-    leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
-    cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
-    cores_summary.save("output_rmdum_tmf/cores_summary.png")
-
-
-inchis = [Chem.inchi.MolToInchi(i) for i in result.Mols]
-inchikeys = [Chem.inchi.MolToInchiKey(i) for i in result.Mols]
-mf = [Chem.rdMolDescriptors.CalcMolFormula(i) for i in result.Mols]
-monoiso_mass = [round(Chem.Descriptors.ExactMolWt(i),4) for i in result.Mols]
-out = result[["SeriesNo","Labels","canoSMILES_molfrags","SMILES", ]].copy()
-out['InChI'] = inchis
-out['InChIKey'] = inchikeys
-out['molecular_formula'] = mf
-out['monoisotopic_mass'] = monoiso_mass
-out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_molfrags": "common_core"},inplace=True)
-out.to_csv('output_rmdum_tmf/' + 'classified_series.csv',index=False)
-
-grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
-
-list_grid_images = []
-for i,j in enumerate(grpdmols):
-    list_grid_images.append(DrawMolsZoomed(grpdmols[i], legends=lgs[i], molsPerRow=5))
-
-#save each plot per group
-[img.save("output_rmdum_tmf/" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
-
-
-
-
-#plot mols with alkyls but are 1-member series (i.e. not actually series)
-#SeriesNo = -1, SMILES is not empty
-onememseries = result.loc[(result['SeriesNo'] == -1) & (result['canoSMILES_molfrags'].notnull())]
-if len(onememseries.Mols) >0:
-    mols_onememseries = [i for i in onememseries.Mols]
-    labs_onememseries = [i for i in onememseries.Labels]
-    pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
-    pl_onememseries.save("output_rmdum_tmf/non_series_containing_repeating_unit.png")
-    print(str(len(onememseries.Mols))+ " molecule(s) have repeating unit matches of minimum x units but do not belong to any series.")
-
-
-num_series = result.SeriesNo.max() + 1 #because zero-indexed
-if num_series < 0:
-    num_series= 0
-
-
-mols_classified = len(result.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
+num_series, mols_classified = print_output_summary(result_df, onememseries, mols_no_ru_matches, mols_made_of_ru)
 
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
 

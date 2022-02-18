@@ -6,6 +6,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 from io import BytesIO
 from itertools import compress, repeat
 import datamol as dm
+import pandas as pd
 try:
     import Image
 except ImportError:
@@ -158,8 +159,81 @@ def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
 
 def process_patts_cores(lists_patts, lists_cores, empty_cores_idx): #prepare dataframe???
     '''Filter out empty cores from patterns and cores lists in preparation for df assembly.'''
-    
-def generate_df_series(lists_patts, lists_cores etc.):
+    for i,j in enumerate(lists_patts): #lists_patts should be same len as lists_cores
+        lists_patts[i] = [q for p,q in enumerate(lists_patts[i]) if (p not in empty_cores_idx)]
+    # for i,j in enumerate(lists_cores):
+        lists_cores[i] = [q for p,q in enumerate(lists_cores[i]) if (p not in empty_cores_idx)]
+    return lists_patts, lists_cores
+
+def generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df):
+    canosmiles_finalcores = [Chem.MolToSmiles(c, canonical=True) for c in lists_cores[-1]]
+    nonempty_df = pd.DataFrame({
+                        "Mols": mols_to_classify,
+                        "Labels": labels_to_classify,
+                        "CanoSmiles_FinalCores": canosmiles_finalcores
+                        })
+    nonempty_df['SeriesNo'] = nonempty_df.groupby('CanoSmiles_FinalCores').filter(lambda group: len(group) > 1).groupby('CanoSmiles_FinalCores').ngroup()
+    result_df = pd.merge(df, nonempty_df, how="left", on=["Mols", "Labels"]) #add back mols previously filtered out: mols_no_ru_matches & mols_made_of_ru
+    result_df['SeriesNo'] = result_df['SeriesNo'].fillna(-1) #encode -1 for mols_no_ru_matches & mols_made_of_ru
+    result_df.SeriesNo = result_df.SeriesNo.astype(int)
+    classified_series = result_df[result_df["SeriesNo"] > -1] #formerly result_pos_serno
+    return classified_series, result_df
+
+def detect_mols_one_member_series(result_df):
+    onememseries = result_df.loc[(result_df['SeriesNo'] == -1) & (result_df['CanoSmiles_FinalCores'].notnull())]
+    if len(onememseries.Mols) >0:
+         mols_onememseries = [i for i in onememseries.Mols]
+         labs_onememseries = [i for i in onememseries.Labels]
+         pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
+         pl_onememseries.save("output_rmdum_tmf/non_series_containing_repeating_unit.png")
+         print(str(len(onememseries.Mols))+ " molecule(s) contain RUs of minimum chain length specified but have unique cores (one-member series).")
+         return mols_onememseries, labs_onememseries, onememseries
+    else:
+        mols_onememseries = []
+        labs_onememseries = []
+        return mols_onememseries, labs_onememseries, onememseries
+
+
+def detect_cores_classified_series(classified_series):
+    grpdmols = classified_series.groupby('CanoSmiles_FinalCores').SMILES.apply(list) #lists of SMILES of molecules in each series
+    for i,j in enumerate(grpdmols):
+        grpdmols[i] = grpdmols[i] + [grpdmols.keys()[i]]
+    return grpdmols
+
+def depict_cores_summary(grpdmols):
+    '''Depict cores of classified series.'''
+    if len(grpdmols.keys()) >0:
+        final_cores = [Chem.MolFromSmiles(i) for i in grpdmols.keys()]
+    if len(grpdmols.keys()) >0:
+        leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
+        cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
+        cores_summary.save("output_rmdum_tmf/cores_summary.png")
+
+def generate_classified_series_summary(result_df):
+    '''Write classified series results as CSV.'''
+    inchis = [Chem.inchi.MolToInchi(i) for i in result_df.Mols]
+    inchikeys = [Chem.inchi.MolToInchiKey(i) for i in result_df.Mols]
+    mf = [Chem.rdMolDescriptors.CalcMolFormula(i) for i in result_df.Mols]
+    monoiso_mass = [round(Chem.Descriptors.ExactMolWt(i),4) for i in result_df.Mols]
+    out = result_df[["SeriesNo","Labels","CanoSmiles_FinalCores","SMILES", ]].copy()
+    out['InChI'] = inchis
+    out['InChIKey'] = inchikeys
+    out['molecular_formula'] = mf
+    out['monoisotopic_mass'] = monoiso_mass
+    out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_molfrags": "core_fragments"},inplace=True)
+    out.to_csv('output_rmdum_tmf/' + 'classified_series.csv',index=False)
+
+def depict_classified_series(grpdmols, classified_series):
+    grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
+    lgs = [i for i in classified_series.groupby('CanoSmiles_FinalCores').Labels.apply(list)]
+    for i,j in enumerate(lgs):
+        lgs[i] = lgs[i] + ["core"]
+    list_grid_images = []
+    for i,j in enumerate(grpdmols):
+        list_grid_images.append(DrawMolsZoomed(grpdmols[i], legends=lgs[i], molsPerRow=5))
+    #save each plot per group
+    [img.save("output_rmdum_tmf/" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
+
 
 def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
     """Function to draw rows of zoomed molecules. Credit Rocco Moretti."""
@@ -218,6 +292,13 @@ def largest_core_molfrag_to_cano_smiles(cores2):
 
 def GetNumFrags(mol):
     return(len(Chem.GetMolFrags(mol,asMols=True)))
+
+def print_output_summary(result_df, onememseries, mols_no_ru_matches, mols_made_of_ru):
+    num_series = result_df.SeriesNo.max() + 1 #because zero-indexed
+    if num_series < 0:
+        num_series= 0
+    mols_classified = len(result_df.Mols)-len(onememseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
+    return num_series, mols_classified
 
 def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru):
     mols_no_ru_matches = len(mols_no_ru_matches)
