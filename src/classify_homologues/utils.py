@@ -185,7 +185,7 @@ def detect_mols_one_member_series(result_df):
          mols_onememseries = [i for i in onememseries.Mols]
          labs_onememseries = [i for i in onememseries.Labels]
          pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
-         pl_onememseries.save("output_rmdum_tmf/non_series_containing_repeating_unit.png")
+         pl_onememseries.save("output_rmdum_tmf/onememseries_containing_repeating_unit.png")
          print(str(len(onememseries.Mols))+ " molecule(s) contain RUs of minimum chain length specified but have unique cores (one-member series).")
          return mols_onememseries, labs_onememseries, onememseries
     else:
@@ -301,6 +301,7 @@ def print_output_summary(result_df, onememseries, mols_no_ru_matches, mols_made_
     return num_series, mols_classified
 
 def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru):
+    ru_in = ru_in[:-1]
     mols_no_ru_matches = len(mols_no_ru_matches)
     onememseries = len(onememseries)
     mols_made_of_ru = len(mols_made_of_ru)

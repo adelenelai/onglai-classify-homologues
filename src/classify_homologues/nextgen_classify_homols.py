@@ -1,3 +1,4 @@
+#check if smiles and labels given? if not, error message.
 print('hello world')
 
 import os
@@ -101,6 +102,6 @@ num_series, mols_classified = print_output_summary(result_df, onememseries, mols
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
 
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, args.repeatingunits, mols_no_ru_matches, onememseries, mols_made_of_ru)
+generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru)
 
 print("Classification summary generated.")
