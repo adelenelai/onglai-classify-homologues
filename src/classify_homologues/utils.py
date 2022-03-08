@@ -46,14 +46,14 @@ def detect_repeating_units(mols, labels, ru):
         length_ru_chains_to_chop.append(mat_array_sums[x] + 2)  # n = sum + 2, where n is the length of C chain to chop
     n_mols_no_ru = mat_array_sums.count(0)
     if n_mols_no_ru>0:
-        print(str(n_mols_no_ru) + " mols have repeating unit chains but are below minimum length specified (default = 3).")
+        print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum length specified.")
     #remove mols with no RU matches
     fil_ru = [bool(x) for x in mat_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
     mols_no_ru_matches = list(compress(mols, [not i for i in fil_ru]))
     labels_mols_no_ru_matches = list(compress(labels, [not i for i in fil_ru]))
     if len(mols_no_ru_matches) > 0:
         nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
-        nans.save("output_rmdum_tmf/no_repeating_unit_matches.png")
+        nans.save("output_rmdum_tmf/no_min_ru_matches.png")
     mols_with_ru = list(compress(mols, fil_ru))
     labels_mols_with_ru = list(compress(labels, fil_ru))
     return mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru
@@ -105,14 +105,20 @@ def SubstructMatchMatrix_ru_mols(mols, ru, accountForRings=True):
     return mat
 
 def replacecore_detect_homologue_cores(mols_with_ru, ru):
-    '''Function that performs fragmentation (RU matching and replacement with a dummy atom) to isolate core fragments in molecule object.'''
+    '''Function that performs fragmentation (RU matching and replacement with a dummy atom) to isolate core fragments in molecule object. Dummies are removed.'''
     mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix
     patts, cores = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #
     patts = [dm.remove_dummies(m,dummy='*') for m in patts] #remove dummies
     cores = [dm.remove_dummies(n,dummy='*') for n in cores] #remove dummies
     return patts, cores
 
-def fragment_into_cores(mols_with_ru, ru, frag_steps):
+def replacecore_keepdummies_detect_homologue_cores(mols_with_ru, ru):
+    '''Function that performs fragmentation (RU matching and replacement with a dummy atom) to isolate core fragments in molecule object. Dummies NOT removed.'''
+    mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix
+    patts, cores = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #
+    return patts, cores
+
+def fragment_into_cores(mols_with_ru, ru, frag_steps, cores_d):
     '''Function that repeats replacecore_detect_homologue_cores n times, taking output of last as input of next fragmentation step. List of empty_cores_idx generated at the end of all steps.'''
     lists_patts = []
     lists_cores = []
@@ -120,13 +126,34 @@ def fragment_into_cores(mols_with_ru, ru, frag_steps):
         if i == 0:
             m = mols_with_ru
         else:
-            m = lists_cores[i-1] #take output of previous iteration as input
+            m = lists_cores[-1] #take output of previous iteration as input
         patts, cores = replacecore_detect_homologue_cores(m, ru)
         lists_patts.append(patts)
         lists_cores.append(cores)
     #if there are any empty cores after all frag steps, get their index. Else, empty_cores_idx is itself empty list.
     empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
     return lists_patts, lists_cores, empty_cores_idx
+
+# Attempt at extracting cores with dummies for depiction  in final outputs
+#def fragment_into_cores(mols_with_ru, ru, frag_steps, cores_d):
+#     '''Function that repeats replacecore_detect_homologue_cores n times, taking output of last as input of next fragmentation step. List of empty_cores_idx generated at the end of all steps.'''
+#     lists_patts = []
+#     lists_cores = []
+#     for i in range(frag_steps):
+#         if i == 0:
+#             m = mols_with_ru
+#             patts, cores = replacecore_detect_homologue_cores(m,ru)
+#         elif i != frag_steps-1:
+#             m = lists_cores[i-1] #take output of previous iteration as input
+#             patts, cores = replacecore_detect_homologue_cores(m, ru)
+#         elif i == frag_steps-1: #the last frag step
+#             patts_d, cores_d = replacecore_keepdummies_detect_homologue_cores(m,ru)
+#
+#         lists_patts.append(patts)
+#         lists_cores.append(cores)
+#     #if there are any empty cores after all frag steps, get their index. Else, empty_cores_idx is itself empty list.
+#     empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
+#     return lists_patts, lists_cores, empty_cores_idx, cores_d
 
 def my_ReplaceCore(mol,sidechain):
     '''Function that returns the original input mol if there is no matching sidechain present.'''
