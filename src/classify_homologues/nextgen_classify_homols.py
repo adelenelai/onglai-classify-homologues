@@ -81,16 +81,16 @@ print("Done detect_mols_made_of_ru")
 lists_patts, lists_cores = process_patts_cores(lists_patts, lists_cores, empty_cores_idx)
 print("Done filtering out empty patts and cores")
 
-classified_series, result_df = generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df)
+classified_series, result_df = generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df, mols_made_of_ru)
 print("Done generate_df")
 
 
-mols_onememseries, labs_onememseries, onememseries, result_df = detect_mols_one_member_series(result_df)
+mols_nonseries, labs_nonseries, nonseries = detect_mols_nonseries(result_df)
 print("Done detect_mols_one_member_series")
 
 grpdmols = detect_cores_classified_series(classified_series)
 
-depict_cores_summary(grpdmols)
+final_cores, leg_final_cores = depict_cores_summary(grpdmols)
 print("Done depict_cores_summary")
 
 generate_classified_series_summary(result_df)
@@ -99,11 +99,11 @@ print("Done generate_classified_series_summary")
 #depict_classified_series(grpdmols, classified_series)
 #print("Done depict_classified_series")
 
-num_series, mols_classified = print_output_summary(result_df, onememseries, mols_no_ru_matches, mols_made_of_ru)
+num_series, mols_classified = print_output_summary(result_df, nonseries, mols_no_ru_matches, mols_made_of_ru)
 
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
 
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, onememseries, mols_made_of_ru)
+generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru)
 
 print("Classification summary generated.")
