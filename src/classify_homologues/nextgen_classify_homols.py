@@ -24,8 +24,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--smiles", help="List of SMILES as input.")
 parser.add_argument("-l", "--labels", help="List of labels as input.")
 parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Default is CH2 i.e., '[#6&H2]'.")
-parser.add_argument("-min", "--min_in", help="Minimum length of RU chain, default = 3 units.", type=int)
-parser.add_argument("-max", "--max_in", help="Maximum length of RU chain, default = 30 units.", type=int)
+parser.add_argument("-min", "--min_RU_in", help="Minimum length of RU chain, default = 3 units.", type=int)
+parser.add_argument("-max", "--max_RU_in", help="Maximum length of RU chain, default = 30 units.", type=int)
 parser.add_argument("-f", "--frag_in", help="No. of fragmentation steps separating RU from core(s).", type=int)
 args = parser.parse_args()
 
@@ -33,7 +33,10 @@ print('all args parsed OK')
 
 #read in smiles and labels
 smiles, mols, smiles_torem, idxtorem = read_smiles_csv(args.smiles)
+print('readsmilesOK')
+
 labels = read_labels_csv(args.labels, idxtorem)
+print('readlabelsOK')
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
 print('df OK')
 #prepare repeating units
@@ -42,13 +45,13 @@ if args.repeatingunits:
 else:
     ru_in = '[#6&H2]-' #set CH2 as default RU
 
-if args.min_in:
-    min_length = args.min_in
+if args.min_RU_in:
+    min_length = args.min_RU_in
 else:
     min_length = 3
 
-if args.max_in:
-    max_length = args.max_in
+if args.max_RU_in:
+    max_length = args.max_RU_in
 else:
     max_length = 30
 
@@ -63,7 +66,7 @@ print("ru setup OK")
 
 Path("output_rmdum_tmf").mkdir(parents=True, exist_ok=True)
 print("output folder setup OK")
-
+write_removed_smiles(smiles_torem)
 #detect RUs in mols
 mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru = detect_repeating_units(mols, labels, ru)
 
@@ -104,6 +107,6 @@ num_series, mols_classified = print_output_summary(result_df, nonseries, mols_no
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
 
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru)
+generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, frag_steps)
 
 print("Classification summary generated.")
