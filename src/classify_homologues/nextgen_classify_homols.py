@@ -32,10 +32,10 @@ args = parser.parse_args()
 print('all args parsed OK')
 
 #read in smiles and labels
-smiles, mols = read_smiles_csv(args.smiles)
-labels = read_labels_csv(args.labels)
+smiles, mols, smiles_torem, idxtorem = read_smiles_csv(args.smiles)
+labels = read_labels_csv(args.labels, idxtorem)
 df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-
+print('df OK')
 #prepare repeating units
 if args.repeatingunits:
     ru_in = args.repeatingunits + '-'
@@ -85,7 +85,7 @@ classified_series, result_df = generate_df(lists_patts, lists_cores, mols_to_cla
 print("Done generate_df")
 
 
-mols_onememseries, labs_onememseries, onememseries = detect_mols_one_member_series(result_df)
+mols_onememseries, labs_onememseries, onememseries, result_df = detect_mols_one_member_series(result_df)
 print("Done detect_mols_one_member_series")
 
 grpdmols = detect_cores_classified_series(classified_series)
@@ -94,8 +94,10 @@ depict_cores_summary(grpdmols)
 print("Done depict_cores_summary")
 
 generate_classified_series_summary(result_df)
+print("Done generate_classified_series_summary")
 
-depict_classified_series(grpdmols, classified_series)
+#depict_classified_series(grpdmols, classified_series)
+#print("Done depict_classified_series")
 
 num_series, mols_classified = print_output_summary(result_df, onememseries, mols_no_ru_matches, mols_made_of_ru)
 

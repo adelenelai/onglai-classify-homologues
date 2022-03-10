@@ -17,12 +17,21 @@ def read_smiles_csv(path_to_smiles_csv): #sys.argv[1]
     with open(path_to_smiles_csv) as f:
         smiles = [line.strip().replace('"','') for line in f]
         mols = [AllChem.MolFromSmiles(smile) for smile in smiles]
-    return smiles, mols
+        #check validity of SMILES - if there are any empty mol objects caused by unparseable SMILES
+        idxtorem = [i for i,j in enumerate(mols) if j is None] #indexes of empty mols
+        smiles_torem = list()
+        if len(idxtorem) > 0:
+            print(str(len(idxtorem))+ " parsed SMILES gave empty Mol objects (check validity of SMILES!). Removing those Mols.")
+            smiles_torem = [y for x,y in enumerate(smiles) if x in idxtorem]
+            smiles = [y for x,y in enumerate(smiles) if x not in idxtorem]
+            mols = [y for x,y in enumerate(mols) if x not in idxtorem]
+        return smiles, mols, smiles_torem, idxtorem
 
-def read_labels_csv(path_to_labels_csv): #sys.argv[2]
+def read_labels_csv(path_to_labels_csv, idxtorem): #sys.argv[2]
     '''Function to read in list of labels corresponding to SMILES.'''
     with open(path_to_labels_csv) as f:
         labels = [line.strip().replace('"','') for line in f]
+        labels = [j for i,j in enumerate(labels) if i not in idxtorem]
     return labels
 
 def setup_repeating_unit(smarts, min, max):
@@ -51,9 +60,9 @@ def detect_repeating_units(mols, labels, ru):
     fil_ru = [bool(x) for x in mat_array_sums] #those which are False have array_sum = 0 i.e. no alkyls
     mols_no_ru_matches = list(compress(mols, [not i for i in fil_ru]))
     labels_mols_no_ru_matches = list(compress(labels, [not i for i in fil_ru]))
-    if len(mols_no_ru_matches) > 0:
-        nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
-        nans.save("output_rmdum_tmf/no_min_ru_matches.png")
+    #if len(mols_no_ru_matches) > 0:
+    #    nans = DrawMolsZoomed(mols=mols_no_ru_matches, legends=labels_mols_no_ru_matches, molsPerRow=5)
+    #    nans.save("output_rmdum_tmf/no_min_ru_matches.png")
     mols_with_ru = list(compress(mols, fil_ru))
     labels_mols_with_ru = list(compress(labels, fil_ru))
     return mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru
@@ -118,7 +127,7 @@ def replacecore_keepdummies_detect_homologue_cores(mols_with_ru, ru):
     patts, cores = replacecore_longest_RU_match(mols_with_ru, mat2, ru) #
     return patts, cores
 
-def fragment_into_cores(mols_with_ru, ru, frag_steps, cores_d):
+def fragment_into_cores(mols_with_ru, ru, frag_steps):
     '''Function that repeats replacecore_detect_homologue_cores n times, taking output of last as input of next fragmentation step. List of empty_cores_idx generated at the end of all steps.'''
     lists_patts = []
     lists_cores = []
@@ -179,8 +188,8 @@ def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
     mols_to_classify = [j for i,j in enumerate(mols_with_ru) if (i not in empty_cores_idx)]
     labels_to_classify = [j for i,j in enumerate(labels_mols_with_ru) if (i not in empty_cores_idx)]
     if len(mols_made_of_ru) > 0:
-        pure_repeating_units = DrawMolsZoomed(mols_made_of_ru, labels_made_of_ru)
-        pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
+    #    pure_repeating_units = DrawMolsZoomed(mols_made_of_ru, labels_made_of_ru)
+    #    pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
         print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length specified (default=3).")
     return mols_made_of_ru, labels_made_of_ru, mols_to_classify, labels_to_classify #includes non-series containing RU
 
@@ -192,21 +201,33 @@ def process_patts_cores(lists_patts, lists_cores, empty_cores_idx): #prepare dat
         lists_cores[i] = [q for p,q in enumerate(lists_cores[i]) if (p not in empty_cores_idx)]
     return lists_patts, lists_cores
 
-def generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df):
+def generate_df(lists_patts, lists_cores, mols_to_classify, labels_to_classify, df, mols_made_of_ru):
     canosmiles_finalcores = [Chem.MolToSmiles(c, canonical=True) for c in lists_cores[-1]]
     nonempty_df = pd.DataFrame({
                         "Mols": mols_to_classify,
                         "Labels": labels_to_classify,
                         "CanoSmiles_FinalCores": canosmiles_finalcores
                         })
+    #assign series numbers 0 to n
     nonempty_df['SeriesNo'] = nonempty_df.groupby('CanoSmiles_FinalCores').filter(lambda group: len(group) > 1).groupby('CanoSmiles_FinalCores').ngroup()
     result_df = pd.merge(df, nonempty_df, how="left", on=["Mols", "Labels"]) #add back mols previously filtered out: mols_no_ru_matches & mols_made_of_ru
-    result_df['SeriesNo'] = result_df['SeriesNo'].fillna(-1) #encode -1 for mols_no_ru_matches & mols_made_of_ru
+    result_df['SeriesNo'] = result_df['SeriesNo'].fillna(-1) #encode -1 for mols_no_ru_matches & mols_made_of_ru & nonseries with RU matches
+    result_df = encode_pureRU_minus2(result_df, mols_made_of_ru)
+    result_df['SeriesNo'] = np.where((result_df['SeriesNo'] == -1) & (result_df['CanoSmiles_FinalCores'].notnull()), -3, result_df['SeriesNo']) #encode -3 for non-series with RU mols_no_ru_matches
     result_df.SeriesNo = result_df.SeriesNo.astype(int)
-    classified_series = result_df[result_df["SeriesNo"] > -1] #formerly result_pos_serno
+    classified_series = result_df[result_df["SeriesNo"] > -1]
     return classified_series, result_df
 
+def encode_pureRU_minus2(result_df, mols_made_of_ru):
+    rdkitsmiles_mols_made_of_ru = [Chem.MolToSmiles(m, canonical=True) for m in mols_made_of_ru]
+    rdkitsmiles_mols = [Chem.MolToSmiles(m, canonical=True) for m in result_df.Mols] #these are different from input SMILES!
+    idx_pureRU = [i for i, j in enumerate(rdkitsmiles_mols) if j in rdkitsmiles_mols_made_of_ru]
+    result_df['SeriesNo'] = np.where(result_df.index.isin(idx_pureRU), -2, result_df['SeriesNo'])
+    return result_df
+
 def detect_mols_one_member_series(result_df):
+    #encode one_member_series with -2 in SeriesNo
+    #result_df['SeriesNo'] = np.where(result_df['SeriesNo'] == -1 & result_df['CanoSmiles_FinalCores'].notnull(), -2)
     onememseries = result_df.loc[(result_df['SeriesNo'] == -1) & (result_df['CanoSmiles_FinalCores'].notnull())]
     if len(onememseries.Mols) >0:
          mols_onememseries = [i for i in onememseries.Mols]
@@ -214,7 +235,7 @@ def detect_mols_one_member_series(result_df):
          pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
          pl_onememseries.save("output_rmdum_tmf/onememseries_containing_repeating_unit.png")
          print(str(len(onememseries.Mols))+ " molecule(s) contain RUs of minimum chain length specified but have unique cores (one-member series).")
-         return mols_onememseries, labs_onememseries, onememseries
+         return mols_onememseries, labs_onememseries, onememseries, result_df
     else:
         mols_onememseries = []
         labs_onememseries = []
