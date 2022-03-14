@@ -29,8 +29,8 @@ python classify_homologues.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-m
 | -s --smiles <arg> | path to CSV list of SMILES |
 | -l --labels <arg> | path to CSV list of Labels (molecule names) |
 | -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
-| -min --min_in <arg> | minimum length of RU chain, default is 3|
-| -max --max_in <arg> | maximum length of RU chain, default is 30 |
+| -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
+| -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
 | -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
 
 
