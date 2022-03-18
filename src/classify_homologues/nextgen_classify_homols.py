@@ -1,5 +1,7 @@
 #check if smiles and labels given? if not, error message.
 print('hello world')
+from time import time
+start = time()
 
 import os
 import argparse
@@ -16,6 +18,8 @@ from rdkit.Chem.Draw import MolsToGridImage
 import pandas as pd
 import numpy as np
 import datamol as dm
+
+
 
 print("Homologue classification started...")
 
@@ -89,9 +93,10 @@ print("Done generate_df")
 
 
 mols_nonseries, labs_nonseries, nonseries = detect_mols_nonseries(result_df)
-print("Done detect_mols_one_member_series")
+print("Done detect_mols_nonseries")
 
 grpdmols = detect_cores_classified_series(classified_series)
+print('Done detect_cores_classified_series')
 
 final_cores, leg_final_cores = depict_cores_summary(grpdmols)
 print("Done depict_cores_summary")
@@ -103,10 +108,10 @@ print("Done generate_classified_series_summary")
 #print("Done depict_classified_series")
 
 num_series, mols_classified = print_output_summary(result_df, nonseries, mols_no_ru_matches, mols_made_of_ru)
-
+end = time()
 print("Homologue classification complete! " + str(mols_classified) + " molecules have been classified into " +str(num_series) + " series." )
-
+runtime = end - start
+print('It took ' + str(runtime) + ' seconds.')
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, frag_steps)
-
+generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime)
 print("Classification summary generated.")

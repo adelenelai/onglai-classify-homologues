@@ -111,7 +111,7 @@ def SubstructMatchMatrix_ru_mols(mols, ru, accountForRings=True):
     mat = np.zeros((len(mols), len(ru)))
     for a,b in enumerate(mols):
         for i,j in enumerate(ru):
-            if accountForRings:
+            if accountForRings: #exclude RU matches if they are part of rings
                 mat[a,i] = hasSubstructMatchAccountForRings(b,j)
             else:
                 mat[a,i] = mols[a].HasSubstructMatch(j)
@@ -195,6 +195,8 @@ def detect_mols_made_of_ru(mols_with_ru, labels_mols_with_ru, empty_cores_idx):
     #    pure_repeating_units = DrawMolsZoomed(mols_made_of_ru, labels_made_of_ru)
     #    pure_repeating_units.save("output_rmdum_tmf/mols_pure_repeating_units.png")
         print(str(len(mols_made_of_ru)) + " molecule(s) are made purely of repeating units of minimum length specified (default=3).")
+    else:
+        print("No mols made of pure RUs.")
     return mols_made_of_ru, labels_made_of_ru, mols_to_classify, labels_to_classify #includes non-series containing RU
 
 def process_patts_cores(lists_patts, lists_cores, empty_cores_idx): #prepare dataframe???
@@ -238,13 +240,12 @@ def detect_mols_nonseries(result_df):
          #pl_onememseries = DrawMolsZoomed(mols_onememseries,labs_onememseries,molsPerRow=5)
          #pl_onememseries.save("output_rmdum_tmf/onememseries_containing_repeating_unit.png")
          print(str(len(nonseries.Mols))+ " molecule(s) contain RUs of minimum chain length specified but do not form series.")
-         return mols_nonseries, labs_nonseries, nonseries
     else:
         mols_nonseries = []
         labs_nonseries = []
         print(str(len(nonseries.Mols))+ " molecule(s) contain RUs of minimum chain length specified but have unique cores (one-member series).")
-        return mols_nonseries, labs_nonseries, nonseries
 
+    return mols_nonseries, labs_nonseries, nonseries
 
 def detect_cores_classified_series(classified_series):
     grpdmols = classified_series.groupby('CanoSmiles_FinalCores').SMILES.apply(list) #lists of SMILES of molecules in each series
@@ -259,7 +260,11 @@ def depict_cores_summary(grpdmols):
         leg_final_cores = [str(idx) for idx,y in enumerate(grpdmols.keys())]
         #cores_summary = DrawMolsZoomed(final_cores, legends=leg_final_cores, molsPerRow=5)
         #cores_summary.save("output_rmdum_tmf/cores_summary.png")
-        return final_cores, leg_final_cores
+    else:
+        final_cores=[]
+        leg_final_cores=[]
+
+    return final_cores, leg_final_cores
 
 def generate_classified_series_summary(result_df):
     '''Write classified series results as CSV.'''
@@ -272,7 +277,7 @@ def generate_classified_series_summary(result_df):
     out['InChIKey'] = inchikeys
     out['molecular_formula'] = mf
     out['monoisotopic_mass'] = monoiso_mass
-    out.rename(columns={"SeriesNo":"series_no", "Labels":"series_name", "canoSMILES_molfrags": "core_fragments"},inplace=True)
+    out.rename(columns={"SeriesNo":"series_no", "Labels":"cpd_name", "canoSMILES_molfrags": "core_fragments"},inplace=True)
     out.to_csv('output_rmdum_tmf/' + 'classified_series.csv',index=False)
 
 def depict_classified_series(grpdmols, classified_series):
@@ -352,13 +357,14 @@ def print_output_summary(result_df, nonseries, mols_no_ru_matches, mols_made_of_
     mols_classified = len(result_df.Mols)-len(nonseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
     return num_series, mols_classified
 
-def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, frag_steps):
+def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime):
     ru_in = ru_in[:-1]
     mols_no_ru_matches = len(mols_no_ru_matches)
     nonseries = len(nonseries)
     mols_made_of_ru = len(mols_made_of_ru)
     with open("output_rmdum_tmf/classification-results.txt", "w") as text_file:
         text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\nFragmentation steps = %s.\n%s molecules were classified into %s homologous series. [SeriesNo >= 0]\n" % (smiles_in, ru_in, frag_steps, mols_classified, num_series))
-        text_file.write("Molecules with no RU matches of minimum length %s units: %s. [SeriesNo = -1]\n" % (min_length, mols_no_ru_matches))
+        text_file.write("Molecules with no RU matches of minimum length %s units, maximum length %s units: %s. [SeriesNo = -1]\n" % (min_length, max_length, mols_no_ru_matches))
         text_file.write("Molecules consisting of purely RUs: %s. [SeriesNo = -2]\n"  % (mols_made_of_ru))
         text_file.write("Molecules having RU matches of minimum length %s units but do not form series: %s. [SeriesNo = -3]\n" % (min_length, nonseries))
+        text_file.write("Algorithm runtime in seconds: %s.\n" % (runtime))
