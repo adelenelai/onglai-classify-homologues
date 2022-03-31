@@ -53,10 +53,8 @@ def detect_repeating_units(mols, labels, ru):
     # set up RU-match matrix for detection of RU in mols
     mat1 = SubstructMatchMatrix_ru_mols(mols, ru, accountForRings=True)
     mat_array_sums = []
-    length_ru_chains_to_chop = []
     for x, y in enumerate(mat1):
         mat_array_sums.append(int(np.sum(mat1[x])))
-        length_ru_chains_to_chop.append(mat_array_sums[x] + 2)  # n = sum + 2, where n is the length of C chain to chop
     n_mols_no_ru = mat_array_sums.count(0)
     if n_mols_no_ru>0:
         print(str(n_mols_no_ru) + " mols have no repeating unit chains of minimum length specified.")
@@ -181,7 +179,7 @@ def replacecore_longest_RU_match(mols, mat, ru):
     cores = list()
     patts = list()
     for x,y in enumerate(mols):
-        patts.append(ru[int(np.sum(mat[x])-1)])
+        patts.append(ru[int(np.sum(mat[x])-1)]) #zero-index
         cores.append(my_ReplaceCore(y, patts[x]))
     return patts, cores
 
