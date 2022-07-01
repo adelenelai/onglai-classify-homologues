@@ -20,7 +20,7 @@ The code can be installed in editable mode with:
 
 ```shell
 $ git clone https://github.com/adelenelai/classify_homologues
-$ cd classify_homologues
+$ cd src/classify_homologues
 $ pip install -e .
 ```
 
