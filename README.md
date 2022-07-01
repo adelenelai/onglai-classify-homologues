@@ -12,7 +12,7 @@ Homologous chemical series describe groups of chemical compounds containing comm
  $ conda create -c conda-forge -n my-rdkit-env rdkit
  $ conda activate my-rdkit-env
  $ git clone https://github.com/adelenelai/classify_homologues
- $ cd classify_homologues
+ $ cd src/classify_homologues
  ```
 
 
