@@ -69,25 +69,6 @@ def detect_repeating_units(mols, labels, ru):
     labels_mols_with_ru = list(compress(labels, fil_ru))
     return mols_no_ru_matches, labels_mols_no_ru_matches, mols_with_ru, labels_mols_with_ru
 
-# def detect_homologue_cores(mols_with_ru, ru):
-#     '''Function that performs RU matching-and-removal twice to isolate/detect cores in molecule object. Idxs of empty cores generated.'''
-#     mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
-#     patt1, cores1 = delete_longest_RU_match(mols_with_ru, mat2, ru) #first removal
-#     empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
-#     mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
-#     patt2, cores2 = delete_longest_RU_match(cores1, mat3, ru) #second removal
-#     return patt1, cores1, patt2, cores2, empty_cores_idx
-
-
-# def replaceRU_detect_homologue_cores(mols_with_ru, ru):
-#     '''Function that performs fragmentation (RU matching and replacement with a dummy atom) n times (n = frag_steps) to isolate core fragments in molecule object. Idxs of empty cores generated at the end.'''
-#     mat2 = SubstructMatchMatrix_ru_mols(mols_with_ru, ru, accountForRings=True) #set up RU-match matrix for 1st RU removal from mols with RU
-#     patt1, cores1 = replace_longest_RU_match(mols_with_ru, mat2, ru) #first removal
-#     empty_cores_idx = [i for i, j in enumerate(cores1) if j.GetNumAtoms() == 0] #isolate empty cores' idxs after first chopping, occur when mol is 100% made of RU
-#     mat3 = SubstructMatchMatrix_ru_mols(cores1, ru, accountForRings=True) #set up RU-match matrix for 2nd RU removal from cores1
-#     patt2, cores2 = replace_longest_RU_match(cores1, mat3, ru) #second removal
-#     return patt1, cores1, patt2, cores2, empty_cores_idx
-
 def hasSubstructMatchAccountForRings(mol, q):
     """Function to exclude substructure matches if they are part of rings. Credit Paolo Tosco."""
     matches = mol.GetSubstructMatches(q)
@@ -144,27 +125,6 @@ def fragment_into_cores(mols_with_ru, ru, frag_steps):
     #if there are any empty cores after all frag steps, get their index. Else, empty_cores_idx is itself empty list.
     empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
     return lists_patts, lists_cores, empty_cores_idx
-
-# Attempt at extracting cores with dummies for depiction  in final outputs
-#def fragment_into_cores(mols_with_ru, ru, frag_steps, cores_d):
-#     '''Function that repeats replacecore_detect_homologue_cores n times, taking output of last as input of next fragmentation step. List of empty_cores_idx generated at the end of all steps.'''
-#     lists_patts = []
-#     lists_cores = []
-#     for i in range(frag_steps):
-#         if i == 0:
-#             m = mols_with_ru
-#             patts, cores = replacecore_detect_homologue_cores(m,ru)
-#         elif i != frag_steps-1:
-#             m = lists_cores[i-1] #take output of previous iteration as input
-#             patts, cores = replacecore_detect_homologue_cores(m, ru)
-#         elif i == frag_steps-1: #the last frag step
-#             patts_d, cores_d = replacecore_keepdummies_detect_homologue_cores(m,ru)
-#
-#         lists_patts.append(patts)
-#         lists_cores.append(cores)
-#     #if there are any empty cores after all frag steps, get their index. Else, empty_cores_idx is itself empty list.
-#     empty_cores_idx = [i for i, j in enumerate(lists_cores[-1]) if j.GetNumAtoms() == 0]
-#     return lists_patts, lists_cores, empty_cores_idx, cores_d
 
 def my_ReplaceCore(mol,sidechain):
     '''Function that returns the original input mol if there is no matching sidechain present.'''
@@ -329,21 +289,6 @@ def replace_longest_RU_match(mols, mat, ru):
         patt.append(ru[int(np.sum(mat[x])-1)])
         cores.append(AllChem.ReplaceSubstructs(y, patt[x], Chem.MolFromSmiles('C'), replaceAll=True)[0])
     return patt, cores
-
-def largest_core_molfrag_to_cano_smiles(cores2):
-    '''Function to isolate the largest molecule fragment by NumAtoms remaining in the core object and convert to canonical SMILES.'''
-    cores2_nonempty = [j for i, j in enumerate(cores2) if j.GetNumAtoms() > 0] # isolate non-empty cores after chopping
-    #cores2_nonempty_molfrags = [Chem.GetMolFrags(co, asMols=True) for co in cores2_nonempty]  # cores2_nonempty_molfromsmarts
-    #cores2_nonempty_largest_molfrag = []
-    #for i, j in enumerate(cores2_nonempty_molfrags):  # get the largest molfrag of all molfrags
-    #    cores2_nonempty_largest_molfrag.append(max(cores2_nonempty_molfrags[i],
-    #                                               default=cores2_nonempty_molfrags[i],
-    #                                               key=lambda m: m.GetNumAtoms()
-    #                                               )
-    #                                           )
-    #cores2_nonempty_largest_molfrag_cano_smiles = [Chem.MolToSmiles(co, canonical=True) for co in cores2_nonempty_largest_molfrag]
-    #cores2_nonempty_largest_molfrag_cano_smiles = [Chem.CanonSmiles(smi) for smi in cores2_nonempty_largest_molfrag_smiles]
-    return cores2_nonempty#, cores2_nonempty_largest_molfrag_cano_smiles, cores2_nonempty_largest_molfrag
 
 def GetNumFrags(mol):
     return(len(Chem.GetMolFrags(mol,asMols=True)))
