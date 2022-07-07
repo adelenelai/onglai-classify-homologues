@@ -236,7 +236,7 @@ def generate_classified_series_summary(result_df):
     out['molecular_formula'] = mf
     out['monoisotopic_mass'] = monoiso_mass
     out.rename(columns={"SeriesNo":"series_no", "Labels":"cpd_name", "canoSMILES_molfrags": "core_fragments"},inplace=True)
-    out.to_csv('output' + 'classified_series.csv',index=False)
+    out.to_csv('output/' + 'classified_series.csv',index=False)
 
 def depict_classified_series(grpdmols, classified_series):
     grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
