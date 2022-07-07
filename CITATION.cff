@@ -4,7 +4,7 @@ authors:
   - family-names: Lai
     given-names: Adelene
     orcid: https://orcid.org/0000-0002-2985-6473
-title: "An Algorithm to Detect Homologous Series"
+title: "An Algorithm to Classify Homologous Series"
 version: 0.0.1
-doi: 00000000000
+doi: 10.5281/zenodo.6491204
 date-released: 2022-07-07
