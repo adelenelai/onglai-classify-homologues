@@ -28,7 +28,7 @@ def read_smiles_csv(path_to_smiles_csv): #sys.argv[1]
         return smiles, mols, smiles_torem, idxtorem
 
 def write_removed_smiles(smiles_torem):
-    with open("output_rmdum_tmf/removed_smiles.txt", "w") as text_file:
+    with open("output/removed_smiles.txt", "w") as text_file:
         text_file.write("\n".join(smiles_torem))
 
 def read_labels_csv(path_to_labels_csv, idxtorem): #sys.argv[2]
@@ -236,7 +236,7 @@ def generate_classified_series_summary(result_df):
     out['molecular_formula'] = mf
     out['monoisotopic_mass'] = monoiso_mass
     out.rename(columns={"SeriesNo":"series_no", "Labels":"cpd_name", "canoSMILES_molfrags": "core_fragments"},inplace=True)
-    out.to_csv('output_rmdum_tmf/' + 'classified_series.csv',index=False)
+    out.to_csv('output' + 'classified_series.csv',index=False)
 
 def depict_classified_series(grpdmols, classified_series):
     grpdmols = [[Chem.MolFromSmiles(s) for s in g] for g in grpdmols]
@@ -247,7 +247,7 @@ def depict_classified_series(grpdmols, classified_series):
     for i,j in enumerate(grpdmols):
         list_grid_images.append(DrawMolsZoomed(grpdmols[i], legends=lgs[i], molsPerRow=5))
     #save each plot per group
-    [img.save("output_rmdum_tmf/" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
+    [img.save("output" + str(idx) + ".png") for idx,img in enumerate(list_grid_images)]
 
 
 def DrawMolsZoomed(mols, legends, molsPerRow=3, subImgSize=(300, 300)):#, leg):
@@ -305,7 +305,7 @@ def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_
     mols_no_ru_matches = len(mols_no_ru_matches)
     nonseries = len(nonseries)
     mols_made_of_ru = len(mols_made_of_ru)
-    with open("output_rmdum_tmf/classification-results.txt", "w") as text_file:
+    with open("output/classification-results.txt", "w") as text_file:
         text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\nFragmentation steps = %s.\n%s molecules were classified into %s homologous series. [SeriesNo >= 0]\n" % (smiles_in, ru_in, frag_steps, mols_classified, num_series))
         text_file.write("Molecules with no RU matches of minimum length %s units, maximum length %s units: %s. [SeriesNo = -1]\n" % (min_length, max_length, mols_no_ru_matches))
         text_file.write("Molecules consisting of purely RUs: %s. [SeriesNo = -2]\n"  % (mols_made_of_ru))
