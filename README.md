@@ -11,11 +11,11 @@ Homologous series are groups of chemical compounds sharing the same core structu
 
 
 CH2 Repeating Unit:
-[![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/5027.png)
+![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/5027.png)
 
 
 CF2 Repeating Unit:
-[![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/11_epoxy.png)
+![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/11_epoxy.png)
 
 
 
