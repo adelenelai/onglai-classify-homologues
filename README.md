@@ -7,7 +7,21 @@
 
 
 ## Introduction
-Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU). This is an open-source algorithm to classify homologous series within compound datasets, implemented using the RDKit.
+Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU) connected end-to-end. For example, these series found in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
+
+
+CH2 Repeating Unit:
+[![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/5027.png)
+
+
+CF2 Repeating Unit:
+[![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/11_epoxy.png)
+
+
+
+This is an open-source algorithm to classify homologous series within compound datasets, implemented using the RDKit.
+
+
 
 
 
