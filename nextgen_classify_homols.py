@@ -68,7 +68,7 @@ ru = setup_repeating_unit(ru_in, min_length, max_length)
 #tested '[#8]-[#6&H2]-[#6&H2]-', '[#6](-[#9])(-[#9])-', '[#8]-[#6](-[#9])(-[#9])-[#6](-[#9])(-[#9])', '[#8]-[#6&H](-[#9])','[#8]-[#6](-[#9])(-[#9])'
 print("ru setup OK")
 
-Path("output_rmdum_tmf").mkdir(parents=True, exist_ok=True)
+Path("output").mkdir(parents=True, exist_ok=True)
 print("output folder setup OK")
 write_removed_smiles(smiles_torem)
 #detect RUs in mols
