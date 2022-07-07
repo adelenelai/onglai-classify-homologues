@@ -1,9 +1,6 @@
 # A Cheminformatics Algorithm to Classify Homologous Chemical Series
 
 ## Introduction
-Homologous chemical series describe groups of chemical compounds containing common core structure(s) and a chain of growing repeating units (RUs). This is an open-source algorithm to classify homologous series implemented in the RDKit.
-
-
 
 ## Requirements
  The homologues classification algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) and the RDKit environment to be activated. This is best done using conda in the command line:
@@ -15,11 +12,25 @@ Homologous chemical series describe groups of chemical compounds containing comm
  $ cd src/classify_homologues
  ```
 
+## Installation
 
+
+The code can be installed directly from GitHub with:
+
+```shell
+$ pip install git+https://github.com/adelenelai/classify_homologues.git
+```
+
+
+The code can be installed in editable mode with:
+
+```shell
+$ git clone https://github.com/adelenelai/classify_homologues
+$ cd src/classify_homologues
+$ pip install -e .
+```
 
 ## Usage
-The algorithm runs in the command line interface as below:
-
 ```
 python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
