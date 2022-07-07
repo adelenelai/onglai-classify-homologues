@@ -22,19 +22,15 @@ Homologous series are groups of chemical compounds sharing the same core structu
 The code can be installed directly from GitHub with:
 
 ```shell
-$ pip install git+https://github.com/adelenelai/classify_homologues.git
-```
-
-
-Or in editable mode with:
-
-```shell
 $ git clone https://github.com/adelenelai/classify_homologues
 $ cd classify_homologues
-$ pip install -e .
 ```
 
 ## Usage
+Remember to activate the RDKit environment!
+
+Run:
+
 ```
 python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
