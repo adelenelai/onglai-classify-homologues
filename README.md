@@ -1,20 +1,26 @@
-# A Cheminformatics Algorithm to Classify Homologous Series
+# A Cheminformatics Algorithm to Classify Homologous Chemical Series
 
 ## Introduction
-Homologous series describe groups of chemical compounds containing a common core structure and a chain of growing repeating units.
 
-This algorithm classifies homologous series defined by a user-specified repeating unit amongst an input dataset of molecules.
- 
- 
- 
- 
+## Requirements
+ The homologues classification algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) and the RDKit environment to be activated. This is best done using conda in the command line:
+
+ ```
+ $ conda create -c conda-forge -n my-rdkit-env rdkit
+ $ conda activate my-rdkit-env
+ $ git clone https://github.com/adelenelai/classify_homologues
+ $ cd src/classify_homologues
+ ```
+
 ## Installation
+
 
 The code can be installed directly from GitHub with:
 
 ```shell
 $ pip install git+https://github.com/adelenelai/classify_homologues.git
 ```
+
 
 The code can be installed in editable mode with:
 
@@ -25,19 +31,26 @@ $ pip install -e .
 ```
 
 ## Usage
+```
+python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+```
 
-Then
-```python classify_homologues.py <SMILES list> <Labels list> <repeating unit> 2>log```
+| Flag | Description |
+| --- | ----------- |
+| -s --smiles <arg> | path to CSV list of SMILES |
+| -l --labels <arg> | path to CSV list of Labels (molecule names) |
+| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
+| -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
+| -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
+| -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
 
-Currently the only repeating unit is 'C', representing repeating alkyl groups i.e. -CH2-.
 
 Try:
-
 ```
-python classify_homols.py input/test1_smiles_23.csv input/test1_labels_23.csv C 2>log
+python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
 ```
 
-Successful classification will generate an output directory containing .png plots of molecules, 1 plot per 1 classified series, and a .csv file containing machine-readable information on the classified series. 
+Successful classification will generate an output directory containing .png plots of molecules (e.g., 1  plot per 1 classified series), a CSV file containing machine-readable information on the classified series, and a TXT file containing a classification summary.
 
 
 Further optional outputs may be created depending on what the algorithm detects (e.g. molecules with no repeating units detected). Please see the sample output directories in this repository e.g., `output_test1/` for the example given above.
@@ -57,8 +70,10 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](https:
 
 
 
-
 ## Acknowledgements
-- 
+
+-
 ## References
 
+## Our Research Group
+[![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
