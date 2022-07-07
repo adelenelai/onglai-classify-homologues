@@ -1,20 +1,17 @@
-# A Cheminformatics Algorithm to Classify Homologous Chemical Series
+# An Algorithm to Classify Homologous Series
 
 ## Introduction
 
+
 ## Requirements
- The homologues classification algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) and the RDKit environment to be activated. This is best done using conda in the command line:
+ The algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) and the RDKit environment to be activated. This is best done using conda in the command line:
 
  ```
  $ conda create -c conda-forge -n my-rdkit-env rdkit
  $ conda activate my-rdkit-env
- $ git clone https://github.com/adelenelai/classify_homologues
- $ cd src/classify_homologues
  ```
 
 ## Installation
-
-
 The code can be installed directly from GitHub with:
 
 ```shell
@@ -22,11 +19,11 @@ $ pip install git+https://github.com/adelenelai/classify_homologues.git
 ```
 
 
-The code can be installed in editable mode with:
+Or in editable mode with:
 
 ```shell
 $ git clone https://github.com/adelenelai/classify_homologues
-$ cd src/classify_homologues
+$ cd classify_homologues
 $ pip install -e .
 ```
 
@@ -50,11 +47,11 @@ Try:
 python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
 ```
 
-Successful classification will generate an output directory containing .png plots of molecules (e.g., 1  plot per 1 classified series), a CSV file containing machine-readable information on the classified series, and a TXT file containing a classification summary.
+Successful classification will generate an `output` directory containing the following files:
 
-
-Further optional outputs may be created depending on what the algorithm detects (e.g. molecules with no repeating units detected). Please see the sample output directories in this repository e.g., `output_test1/` for the example given above.
-
+1. a TXT file containing the summary of classification results
+2. a CSV file containing 8 columns: `series_no`, `cpd_name`, `CanoSmiles_FinalCores`, `SMILES`, `InChI`, `InChIKey`, `molecular_formula` and `monoisotopic_mass`. The first column `series_no` contains the results of the homologous series classification. `CanoSmiles_FinalCores` indicates the common core shared by all members within a given series.  Columns `SMILES` and `cpd_name` were the original inputs to the `-s` and `-l` flags respectively. The remaining columns contain information calculated based on the `SMILES`.
+3. a TXT file of unparseable SMILES that were removed (if all SMILES were parsed OK, then empty)
 
 
 ## License
