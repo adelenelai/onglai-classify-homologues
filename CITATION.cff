@@ -5,6 +5,6 @@ authors:
     given-names: Adelene
     orcid: https://orcid.org/0000-0002-2985-6473
 title: "An Algorithm to Classify Homologous Series"
-version: 0.0.1
+version: 1.0.0
 doi: 10.5281/zenodo.6806919
 date-released: 2022-07-07
