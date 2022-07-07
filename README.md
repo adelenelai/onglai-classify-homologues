@@ -6,7 +6,7 @@
 
 
 ## Introduction
-Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU). This is an open-source algorithm to classify homologous series implemented in the RDKit.
+Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU). This is an open-source algorithm to classify homologous series within compound datasets, implemented using the RDKit.
 
 
 
