@@ -54,6 +54,11 @@ Successful classification will generate an `output` directory containing the fol
 3. a TXT file of unparseable SMILES that were removed (if all SMILES were parsed OK, then empty)
 
 
+## References and Links
+* *publication coming soon*
+* [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminforamtics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
+
+
 ## License
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) file for details.
@@ -70,7 +75,6 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](https:
 ## Acknowledgements
 
 -
-## References
 
 ## Our Research Group
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
