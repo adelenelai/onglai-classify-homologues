@@ -13,13 +13,12 @@ Homologous series are groups of chemical compounds sharing the same core structu
 CH2 Repeating Unit:
 ![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/5027.png)
 
-
 CF2 Repeating Unit:
 ![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/11_epoxy.png)
 
 
 
-This is an open-source algorithm to classify homologous series within compound datasets, implemented using the RDKit.
+This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES. It is implemented using the RDKit.
 
 
 
@@ -32,6 +31,12 @@ This is an open-source algorithm to classify homologous series within compound d
  $ conda create -c conda-forge -n my-rdkit-env rdkit
  $ conda activate my-rdkit-env
  ```
+
+ The `datamol` module must also be installed in the environment:
+
+```
+conda install -c conda-forge datamol
+```
 
 ## Installation
 The code can be installed directly from GitHub with:
@@ -47,7 +52,7 @@ Remember to activate the RDKit environment!
 Run:
 
 ```
-python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+$ python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
 | Flag | Description |
@@ -73,26 +78,16 @@ Successful classification will generate an `output` directory containing the fol
 
 
 ## References and Links
-* *publication coming soon*
+* *publication coming soon 2022!*
 * [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminforamtics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
 
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) file for details.
+This project is licensed under Apache 2.0  - see the [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) file for details.
 
 
+## Our Research Groups
+Environmental Cheminformatics Group
 
-
-## Authors
-
-- [Adelene Lai](https://github.com/adelenelai)
-
-
-
-## Acknowledgements
-
--
-
-## Our Research Group
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
