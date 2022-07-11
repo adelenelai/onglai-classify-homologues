@@ -1,5 +1,4 @@
-#check if smiles and labels given? if not, error message.
-print('hello world')
+print('Starting up...')
 from time import time
 start = time()
 

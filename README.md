@@ -7,7 +7,11 @@
 
 
 ## Introduction
-Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU) connected end-to-end. For example, these series found in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
+Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU) connected end-to-end.
+
+This is an open-source algorithm to classify homologous series within compound datasets (provided as SMILES), implemented using the RDKit. 
+
+For example, these series were classified in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
 
 
 CH2 Repeating Unit:
@@ -18,36 +22,25 @@ CF2 Repeating Unit:
 
 
 
-This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES. It is implemented using the RDKit.
-
-
-
-
-
 ## Requirements
- The algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) and the RDKit environment to be activated. This is best done using conda in the command line:
+ The algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) via `conda-forge`.
 
  ```
  $ conda create -c conda-forge -n my-rdkit-env rdkit
  $ conda activate my-rdkit-env
  ```
 
- The `datamol` module must also be installed in the environment:
-
-```
-conda install -c conda-forge datamol
-```
 
 ## Installation
-The code can be installed directly from GitHub with:
 
 ```shell
 $ git clone https://github.com/adelenelai/classify_homologues
 $ cd classify_homologues
+$ pip install -e .
 ```
+Note that pip installing the package is not enough; in addition, the repo must be cloned from GitHub because the algorithm runs as a script (see below).
 
 ## Usage
-Remember to activate the RDKit environment!
 
 Run:
 
@@ -67,7 +60,7 @@ $ python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg
 
 Try:
 ```
-python nextgen_classify_homols.py -s input/test1_smiles_23.csv -l input/test1_labels_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
+$ python src/classify_homologues/nextgen_classify_homols.py -s tests/test1_smiles_23.csv -l tests/test1_labels_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
