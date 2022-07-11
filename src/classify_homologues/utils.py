@@ -12,8 +12,8 @@ try:
 except ImportError:
     from PIL import Image
 
-def read_smiles_csv(path_to_smiles_csv): #sys.argv[1]
-    '''Function to read in list of SMILES and create molecule objects.'''
+def read_smiles_csv(path_to_smiles_csv: str): #sys.argv[1]
+    '''Function to parse SMILES from CSV file and create molecule objects. Isolates unparseable SMILES and returns them, and their idxs as a list.'''
     with open(path_to_smiles_csv) as f:
         smiles = [line.strip().replace('"','') for line in f]
         mols = [AllChem.MolFromSmiles(smile) for smile in smiles]
