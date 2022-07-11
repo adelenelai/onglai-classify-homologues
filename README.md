@@ -9,7 +9,7 @@
 ## Introduction
 Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU) connected end-to-end.
 
-This is an open-source algorithm to classify homologous series within compound datasets (provided as SMILES), implemented using the RDKit. 
+This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES, implemented using the RDKit. 
 
 For example, these series were classified in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
 
