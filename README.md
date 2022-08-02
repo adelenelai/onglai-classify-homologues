@@ -81,6 +81,6 @@ This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/ad
 
 
 ## Our Research Groups
-[Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at [![Github Logo](https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png)](https://wwwen.uni.lu/lcsb)
+[Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at <img src="https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png" width='50%'>
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
