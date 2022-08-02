@@ -9,7 +9,7 @@
 ## Introduction
 Homologous series are groups of chemical compounds sharing the same core structure(s) and different numbers of repeating units (RU) connected end-to-end.
 
-This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES, implemented using the RDKit. 
+This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES, implemented using the RDKit.
 
 For example, these series were classified in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
 
@@ -77,10 +77,10 @@ Successful classification will generate an `output` directory containing the fol
 
 ## License
 
-This project is licensed under Apache 2.0  - see the [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) file for details.
+This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) for details.
 
 
 ## Our Research Groups
-Environmental Cheminformatics Group
+[Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at [![Github Logo](https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png)](https://wwwen.uni.lu/lcsb)
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
