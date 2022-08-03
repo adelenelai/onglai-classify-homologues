@@ -61,7 +61,7 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 
 Try:
 ```
-$ python src/classify_homologues/nextgen_classify_homols.py -in tests/test1_23.csv -s 'SMILES' -n tests/test1_23.csv -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
+$ python src/classify_homologues/nextgen_classify_homols.py -in tests/test1_23.csv -s 'SMILES' -n 'Name' -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
