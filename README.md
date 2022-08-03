@@ -45,13 +45,14 @@ Note that pip installing the package is not enough; in addition, the repo must b
 Run:
 
 ```
-$ python nextgen_classify_homols.py [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+$ python nextgen_classify_homols.py [-n <arg>] [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
 | Flag | Description |
 | --- | ----------- |
-| -s --smiles <arg> | path to CSV list of SMILES |
-| -l --labels <arg> | path to CSV list of Labels (molecule names) |
+| -in --input_csv <arg> | path to input CSV containing SMILES and Name columns|
+| -s --smiles <arg> | name of column containing SMILES. Default is 'SMILES'.|
+| -n --names <arg> | name of column containing Names. Default is 'Name'.|
 | -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
 | -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
 | -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
