@@ -45,7 +45,7 @@ Note that pip installing the package is not enough; in addition, the repo must b
 Run:
 
 ```
-$ python nextgen_classify_homols.py [-n <arg>] [-s <arg>] [-l <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
+$ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
 | Flag | Description |
