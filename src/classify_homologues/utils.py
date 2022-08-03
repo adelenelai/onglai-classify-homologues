@@ -12,31 +12,62 @@ try:
 except ImportError:
     from PIL import Image
 
-def read_smiles_csv(path_to_smiles_csv: str): #sys.argv[1]
-    '''Function to parse SMILES from CSV file and create molecule objects. Isolates unparseable SMILES and returns them, and their idxs as a list.'''
-    with open(path_to_smiles_csv) as f:
-        smiles = [line.strip().replace('"','') for line in f]
-        mols = [AllChem.MolFromSmiles(smile) for smile in smiles]
-        #check validity of SMILES - if there are any empty mol objects caused by unparseable SMILES
-        idxtorem = [i for i,j in enumerate(mols) if j is None] #indexes of empty mols
-        smiles_torem = list()
-        if len(idxtorem) > 0:
-            print(str(len(idxtorem))+ " parsed SMILES gave empty Mol objects (check validity of SMILES!). Removing those Mols.")
-            smiles_torem = [y for x,y in enumerate(smiles) if x in idxtorem]
-            smiles = [y for x,y in enumerate(smiles) if x not in idxtorem]
-            mols = [y for x,y in enumerate(mols) if x not in idxtorem]
-        return smiles, mols, smiles_torem, idxtorem
+
+def read_input_csv_smiles_name(path_to_csv: str, smiles_col = "SMILES", name_col = "Name"):
+    '''Function to parse input CSV, containing minimum 2 columns containing SMILES and Name.'''
+
+    #check column inputs - str or int
+    #if smiles_col
+
+    cols = [smiles_col, name_col]
+    input_df = pd.read_csv(path_to_csv, usecols = cols)
+
+    #parse SMILES
+    smiles = input_df[smiles_col]
+    mols = [Chem.MolFromSmiles(s) for s in smiles]
+
+    #check validity of SMILES - save invalid SMILES idxs
+    idxtorem = [i for i,j in enumerate(mols) if j is None] #indexes of empty mols
+    smiles_torem = list()
+    if len(idxtorem) > 0:
+        print(str(len(idxtorem))+ " parsed SMILES gave empty Mol objects (check validity of SMILES!). Removing those Mols.")
+        smiles_torem = [y for x,y in enumerate(smiles) if x in idxtorem]
+        smiles = [y for x,y in enumerate(smiles) if x not in idxtorem]
+        mols = [y for x,y in enumerate(mols) if x not in idxtorem]
+
+    #parse names
+    labels = input_df[name_col].to_list()
+
+    #generate df for generate_df
+    df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
+
+    return smiles, mols, smiles_torem, idxtorem, labels, input_df, df, path_to_csv
+
+# def read_smiles_csv(path_to_smiles_csv: str): #sys.argv[1]
+#     '''Function to parse SMILES from CSV file and create molecule objects. Isolates unparseable SMILES and returns them, and their idxs as a list.'''
+#     with open(path_to_smiles_csv) as f:
+#         smiles = [line.strip().replace('"','') for line in f]
+#         mols = [AllChem.MolFromSmiles(smile) for smile in smiles]
+#         #check validity of SMILES - if there are any empty mol objects caused by unparseable SMILES
+#         idxtorem = [i for i,j in enumerate(mols) if j is None] #indexes of empty mols
+#         smiles_torem = list()
+#         if len(idxtorem) > 0:
+#             print(str(len(idxtorem))+ " parsed SMILES gave empty Mol objects (check validity of SMILES!). Removing those Mols.")
+#             smiles_torem = [y for x,y in enumerate(smiles) if x in idxtorem]
+#             smiles = [y for x,y in enumerate(smiles) if x not in idxtorem]
+#             mols = [y for x,y in enumerate(mols) if x not in idxtorem]
+#         return smiles, mols, smiles_torem, idxtorem
 
 def write_removed_smiles(smiles_torem):
     with open("output/removed_smiles.txt", "w") as text_file:
         text_file.write("\n".join(smiles_torem))
 
-def read_labels_csv(path_to_labels_csv, idxtorem): #sys.argv[2]
-    '''Function to read in list of labels corresponding to SMILES.'''
-    with open(path_to_labels_csv) as f:
-        labels = [line.strip().replace('"','') for line in f]
-        labels = [j for i,j in enumerate(labels) if i not in idxtorem]
-    return labels
+# def read_labels_csv(path_to_labels_csv, idxtorem): #sys.argv[2]
+#     '''Function to read in list of labels corresponding to SMILES.'''
+#     with open(path_to_labels_csv) as f:
+#         labels = [line.strip().replace('"','') for line in f]
+#         labels = [j for i,j in enumerate(labels) if i not in idxtorem]
+#     return labels
 
 def setup_repeating_unit(smarts, min, max):
     '''Function to generate list of RU chains as query molecules from SMARTS.'''
@@ -300,13 +331,13 @@ def print_output_summary(result_df, nonseries, mols_no_ru_matches, mols_made_of_
     mols_classified = len(result_df.Mols)-len(nonseries.Mols)-len(mols_no_ru_matches)-len(mols_made_of_ru)
     return num_series, mols_classified
 
-def generate_output_summary(smiles_in, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime):
+def generate_output_summary(mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime, path_to_csv):
     ru_in = ru_in[:-1]
     mols_no_ru_matches = len(mols_no_ru_matches)
     nonseries = len(nonseries)
     mols_made_of_ru = len(mols_made_of_ru)
     with open("output/classification-results.txt", "w") as text_file:
-        text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\nFragmentation steps = %s.\n%s molecules were classified into %s homologous series. [SeriesNo >= 0]\n" % (smiles_in, ru_in, frag_steps, mols_classified, num_series))
+        text_file.write("Homologue classification for %s complete! \nRepeating Unit (RU) = %s.\nFragmentation steps = %s.\n%s molecules were classified into %s homologous series. [SeriesNo >= 0]\n" % (path_to_csv, ru_in, frag_steps, mols_classified, num_series))
         text_file.write("Molecules with no RU matches of minimum length %s units, maximum length %s units: %s. [SeriesNo = -1]\n" % (min_length, max_length, mols_no_ru_matches))
         text_file.write("Molecules consisting of purely RUs: %s. [SeriesNo = -2]\n"  % (mols_made_of_ru))
         text_file.write("Molecules having RU matches of minimum length %s units but do not form series: %s. [SeriesNo = -3]\n" % (min_length, nonseries))

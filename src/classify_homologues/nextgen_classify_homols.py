@@ -19,18 +19,29 @@ import numpy as np
 import datamol as dm
 
 
-
 print("Homologue classification started...")
+
 
 #parse command line inputs
 parser = argparse.ArgumentParser()
-parser.add_argument("-s", "--smiles", help="List of SMILES as input.")
-parser.add_argument("-l", "--labels", help="List of labels as input.")
+parser.add_argument("-in", "--input_csv", help="CSV containing SMILES and Name.")
+parser.add_argument("-s", "--smiles", help="Name of column containing SMILES.", type=str)
+parser.add_argument("-n", "--names", help="Name of column containing Names.", type=str)
 parser.add_argument("-ru", "--repeatingunits", help="Repeating unit as SMARTS string enclosed by speech marks. Default is CH2 i.e., '[#6&H2]'.")
 parser.add_argument("-min", "--min_RU_in", help="Minimum length of RU chain, default = 3 units.", type=int)
 parser.add_argument("-max", "--max_RU_in", help="Maximum length of RU chain, default = 30 units.", type=int)
 parser.add_argument("-f", "--frag_in", help="No. of fragmentation steps separating RU from core(s).", type=int)
 args = parser.parse_args()
+
+if args.smiles:
+    smiles = args.smiles
+else:
+    smiles = 'SMILES' #set 'SMILES' as default column name for SMILES
+
+if args.names:
+    names = args.names
+else:
+    names = 'Name' #set 'Name' as default column name for Names
 
 if args.repeatingunits:
     ru_in = args.repeatingunits + '-'
@@ -54,17 +65,9 @@ else:
 
 print('all args parsed OK')
 
-
-#read in SMILES
-smiles, mols, smiles_torem, idxtorem = read_smiles_csv(args.smiles)
-print('readsmilesOK')
-
-
-#read in Labels
-labels = read_labels_csv(args.labels, idxtorem)
-print('readlabelsOK')
-df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})
-print('df OK')
+#read in SMILES and labels
+smiles, mols, smiles_torem, idxtorem, labels, input_df, df, path_to_csv = read_input_csv_smiles_name(args.input_csv, smiles, names)
+print("inputs parsed OK")
 
 
 #enumerate repeating units
@@ -135,5 +138,5 @@ print('It took ' + str(runtime) + ' seconds.')
 
 
 #output summary file
-generate_output_summary(args.smiles, mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime)
+generate_output_summary(mols_classified, num_series, ru_in, mols_no_ru_matches, nonseries, mols_made_of_ru, min_length, max_length, frag_steps, runtime, path_to_csv)
 print("Classification summary generated.")
