@@ -74,20 +74,20 @@ Successful classification will generate an `output` directory containing the fol
 
 ### Reproducing Classification described in Lai et al.
 
-Classification using default settings as described above. Full datasets have been archived on [Zenodo](https://doi.org/10.5281/zenodo.6958826), samples provided in `input/`.
+Classification using default settings as described above. Code below runs for sample datasets provided in `input/`, full datasets have been archived on [Zenodo](https://doi.org/10.5281/zenodo.6958826) (amend `-in` accordingly to classify full datasets).
 
 ```
 #activate your rdkit environment
 $ cd src/classify_homologues
 
 #NORMAN-SLE
-$ python nextgen_classify_homols.py -in ../../input/pubchem_norman_sle_tree_parentcid_98116_2022-03-21_from115115.csv -s isosmiles -n cmpdname 2>log
+$ python nextgen_classify_homols.py -in ../../input/pubchem_norman_sle_tree_parentcid_98116_2022-03-21_from115115_trial.csv -s isosmiles -n cmpdname 2>log
 
 #PubChemLite
-$ python nextgen_classify_homols.py -in ../../input/PubChemLite_exposomics_20220225.csv -n CompoundName 2>log
+$ python nextgen_classify_homols.py -in ../../input/PubChemLite_exposomics_20220225_trial.csv -n CompoundName 2>log
 
 #COCONUT
-$ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11.txt 2>log
+$ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11_trial.txt 2>log
 ```
 
 
