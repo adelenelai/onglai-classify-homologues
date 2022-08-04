@@ -37,6 +37,7 @@ def read_input_csv_smiles_name(path_to_csv: str, smiles_col = "SMILES", name_col
 
     #parse names
     labels = input_df[name_col].to_list()
+    labels = [y for x,y in enumerate(labels) if x not in idxtorem]
 
     #generate df for generate_df
     df = pd.DataFrame({ "SMILES":smiles, "Mols":mols, "Labels":labels})

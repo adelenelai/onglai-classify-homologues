@@ -53,7 +53,7 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 | -in --input_csv <arg> | path to input CSV containing SMILES and Name columns|
 | -s --smiles <arg> | name of column containing SMILES. Default is 'SMILES'.|
 | -n --names <arg> | name of column containing Names. Default is 'Name'.|
-| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
+| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., [#6&H2]. |
 | -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
 | -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
 | -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
@@ -61,18 +61,39 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 
 Try:
 ```
-$ python src/classify_homologues/nextgen_classify_homols.py -in tests/test1_23.csv -s 'SMILES' -n 'Name' -ru '[#6&H2]' -min 3 -max 5 -f 3 2>log
+$ cd src/classify_homologues
+$ python nextgen_classify_homols.py -in ../tests/test1_23.csv -s SMILES -n Name -ru [#6&H2] -min 3 -max 5 -f 3 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
 
-1. a TXT file containing the summary of classification results
-2. a CSV file containing 8 columns: `series_no`, `cpd_name`, `CanoSmiles_FinalCores`, `SMILES`, `InChI`, `InChIKey`, `molecular_formula` and `monoisotopic_mass`. The first column `series_no` contains the results of the homologous series classification. `CanoSmiles_FinalCores` indicates the common core shared by all members within a given series.  Columns `SMILES` and `cpd_name` were the original inputs to the `-s` and `-l` flags respectively. The remaining columns contain information calculated based on the `SMILES`.
+1. a TXT file containing the summary of classification results and explanation of outputs (series_no codes)
+2. a CSV file containing 8 columns: `series_no`, `cpd_name`, `CanoSmiles_FinalCores`, `SMILES`, `InChI`, `InChIKey`, `molecular_formula` and `monoisotopic_mass`. The first column `series_no` contains the results of the homologous series classification. `CanoSmiles_FinalCores` indicates the common core shared by all members within a given series. The remaining columns contain information calculated based on the `SMILES`.
 3. a TXT file of unparseable SMILES that were removed (if all SMILES were parsed OK, then empty)
 
 
+### Reproducing Classification described in Lai et al.
+
+Classification using default settings as described above. Full datasets have been archived on [Zenodo](https://doi.org/10.5281/zenodo.6958826. ), samples provided in `input/`.
+
+```
+#activate your rdkit environment
+$ cd src/classify_homologues
+
+#NORMAN-SLE
+$ python nextgen_classify_homols.py -in ../../input/pubchem_norman_sle_tree_parentcid_98116_2022-03-21_from115115.csv -s isosmiles -n cmpdname 2>log
+
+#PubChemLite
+$ python nextgen_classify_homols.py -in ../../input/PubChemLite_exposomics_20220225.csv -n CompoundName 2>log
+
+#COCONUT
+$ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11.txt 2>log
+```
+
+
+
 ## References and Links
-* *publication coming soon 2022!*
+* Lai, A., Schaub, J., Steinbeck, C., Schymanski, E. L. An Algorithm to Classify Homologous Series in Compound Datasets. *in prep*
 * [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminforamtics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
 
 
