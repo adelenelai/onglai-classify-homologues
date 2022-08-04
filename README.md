@@ -51,9 +51,9 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 | Flag | Description |
 | --- | ----------- |
 | -in --input_csv <arg> | path to input CSV containing SMILES and Name columns|
-| -s --smiles <arg> | name of column containing SMILES. Default is 'SMILES'.|
-| -n --names <arg> | name of column containing Names. Default is 'Name'.|
-| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., [#6&H2]. |
+| -s --smiles <arg> | name of column containing SMILES. Default is SMILES.|
+| -n --names <arg> | name of column containing Names. Default is Name.|
+| -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
 | -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
 | -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
 | -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
@@ -62,7 +62,7 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 Try:
 ```
 $ cd src/classify_homologues
-$ python nextgen_classify_homols.py -in ../tests/test1_23.csv -s SMILES -n Name -ru [#6&H2] -min 3 -max 5 -f 3 2>log
+$ python nextgen_classify_homols.py -in ../../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
