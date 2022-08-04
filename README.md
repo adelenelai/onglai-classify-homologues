@@ -74,7 +74,7 @@ Successful classification will generate an `output` directory containing the fol
 
 ### Reproducing Classification described in Lai et al.
 
-Classification using default settings as described above. Full datasets have been archived on [Zenodo](https://doi.org/10.5281/zenodo.6958826. ), samples provided in `input/`.
+Classification using default settings as described above. Full datasets have been archived on [Zenodo](https://doi.org/10.5281/zenodo.6958826), samples provided in `input/`.
 
 ```
 #activate your rdkit environment
