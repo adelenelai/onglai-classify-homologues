@@ -19,10 +19,10 @@ For example, these series were classified in [COCONUT](https://coconut.naturalpr
 
 
 CH2 Repeating Unit:
-![coconut-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/5027.png)
+![coconut-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/5027.png?raw=true)
 
 CF2 Repeating Unit:
-![norman-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/11_epoxy.png)
+![norman-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/11_epoxy.png?raw=true)
 
 
 
@@ -114,6 +114,6 @@ This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/ad
 [Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at the
 
 
-[<p align="center"><img src="https://github.com/adelenelai/onglai-classify-homologues/blob/main/logo_LCSB_UL.png" width='50%'></p>](https://wwwen.uni.lu/lcsb)
+[<p align="center"><img src="https://github.com/adelenelai/onglai-classify-homologues/blob/main/logo_LCSB_UL.png?raw=true" width='50%'></p>](https://wwwen.uni.lu/lcsb)
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
