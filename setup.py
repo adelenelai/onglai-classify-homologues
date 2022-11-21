@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="classify_homologues",
+    name="onglai-classify-homologues",
     version="1.0.0",
     author="Adelene Lai",
     author_email="adelene.lai@uni.lu",
@@ -26,7 +26,7 @@ setuptools.setup(
         "rdkit",
         "datamol",
     ],
-    package_data={"classify_homologues"},
+    package_data={"onglai-classify-homologues":["nextgen_classify_homologues*.*", "utils*.*"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
@@ -36,7 +36,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3 :: Only",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.5",

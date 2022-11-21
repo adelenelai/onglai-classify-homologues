@@ -15,14 +15,14 @@ Homologous series are groups of chemical compounds sharing the same core structu
 
 This is an open-source algorithm to classify homologous series within compound datasets provided as SMILES, implemented using the RDKit.
 
-For example, these series were classified in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/).
+For example, these series were classified in [COCONUT](https://coconut.naturalproducts.net/) and the [NORMAN Suspect List Exchange](https://www.norman-network.com/nds/SLE/), datasets containing natural products and environmental chemicals respectively.
 
 
 CH2 Repeating Unit:
-![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/5027.png)
+![coconut-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/5027.png)
 
 CF2 Repeating Unit:
-![GitHub Logo](https://github.com/adelenelai/classify_homologues/blob/main/11_epoxy.png)
+![norman-hs](https://github.com/adelenelai/onglai-classify-homologues/blob/main/11_epoxy.png)
 
 
 
@@ -38,11 +38,17 @@ CF2 Repeating Unit:
 ## Installation
 
 ```shell
-$ git clone https://github.com/adelenelai/classify_homologues
+$ git clone https://github.com/adelenelai/onglai-classify-homologues
 $ cd classify_homologues
 $ pip install -e .
 ```
 Note that pip installing the package is not enough; in addition, the repo must be cloned from GitHub because the algorithm runs as a script (see below).
+
+Alternatively:
+```python
+#from PyPI
+$ pip install onglai-classify-homologues
+```
 
 ## Usage
 
@@ -65,7 +71,6 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 
 Try:
 ```shell
-$ cd src/classify_homologues
 $ python nextgen_classify_homols.py -in ../../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
 ```
 
@@ -82,7 +87,6 @@ Classification using default settings as described above. Code below runs for sa
 
 ```
 #activate your rdkit environment
-$ cd src/classify_homologues
 
 #NORMAN-SLE
 $ python nextgen_classify_homols.py -in ../../input/pubchem_norman_sle_tree_parentcid_98116_2022-03-21_from115115_trial.csv -s isosmiles -n cmpdname 2>log
@@ -97,19 +101,19 @@ $ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11_trial.txt
 
 
 ## References and Links
-* Lai, A., Schaub, J., Steinbeck, C., Schymanski, E. L. An Algorithm to Classify Homologous Series in Compound Datasets. *in prep*
+* Lai, A., Schaub, J., Steinbeck, C., Schymanski, E. L. An Algorithm to Classify Homologous Series in Compound Datasets. [Preprint](https://doi.org/10.21203/rs.3.rs-2019306/v1)
 * [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminformatics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
 
 
 ## License
 
-This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/adelenelai/classify_homologues/blob/main/LICENSE) for details.
+This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/adelenelai/onglai-classify-homologues/blob/main/LICENSE) for details.
 
 
 ## Our Research Groups
 [Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at the
 
 
-[<p align="center"><img src="https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png" width='50%'></p>](https://wwwen.uni.lu/lcsb)
+[<p align="center"><img src="https://github.com/adelenelai/onglai-classify-homologues/blob/main/logo_LCSB_UL.png" width='50%'></p>](https://wwwen.uni.lu/lcsb)
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
