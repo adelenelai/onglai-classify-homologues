@@ -2,7 +2,11 @@
 [![Powered by RDKit](https://img.shields.io/badge/Powered%20by-RDKit-3838ff.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAFVBMVEXc3NwUFP8UPP9kZP+MjP+0tP////9ZXZotAAAAAXRSTlMAQObYZgAAAAFiS0dEBmFmuH0AAAAHdElNRQfmAwsPGi+MyC9RAAAAQElEQVQI12NgQABGQUEBMENISUkRLKBsbGwEEhIyBgJFsICLC0iIUdnExcUZwnANQWfApKCK4doRBsKtQFgKAQC5Ww1JEHSEkAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMy0xMVQxNToyNjo0NyswMDowMDzr2J4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDMtMTFUMTU6MjY6NDcrMDA6MDBNtmAiAAAAAElFTkSuQmCC)](https://www.rdkit.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/adelenelai/classify_homologues/graphs/commit-activity)
+[![GitHub issues](https://img.shields.io/github/issues/adelenelai/onglai-classify-homologues.svg)](https://GitHub.com/adelenelai/onglai-classify-homologues/issues/)
+[![GitHub contributors](https://img.shields.io/github/contributors/adelenelai/onglai-classify-homologues.svg)](https://GitHub.com/adelenelai/onglai-classify-homologues/graphs/contributors/)
 [![DOI](https://zenodo.org/badge/381339802.svg)](https://zenodo.org/badge/latestdoi/381339802)
+[![GitHub release](https://img.shields.io/github/release/adelenelai/onglai-classify-homologues.svg)](https://github.com/adelenelai/onglai-classify-homologues/releases/)
+[![PyPI version fury.io](https://badge.fury.io/py/onglai.svg)](https://pypi.python.org/pypi/onglai/)
 
 
 
@@ -25,7 +29,7 @@ CF2 Repeating Unit:
 ## Requirements
  The algorithm requires RDKit to be [installed](https://www.rdkit.org/docs/Install.html) via `conda-forge`.
 
- ```
+ ```shell
  $ conda create -c conda-forge -n my-rdkit-env rdkit
  $ conda activate my-rdkit-env
  ```
@@ -44,7 +48,7 @@ Note that pip installing the package is not enough; in addition, the repo must b
 
 Run:
 
-```
+```shell
 $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>] [-min <arg>] [-max <arg>] 2>log
 ```
 
@@ -56,20 +60,20 @@ $ python nextgen_classify_homols.py [-in <arg>] [-s <arg>] [-n <arg>] [-ru <arg>
 | -ru --repeatingunits <arg> | chemical RU as SMARTS, enclosed within speech marks. Default is CH2 i.e., '[#6&H2]'. |
 | -min --min_RU_in <arg> | minimum length of RU chain, default is 3|
 | -max --max__RU_in <arg> | maximum length of RU chain, default is 30 |
-| -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, default is 2 |
+| -f --frag_steps <arg> | no. times to fragment molecules to obtain cores, the default is 2 |
 
 
 Try:
-```
+```shell
 $ cd src/classify_homologues
 $ python nextgen_classify_homols.py -in ../../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
 
-1. a TXT file containing the summary of classification results and explanation of outputs (series_no codes)
-2. a CSV file containing 8 columns: `series_no`, `cpd_name`, `CanoSmiles_FinalCores`, `SMILES`, `InChI`, `InChIKey`, `molecular_formula` and `monoisotopic_mass`. The first column `series_no` contains the results of the homologous series classification. `CanoSmiles_FinalCores` indicates the common core shared by all members within a given series. The remaining columns contain information calculated based on the `SMILES`.
-3. a TXT file of unparseable SMILES that were removed (if all SMILES were parsed OK, then empty)
+1. A TXT file containing the summary of classification results and explanation of outputs (series_no codes)
+2. A CSV file containing 8 columns: `series_no`, `cpd_name`, `CanoSmiles_FinalCores`, `SMILES`, `InChI`, `InChIKey`, `molecular_formula` and `monoisotopic_mass`. The first column `series_no` contains the results of the homologous series classification. `CanoSmiles_FinalCores` indicates the common core shared by all members within a given series. The remaining columns contain information calculated based on the `SMILES`.
+3. A TXT file of unparseable SMILES that were removed (if all SMILES were parsed OK, then empty)
 
 
 ### Reproducing Classification described in Lai et al.
@@ -94,7 +98,7 @@ $ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11_trial.txt
 
 ## References and Links
 * Lai, A., Schaub, J., Steinbeck, C., Schymanski, E. L. An Algorithm to Classify Homologous Series in Compound Datasets. *in prep*
-* [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminforamtics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
+* [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminformatics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
 
 
 ## License
@@ -103,6 +107,9 @@ This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/ad
 
 
 ## Our Research Groups
-[Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at the [<img src="https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png" width='50%'>](https://wwwen.uni.lu/lcsb)
+[Environmental Cheminformatics Group](https://wwwen.uni.lu/lcsb/research/environmental_cheminformatics) at the
+
+
+[<p align="center"><img src="https://github.com/adelenelai/classify_homologues/blob/main/logo_LCSB_UL.png" width='50%'></p>](https://wwwen.uni.lu/lcsb)
 
 [![GitHub Logo](https://github.com/Kohulan/DECIMER-Image-to-SMILES/blob/master/assets/CheminfGit.png?raw=true)](https://cheminf.uni-jena.de)
