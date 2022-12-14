@@ -1,4 +1,4 @@
-# An Algorithm to Classify Homologous Series
+# OngLai: An Algorithm to Classify Homologous Series
 [![Powered by RDKit](https://img.shields.io/badge/Powered%20by-RDKit-3838ff.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAFVBMVEXc3NwUFP8UPP9kZP+MjP+0tP////9ZXZotAAAAAXRSTlMAQObYZgAAAAFiS0dEBmFmuH0AAAAHdElNRQfmAwsPGi+MyC9RAAAAQElEQVQI12NgQABGQUEBMENISUkRLKBsbGwEEhIyBgJFsICLC0iIUdnExcUZwnANQWfApKCK4doRBsKtQFgKAQC5Ww1JEHSEkAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMy0xMVQxNToyNjo0NyswMDowMDzr2J4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDMtMTFUMTU6MjY6NDcrMDA6MDBNtmAiAAAAAElFTkSuQmCC)](https://www.rdkit.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/adelenelai/classify_homologues/graphs/commit-activity)
@@ -7,6 +7,8 @@
 [![DOI](https://zenodo.org/badge/381339802.svg)](https://zenodo.org/badge/latestdoi/381339802)
 [![GitHub release](https://img.shields.io/github/release/adelenelai/onglai-classify-homologues.svg)](https://github.com/adelenelai/onglai-classify-homologues/releases/)
 [![PyPI version fury.io](https://badge.fury.io/py/onglai.svg)](https://pypi.python.org/pypi/onglai/)
+
+![onglai-logo](https://github.com/adelenelai/onglai-classify-homologues/blob/main/onglai-logo.png?raw=true)
 
 
 
@@ -101,13 +103,18 @@ $ python nextgen_classify_homols.py -in ../../input/COCONUT_DB_2021-11_trial.txt
 
 
 ## References and Links
-* Lai, A., Schaub, J., Steinbeck, C., Schymanski, E. L. An Algorithm to Classify Homologous Series in Compound Datasets. [Preprint](https://doi.org/10.21203/rs.3.rs-2019306/v1)
+* Lai, A., Schaub, J., Steinbeck, C. et al. An algorithm to classify homologous series within compound datasets. J Cheminform 14, 85 (2022). https://doi.org/10.1186/s13321-022-00663-y
 * [Poster](https://zenodo.org/record/6491204) presented at the 17th German Cheminformatics Conference, Garmisch-Partenkirchen, Germany (May 8-10, 2022)
+
+## Acknowledgements
+Steffen Neumann, Charles Tapley-Hoyt, Kohulan Rajan, Mahnoor Zulfiqar, Anjana Elapavalore, Zhanyun Wang, Christos Nicolaou, Maximilian Beckers, Greg Landrum, Paolo Tosco. (and Kohulan for the logo :))
 
 
 ## License
 
 This project is licensed under Apache 2.0  - see [LICENSE](https://github.com/adelenelai/onglai-classify-homologues/blob/main/LICENSE) for details.
+
+
 
 
 ## Our Research Groups
