@@ -46,11 +46,6 @@ $ pip install -e .
 ```
 Note that pip installing the package is not enough; in addition, the repo must be cloned from GitHub because the algorithm runs as a script (see below).
 
-Alternatively:
-```python
-#from PyPI
-$ pip install onglai-classify-homologues
-```
 
 ## Usage
 
