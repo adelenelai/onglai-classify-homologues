@@ -8,7 +8,7 @@
 [![GitHub release](https://img.shields.io/github/release/adelenelai/onglai-classify-homologues.svg)](https://github.com/adelenelai/onglai-classify-homologues/releases/)
 [![PyPI version fury.io](https://badge.fury.io/py/onglai.svg)](https://pypi.python.org/pypi/onglai/)
 
-<img src ="https://github.com/adelenelai/onglai-classify-homologues/blob/main/onglai-logo.png" width = "100">
+<img src ="https://github.com/adelenelai/onglai-classify-homologues/blob/main/onglai-logo.png" width = "200">
 
 
 
