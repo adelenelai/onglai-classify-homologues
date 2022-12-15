@@ -41,7 +41,7 @@ CF2 Repeating Unit:
 
 ```shell
 $ git clone https://github.com/adelenelai/onglai-classify-homologues
-$ cd classify_homologues
+$ cd onglai-classify-homologues
 $ pip install -e .
 ```
 Note that pip installing the package is not enough; in addition, the repo must be cloned from GitHub because the algorithm runs as a script (see below).
