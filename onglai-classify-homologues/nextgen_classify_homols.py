@@ -26,34 +26,41 @@ print("Homologue classification started...")
 # parse command line inputs
 parser = argparse.ArgumentParser()
 parser.add_argument("-in", "--input_csv", help="CSV containing SMILES and Name.")
-parser.add_argument(
-    "-s", "--smiles", help="Name of column containing SMILES.", type=str
-)
+
+parser.add_argument("-sep", "--separator", help="Delimiter for CSV file.")
+
+parser.add_argument("-s", "--smiles", help="Name of column containing SMILES.", type=str)
+
 parser.add_argument("-n", "--names", help="Name of column containing Names.", type=str)
+
 parser.add_argument(
     "-ru",
     "--repeatingunits",
     help="Repeating unit as SMARTS string enclosed by speech marks. Default is CH2 i.e., [#6&H2].",
     type=str,
 )
+
 parser.add_argument(
     "-min",
     "--min_RU_in",
     help="Minimum length of RU chain, default = 3 units.",
     type=int,
 )
+
 parser.add_argument(
     "-max",
     "--max_RU_in",
     help="Maximum length of RU chain, default = 30 units.",
     type=int,
 )
+
 parser.add_argument(
     "-f",
     "--frag_in",
     help="No. of fragmentation steps separating RU from core(s).",
     type=int,
 )
+
 args = parser.parse_args()
 
 if args.smiles:
@@ -98,7 +105,7 @@ print("all args parsed OK")
     input_df,
     df,
     path_to_csv,
-) = read_input_csv_smiles_name(args.input_csv, smiles, names)
+) = read_input_csv_smiles_name(args.input_csv, args.separator, smiles, names)
 print("inputs parsed OK")
 
 

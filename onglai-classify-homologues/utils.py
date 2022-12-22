@@ -14,14 +14,14 @@ except ImportError:
     from PIL import Image
 
 
-def read_input_csv_smiles_name(path_to_csv: str, smiles_col="SMILES", name_col="Name"):
+def read_input_csv_smiles_name(path_to_csv: str, separator =',', smiles_col="SMILES", name_col="Name"):
     """Function to parse input CSV, containing minimum 2 columns containing SMILES and Name."""
 
     # check column inputs - str or int
     # if smiles_col
 
     cols = [smiles_col, name_col]
-    input_df = pd.read_csv(path_to_csv, usecols=cols)
+    input_df = pd.read_csv(path_to_csv, sep=separator, usecols=cols)
 
     # parse SMILES
     smiles = input_df[smiles_col]
