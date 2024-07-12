@@ -69,6 +69,7 @@ $ python nextgen_classify_homols.py [-in <arg>] [-sep <arg>] [-s <arg>] [-n <arg
 
 Try:
 ```shell
+$ cd onglai_classify_homologues
 $ python nextgen_classify_homols.py -in ../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
 ```
 
