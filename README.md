@@ -69,7 +69,7 @@ $ python nextgen_classify_homols.py [-in <arg>] [-sep <arg>] [-s <arg>] [-n <arg
 
 Try:
 ```shell
-$ python nextgen_classify_homols.py -in ../../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
+$ python nextgen_classify_homols.py -in ../tests/test1_23.csv -s SMILES -n Name -ru '[#6&H2]' -min 3 -max 30 -f 2 2>log
 ```
 
 Successful classification will generate an `output` directory containing the following files:
